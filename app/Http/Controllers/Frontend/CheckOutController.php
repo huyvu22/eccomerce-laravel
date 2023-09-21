@@ -45,13 +45,13 @@ class CheckOutController extends Controller
         $userAddress->address = $request->address;
         $userAddress->note = $request->note;
         $userAddress->save();
-        \toastr()->success('Created successfully');
-        return \redirect()->route('user.checkout');
+        toastr()->success('Created successfully');
+        return redirect()->route('user.checkout');
     }
     public function getProvince(string $provinceId)
     {
         $districts = District::where('_province_id',$provinceId)->get();
-        return  \response([
+        return  response([
             'status' => 'success',
             'districts' => $districts
         ]);
@@ -60,7 +60,7 @@ class CheckOutController extends Controller
     public function getDistrict(string $districtId)
     {
         $wards = Ward::where('_district_id',$districtId)->get();
-        return  \response([
+        return  response([
             'status' => 'success',
             'wards' => $wards
         ]);

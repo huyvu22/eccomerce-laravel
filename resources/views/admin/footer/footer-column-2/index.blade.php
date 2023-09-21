@@ -22,7 +22,6 @@
                                     @method('PUT')
                                     <div class="form-group d-flex">
                                         <input type="text" name="title" class="form-control" value="{{$footerTitle->footer_column_2_title}}">
-
                                         <button class="btn btn-primary ml-3" type="submit">Save</button>
                                     </div>
                                     @if($errors->has('title'))

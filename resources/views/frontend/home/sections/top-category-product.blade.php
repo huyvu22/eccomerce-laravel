@@ -17,7 +17,7 @@
                         <div class="wsus__monthly_top_banner_text">
                             <h4>Black Friday Sale</h4>
                             <h3>Up To <span>70% Off</span></h3>
-                            <H6>Everything</H6>
+                            <h6>Everything</h6>
                             <a class="shop_btn" href="{{$homepageBannerSection1->banner_url}}">shop now</a>
                         </div>
                     </div>
@@ -100,12 +100,4 @@
         </div>
     </div>
 </section>
-{{--@push('scripts')--}}
-{{--    <script>--}}
-{{--        window.addEventListener('DOMContentLoaded',()=>{--}}
-{{--            window.onload = function(){--}}
-{{--                document.querySelector('.default-active').click();--}}
-{{--            }--}}
-{{--        });--}}
-{{--    </script>--}}
-{{--@endpush--}}
+

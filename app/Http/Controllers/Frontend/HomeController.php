@@ -21,7 +21,15 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $sliders = Slider::where('status',1)->orderBy('serial','asc')->get();
+        $sliders_1 = Slider::where('status', 1)
+            ->whereBetween('serial', [1, 4]) // Retrieve records with 'serial' values between 1 and 4
+            ->orderBy('serial', 'asc')
+            ->get();
+        $sliders_2 = Slider::where('status', 1)
+            ->whereBetween('serial', [5, 8]) // Retrieve records with 'serial' values between 1 and 4
+            ->orderBy('serial', 'asc')
+            ->get();
+
         $flashSaleDate = FlashSale::first();
         $flashSaleItems = FlashSaleItem::where('show_at_home',1)->where('status',1)->get();
         $popularCategory = HomePageSetting::where('key','popular_category_section')->first();
@@ -40,7 +48,8 @@ class HomeController extends Controller
 
 
         return view('frontend.home.home',compact(
-            'sliders',
+            'sliders_1',
+            'sliders_2',
             'flashSaleDate',
             'flashSaleItems',
             'popularCategory',

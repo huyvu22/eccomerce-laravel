@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 </head>
 <body>
-	<p>Click the link for verify your email</p>
+	<p>Click vào link bên dưới để xác nhận</p>
 	<a href="{{route('newsletter-verify', $subscriber->verified_token)}}">Active</a>
 </body>
 </html>

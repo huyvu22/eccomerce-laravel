@@ -232,7 +232,7 @@ Route::put('vendor-condition',[VendorConditionController::class,'update'])->name
 
 /* Blog Route*/
 Route::resource('blog-category', BlogCategoryController::class);
-Route::resource('blog', BlogController::class)->middleware('can:blog.view');;
+Route::resource('blog', BlogController::class)->middleware('can:blog.view');
 
 /* Blog Comment Route*/
 Route::get('blog-comments',[BlogCommentController::class,'index'])->name('blog-comments.index');

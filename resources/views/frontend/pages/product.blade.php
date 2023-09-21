@@ -11,6 +11,7 @@
     };
 
     $productPageBanner = json_decode($productPageBanner?->value)?->banner_1;
+
 @endphp
 
 @extends('frontend.layouts.master')
@@ -28,10 +29,10 @@
             <div class="container">
                 <div class="row">
                     <div class="col-12">
-                        <h4>products</h4>
+                        <h4>Sản phẩm</h4>
                         <ul>
-                            <li><a href="#">home</a></li>
-                            <li><a href="#">product</a></li>
+                            <li><a href="{{route('home')}}">Trang chủ</a></li>
+                            <li><a href="javascript:">Sản phẩm</a></li>
                         </ul>
                     </div>
                 </div>
@@ -50,19 +51,19 @@
         <div class="container">
             <div class="row">
                 <div class="col-xl-12">
-                    @if($productPageBanner->status == 1)
-                        <div class="wsus__pro_page_bammer">
-                            <img src="{{asset($productPageBanner->banner_image)}}" alt="banner" class="img-fluid w-100">
-                            <div class="wsus__pro_page_bammer_text">
-                                <div class="wsus__pro_page_bammer_text_center">
-                                    <p>up to <span>70% off</span></p>
-                                    <h5>wemen's jeans Collection</h5>
-                                    <h3>fashion for wemen's</h3>
-                                    <a href="{{$productPageBanner->banner_url}}" class="add_cart">Discover Now</a>
-                                </div>
-                            </div>
-                        </div>
-                    @endif
+{{--                    @if($productPageBanner->status == 1)--}}
+{{--                        <div class="wsus__pro_page_bammer">--}}
+{{--                            <img src="{{asset($productPageBanner->banner_image)}}" alt="banner" class="img-fluid w-100">--}}
+{{--                            <div class="wsus__pro_page_bammer_text">--}}
+{{--                                <div class="wsus__pro_page_bammer_text_center">--}}
+{{--                                    <p>up to <span>70% off</span></p>--}}
+{{--                                    <h5>wemen's jeans Collection</h5>--}}
+{{--                                    <h3>fashion for wemen's</h3>--}}
+{{--                                    <a href="{{$productPageBanner->banner_url}}" class="add_cart">Khám phá ngay</a>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                    @endif--}}
                 </div>
                 <div class="col-xl-3 col-lg-4">
                     <div class="wsus__sidebar_filter ">
@@ -78,7 +79,7 @@
                                 <h2 class="accordion-header" id="headingOne">
                                     <button class="accordion-button" type="button" data-bs-toggle="collapse"
                                             data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                        All Categories
+                                        Danh mục
                                     </button>
                                 </h2>
                                 <div id="collapseOne" class="accordion-collapse collapse show"
@@ -96,7 +97,7 @@
                                 <h2 class="accordion-header" id="headingTwo">
                                     <button class="accordion-button" type="button" data-bs-toggle="collapse"
                                             data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                        Price
+                                        Giá
                                     </button>
                                 </h2>
                                 <div id="collapseTwo" class="accordion-collapse collapse show"
@@ -110,7 +111,7 @@
                                                     @endif
                                                 @endforeach
                                                 <input type="hidden" id="slider_range" name="price_range" value="{{$from}};{{$to}}" class="flat-slider" />
-                                                <button type="submit" class="common_btn">filter</button>
+                                                <button type="submit" class="common_btn">Lọc</button>
                                             </form>
 
                                         </div>
@@ -122,7 +123,7 @@
                                     <button class="accordion-button" type="button" data-bs-toggle="collapse"
                                             data-bs-target="#collapseThree3" aria-expanded="false"
                                             aria-controls="collapseThree">
-                                        brand
+                                        Thương hiệu
                                     </button>
                                 </h2>
                                 <div id="collapseThree3" class="accordion-collapse collapse show"
@@ -159,22 +160,15 @@
                                         </button>
                                     </div>
                                     <div class="wsus__topbar_select">
-                                        <select class="select_2" name="state">
-                                            <option>default shorting</option>
-                                            <option>short by rating</option>
-                                            <option>short by latest</option>
-                                            <option>low to high </option>
-                                            <option>high to low</option>
+                                        <select class="select_2 type" name="type">
+                                            <option value="default" @if (@$params['type'] == '' || @$params['sortBy'] == '') selected @endif>Sắp xếp</option>
+                                            <option value="rating" @if (@$params['type'] == 'rating') selected @endif>Đánh giá nhiều</option>
+                                            <option value="new_product" @if (@$params['type'] == 'new_product') selected @endif>Sản phẩm mới</option>
+                                            <option value="ASC" @if (@$params['sortBy'] == 'ASC') selected @endif>Giá thấp đến cao</option>
+                                            <option value="DESC" @if (@$params['sortBy'] == 'DESC') selected @endif>Giá cao đến thấp</option>
                                         </select>
                                     </div>
-                                </div>
-                                <div class="wsus__topbar_select">
-                                    <select class="select_2" name="state">
-                                        <option>show 12</option>
-                                        <option>show 15</option>
-                                        <option>show 18</option>
-                                        <option>show 21</option>
-                                    </select>
+
                                 </div>
                             </div>
                         </div>
@@ -274,7 +268,7 @@
                                                         @endif
                                                     @endfor
 
-                                                    <span>({{$product->reviews->count()}} review)</span>
+                                                    <span>({{$product->reviews->count()}} đánh giá)</span>
                                                 </p>
                                                 <a class="wsus__pro_name" href="{{route('product-detail',$product->slug)}}">{{$product->name}}</a>
                                                 @if (checkDiscount($product))
@@ -369,7 +363,7 @@
                                 <div class="col-xl-6 col-12 col-sm-12 col-md-12 col-lg-6">
                                     <div class="wsus__pro_details_text">
                                         <a class="title" href="{{route('product-detail',$product->slug)}}">{{$product->name}}</a>
-                                        <p class="wsus__stock_area"><span class="in_stock">in stock</span> (167 item)</p>
+{{--                                        <p class="wsus__stock_area"><span class="in_stock">in stock</span> (167 item)</p>--}}
                                         @if (checkDiscount($product))
                                             <h4><span class="product_price">{{format($product->offer_price)}}</span> <del class="old_product_price">{{ format($product->price) }}</del></h4>
                                             <input type="hidden" class="input_price" value="{{$product->offer_price}} {{$product->price}}">
@@ -391,16 +385,12 @@
                                                 @endif
                                             @endfor
 
-                                            <span>({{$product->reviews->count()}} review)</span>
+                                            <span>({{$product->reviews->count()}} đánh giá)</span>
                                         </p>
                                         <p class="description">{!! $product->short_description !!}</p>
 
                                         <form class="shopping-cart-form" action="{{route('add-to-cart')}}" method="post">
                                             @csrf
-                                            <div class="wsus_pro_hot_deals">
-                                                <h5>offer ending time : </h5>
-                                                <div class="simply-countdown simply-countdown-one"></div>
-                                            </div>
                                             <div class="wsus__selectbox">
                                                 <div class="row">
                                                     <input type="hidden" name="product_id" value="{{$product->id}}">
@@ -423,19 +413,19 @@
                                                 </div>
                                             </div>
                                             <div class="wsus__quentity">
-                                                <h5>quantity :</h5>
+                                                <h5>Số lượng :</h5>
                                                 <div class="select_number">
                                                     <input class=" quantity number_area" type="text" min="1" max="100" value="1" name="qty" />
                                                 </div>
                                             </div>
                                             <ul class="wsus__button_area">
-                                                <li><button type="button" class="add_cart" >add to cart</button></li>
-                                                <li><a class="buy_now" href="#">buy now</a></li>
+                                                <li><button type="button" class="add_cart" >Thêm vào giỏ</button></li>
+                                                <li><a class="buy_now" data-buy-product-route="{{ route('buy-product') }}">Mua ngay</a></li>
                                                 <li><a href="#" class="add_to_wishlist" data-route="{{ route('user.wishlist.store', ['productId' => $product->id]) }}"><i class="fal fa-heart add_to_wishlist"></i></a></li>
 {{--                                                <li><a href="#"><i class="far fa-random"></i></a></li>--}}
                                             </ul>
                                         </form>
-                                        <p class="brand_model"><span>brand :</span> {{$product->brand->name}}</p>
+                                        <p class="brand_model"><span>Thương hiệu :</span> {{$product->brand->name}}</p>
                                     </div>
                                 </div>
                             </div>
@@ -450,21 +440,41 @@
 @push('scripts')
     <script>
        window.addEventListener('DOMContentLoaded',(e)=>{
-          const listViews =  document.querySelectorAll('.list-view');
-          if (listViews.length){
-              listViews.forEach((listView)=>{
-                  listView.addEventListener('click',async (e)=>{
-                     let type = e.target.dataset.id;
-                      let response = await fetch(`./change-product-list-view/${type}`)
 
-                      if (response.ok) {
-                          const data = await response.json();
-                          console.log(data)
-                      }
+          const orderByProduct = document.querySelector('.type');
 
-                  })
-              })
-          }
+           if (orderByProduct) {
+               $(orderByProduct).on('select2:select', async (e) => {
+                   const type = e.target.value;
+                   const baseUrl = new URL(window.location.href);
+
+                   if (type === 'ASC' || type === 'DESC' || type === 'rating' || type === 'new_product') {
+                       baseUrl.searchParams.delete('sortBy');
+                       baseUrl.searchParams.delete('type');
+
+                       if (type === 'ASC' || type === 'DESC') {
+                           baseUrl.searchParams.set('sortBy', type);
+                       } else {
+                           baseUrl.searchParams.set('type', type);
+                       }
+
+                       const res = await fetch(baseUrl.toString());
+
+                       if (res.ok) {
+                           window.location.href = res.url;
+                       }
+                   } else {
+                       // Handle the case where no valid type is selected
+                       baseUrl.searchParams.delete('sortBy');
+                       baseUrl.searchParams.delete('type');
+                       window.location.href = baseUrl.toString();
+                   }
+
+                   if (res.ok) {
+                       window.location.href = res.url;
+                   }
+               });
+           }
 
            //*==========PRICE SLIDER=========
 

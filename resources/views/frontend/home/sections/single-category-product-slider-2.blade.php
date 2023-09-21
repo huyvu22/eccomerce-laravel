@@ -26,7 +26,7 @@
             <div class="col-xl-12">
                 <div class="wsus__section_header">
                     <h3>{{$category->name}}</h3>
-                    <a class="see_btn" href="{{route('products.index',['category' => $category->slug])}}">see more <i class="fas fa-caret-right"></i></a>
+                    <a class="see_btn" href="{{route('products.index',[array_keys($lastKey)[0] => $category->slug])}}">Xem thêm <i class="fas fa-caret-right"></i></a>
                 </div>
             </div>
         </div>
@@ -56,7 +56,7 @@
                                 <i class="fas fa-star"></i>
                                 <i class="fas fa-star"></i>
                                 <i class="fas fa-star-half-alt"></i>
-                                <span>(133 review)</span>
+{{--                                <span>(133 review)</span>--}}
                             </p>
                             <a class="wsus__pro_name" href="{{route('product-detail',$product->slug)}}">{{$product->name}}</a>
                             @if (checkDiscount($product))
@@ -76,7 +76,7 @@
                                     </select>
                                 @endforeach
                                 <input class=" quantity" type="hidden" min="1" max="100" value="1" name="qty" />
-                                <button style="border: none" type="button" class="add_cart" >add to cart</button>
+                                <button style="border: none" type="button" class="add_cart" >Thêm vào giỏ</button>
                             </form>
 
                         </div>
@@ -125,7 +125,7 @@
                             <div class="col-xl-6 col-12 col-sm-12 col-md-12 col-lg-6">
                                 <div class="wsus__pro_details_text">
                                     <a class="title" href="{{route('product-detail',$product->slug)}}">{{$product->name}}</a>
-                                    <p class="wsus__stock_area"><span class="in_stock">in stock</span> (167 item)</p>
+{{--                                    <p class="wsus__stock_area"><span class="in_stock">in stock</span> (167 item)</p>--}}
                                     @if (checkDiscount($product))
                                         <h4><span class="product_price">{{ format($product->offer_price)}}</span> <del class="old_product_price">{{ format($product->price) }}</del></h4>
                                         <input type="hidden" class="input_price" value="{{$product->offer_price}} {{$product->price}}">
@@ -139,16 +139,12 @@
                                         <i class="fas fa-star"></i>
                                         <i class="fas fa-star"></i>
                                         <i class="fas fa-star-half-alt"></i>
-                                        <span>20 review</span>
+                                        <span>({{$product->reviews->count()}} đánh giá)</span>
                                     </p>
                                     <p class="description">{!! $product->short_description !!}</p>
 
                                     <form class="shopping-cart-form" action="{{route('add-to-cart')}}" method="post">
                                         @csrf
-                                        <div class="wsus_pro_hot_deals">
-                                            <h5>offer ending time : </h5>
-                                            <div class="simply-countdown simply-countdown-one"></div>
-                                        </div>
                                         <div class="wsus__selectbox">
                                             <div class="row">
                                                 <input type="hidden" name="product_id" value="{{$product->id}}">
@@ -171,19 +167,19 @@
                                             </div>
                                         </div>
                                         <div class="wsus__quentity">
-                                            <h5>quentity :</h5>
+                                            <h5>Số lượng :</h5>
                                             <div class="select_number">
                                                 <input class=" quantity number_area" type="text" min="1" max="100" value="1" name="qty" />
                                             </div>
                                         </div>
                                         <ul class="wsus__button_area">
-                                            <li><button type="button" class="add_cart" >add to cart</button></li>
-                                            <li><a class="buy_now" href="#">buy now</a></li>
+                                            <li><button type="button" class="add_cart" >Thêm vào giỏ</button></li>
+                                            <li><a class="buy_now" data-buy-product-route="{{ route('buy-product') }}">Mua ngay</a></li>
                                             <li><a href="#" class="add_to_wishlist" data-route="{{ route('user.wishlist.store', ['productId' => $product->id]) }}"><i class="fal fa-heart add_to_wishlist"></i></a></li>
 {{--                                            <li><a href="#"><i class="far fa-random"></i></a></li>--}}
                                         </ul>
                                     </form>
-                                    <p class="brand_model"><span>brand :</span> {{$product->brand->name}}</p>
+                                    <p class="brand_model"><span>Thương hiệu :</span> {{$product->brand->name}}</p>
                                 </div>
                             </div>
                         </div>
@@ -195,164 +191,3 @@
 @endforeach
 
 
-{{--<section id="wsus__electronic2">--}}
-{{--    <div class="container">--}}
-{{--        <div class="row">--}}
-{{--            <div class="col-xl-12">--}}
-{{--                <div class="wsus__section_header">--}}
-{{--                    <h3>Apparels & Clothings</h3>--}}
-{{--                    <a class="see_btn" href="#">see more <i class="fas fa-caret-right"></i></a>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--        </div>--}}
-{{--        <div class="row flash_sell_slider">--}}
-{{--            <div class="col-xl-3 col-sm-6 col-lg-4">--}}
-{{--                <div class="wsus__product_item">--}}
-{{--                    <span class="wsus__new">New</span>--}}
-{{--                    <span class="wsus__minus">-20%</span>--}}
-{{--                    <a class="wsus__pro_link" href="product_details.html">--}}
-{{--                        <img src="images/pro8.jpg" alt="product" class="img-fluid w-100 img_1" />--}}
-{{--                        <img src="images/pro8_8.jpg" alt="product" class="img-fluid w-100 img_2" />--}}
-{{--                    </a>--}}
-{{--                    <ul class="wsus__single_pro_icon">--}}
-{{--                        <li><a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal"><i--}}
-{{--                                    class="far fa-eye"></i></a></li>--}}
-{{--                        <li><a href="#"><i class="far fa-heart"></i></a></li>--}}
-{{--                        <li><a href="#"><i class="far fa-random"></i></a>--}}
-{{--                    </ul>--}}
-{{--                    <div class="wsus__product_details">--}}
-{{--                        <a class="wsus__category" href="#">fashion </a>--}}
-{{--                        <p class="wsus__pro_rating">--}}
-{{--                            <i class="fas fa-star"></i>--}}
-{{--                            <i class="fas fa-star"></i>--}}
-{{--                            <i class="fas fa-star"></i>--}}
-{{--                            <i class="fas fa-star"></i>--}}
-{{--                            <i class="fas fa-star-half-alt"></i>--}}
-{{--                            <span>(10 review)</span>--}}
-{{--                        </p>--}}
-{{--                        <a class="wsus__pro_name" href="#">weman's fashion one pcs</a>--}}
-{{--                        <p class="wsus__price">$99</p>--}}
-{{--                        <a class="add_cart" href="#">add to cart</a>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--            <div class="col-xl-3 col-sm-6 col-lg-4">--}}
-{{--                <div class="wsus__product_item">--}}
-{{--                    <span class="wsus__minus">-20%</span>--}}
-{{--                    <a class="wsus__pro_link" href="product_details.html">--}}
-{{--                        <img src="images/kids_1.jpg" alt="product" class="img-fluid w-100 img_1" />--}}
-{{--                        <img src="images/kids_2.jpg" alt="product" class="img-fluid w-100 img_2" />--}}
-{{--                    </a>--}}
-{{--                    <ul class="wsus__single_pro_icon">--}}
-{{--                        <li><a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal"><i--}}
-{{--                                    class="far fa-eye"></i></a></li>--}}
-{{--                        <li><a href="#"><i class="far fa-heart"></i></a></li>--}}
-{{--                        <li><a href="#"><i class="far fa-random"></i></a>--}}
-{{--                    </ul>--}}
-{{--                    <div class="wsus__product_details">--}}
-{{--                        <a class="wsus__category" href="#">fashion </a>--}}
-{{--                        <p class="wsus__pro_rating">--}}
-{{--                            <i class="fas fa-star"></i>--}}
-{{--                            <i class="fas fa-star"></i>--}}
-{{--                            <i class="fas fa-star"></i>--}}
-{{--                            <i class="fas fa-star"></i>--}}
-{{--                            <i class="fas fa-star-half-alt"></i>--}}
-{{--                            <span>(41 review)</span>--}}
-{{--                        </p>--}}
-{{--                        <a class="wsus__pro_name" href="#">kid's fashion party dress</a>--}}
-{{--                        <p class="wsus__price">$110</p>--}}
-{{--                        <a class="add_cart" href="#">add to cart</a>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--            <div class="col-xl-3 col-sm-6 col-lg-4">--}}
-{{--                <div class="wsus__product_item">--}}
-{{--                    <span class="wsus__new">New</span>--}}
-{{--                    <a class="wsus__pro_link" href="product_details.html">--}}
-{{--                        <img src="images/blazer_1.jpg" alt="product" class="img-fluid w-100 img_1" />--}}
-{{--                        <img src="images/blazer_2.jpg" alt="product" class="img-fluid w-100 img_2" />--}}
-{{--                    </a>--}}
-{{--                    <ul class="wsus__single_pro_icon">--}}
-{{--                        <li><a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal"><i--}}
-{{--                                    class="far fa-eye"></i></a></li>--}}
-{{--                        <li><a href="#"><i class="far fa-heart"></i></a></li>--}}
-{{--                        <li><a href="#"><i class="far fa-random"></i></a>--}}
-{{--                    </ul>--}}
-{{--                    <div class="wsus__product_details">--}}
-{{--                        <a class="wsus__category" href="#">fashion </a>--}}
-{{--                        <p class="wsus__pro_rating">--}}
-{{--                            <i class="fas fa-star"></i>--}}
-{{--                            <i class="fas fa-star"></i>--}}
-{{--                            <i class="fas fa-star"></i>--}}
-{{--                            <i class="fas fa-star"></i>--}}
-{{--                            <i class="fas fa-star-half-alt"></i>--}}
-{{--                            <span>(40 review)</span>--}}
-{{--                        </p>--}}
-{{--                        <a class="wsus__pro_name" href="#">man's fashion blazer</a>--}}
-{{--                        <p class="wsus__price">$180 <del>$200</del></p>--}}
-{{--                        <a class="add_cart" href="#">add to cart</a>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--            <div class="col-xl-3 col-sm-6 col-lg-4">--}}
-{{--                <div class="wsus__product_item">--}}
-{{--                    <span class="wsus__minus">-20%</span>--}}
-{{--                    <a class="wsus__pro_link" href="product_details.html">--}}
-{{--                        <img src="images/wemans_2.jpg" alt="product" class="img-fluid w-100 img_1" />--}}
-{{--                        <img src="images/wemans_1.jpg" alt="product" class="img-fluid w-100 img_2" />--}}
-{{--                    </a>--}}
-{{--                    <ul class="wsus__single_pro_icon">--}}
-{{--                        <li><a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal"><i--}}
-{{--                                    class="far fa-eye"></i></a></li>--}}
-{{--                        <li><a href="#"><i class="far fa-heart"></i></a></li>--}}
-{{--                        <li><a href="#"><i class="far fa-random"></i></a>--}}
-{{--                    </ul>--}}
-{{--                    <div class="wsus__product_details">--}}
-{{--                        <a class="wsus__category" href="#">fashion </a>--}}
-{{--                        <p class="wsus__pro_rating">--}}
-{{--                            <i class="fas fa-star"></i>--}}
-{{--                            <i class="fas fa-star"></i>--}}
-{{--                            <i class="fas fa-star"></i>--}}
-{{--                            <i class="fas fa-star"></i>--}}
-{{--                            <i class="fas fa-star-half-alt"></i>--}}
-{{--                            <span>(99 review)</span>--}}
-{{--                        </p>--}}
-{{--                        <a class="wsus__pro_name" href="#">weman's fashion one pcs</a>--}}
-{{--                        <p class="wsus__price">$59</p>--}}
-{{--                        <a class="add_cart" href="#">add to cart</a>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--            <div class="col-xl-3 col-sm-6 col-lg-4">--}}
-{{--                <div class="wsus__product_item">--}}
-{{--                    <span class="wsus__new">New</span>--}}
-
-{{--                    <a class="wsus__pro_link" href="product_details.html">--}}
-{{--                        <img src="images/wemans_2.jpg" alt="product" class="img-fluid w-100 img_1" />--}}
-{{--                        <img src="images/wemans_1.jpg" alt="product" class="img-fluid w-100 img_2" />--}}
-{{--                    </a>--}}
-{{--                    <ul class="wsus__single_pro_icon">--}}
-{{--                        <li><a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal"><i--}}
-{{--                                    class="far fa-eye"></i></a></li>--}}
-{{--                        <li><a href="#"><i class="far fa-heart"></i></a></li>--}}
-{{--                        <li><a href="#"><i class="far fa-random"></i></a>--}}
-{{--                    </ul>--}}
-{{--                    <div class="wsus__product_details">--}}
-{{--                        <a class="wsus__category" href="#">fashion </a>--}}
-{{--                        <p class="wsus__pro_rating">--}}
-{{--                            <i class="fas fa-star"></i>--}}
-{{--                            <i class="fas fa-star"></i>--}}
-{{--                            <i class="fas fa-star"></i>--}}
-{{--                            <i class="fas fa-star"></i>--}}
-{{--                            <i class="fas fa-star-half-alt"></i>--}}
-{{--                            <span>(99 review)</span>--}}
-{{--                        </p>--}}
-{{--                        <a class="wsus__pro_name" href="#">weman's fashion one pcs</a>--}}
-{{--                        <p class="wsus__price">$59</p>--}}
-{{--                        <a class="add_cart" href="#">add to cart</a>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--        </div>--}}
-{{--    </div>--}}
-{{--</section>--}}

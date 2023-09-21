@@ -48,7 +48,7 @@ Shop Now
 <!--============================
     BRAND SLIDER START
 ==============================-->
-@include('frontend.home.sections.brand-slider')
+{{--@include('frontend.home.sections.brand-slider')--}}
 <!--============================
     BRAND SLIDER END
 ==============================-->
@@ -93,7 +93,7 @@ Shop Now
 <!--============================
     LARGE BANNER  START
 ==============================-->
-@include('frontend.home.sections.large-banner')
+{{--@include('frontend.home.sections.large-banner')--}}
 <!--============================
     LARGE BANNER  END
 ==============================-->
@@ -111,7 +111,7 @@ Shop Now
 <!--============================
   HOME SERVICES START
 ==============================-->
-{{--@include('frontend.home.sections.home-services')--}}
+@include('frontend.home.sections.home-services')
 <!--============================
     HOME SERVICES END
 ==============================-->
@@ -137,16 +137,13 @@ Shop Now
             window.onload = function(){
                 document.querySelector('.default-active').click();
                 document.querySelector('.new-arrival-active').click();
-                setTimeout(() => {
-                    document.body.classList.add("loaded");
-                }, 100);
+                document.body.classList.add("loaded");
+                // setTimeout(() => {
+                //     document.body.classList.add("loaded");
+                // }, 100);
             }
         });
 
-
-        {{--@if($errors->any())--}}
-        {{--toastr.error('Please check some errors below')--}}
-        {{--@endif--}}
     });
 </script>
 @endpush

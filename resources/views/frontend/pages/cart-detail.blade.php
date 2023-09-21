@@ -15,10 +15,10 @@
             <div class="container">
                 <div class="row">
                     <div class="col-12">
-                        <h4>cart View</h4>
+                        <h4>Giỏ hàng của tôi</h4>
                         <ul>
-                            <li><a href="#">home</a></li>
-                            <li><a href="#">cart view</a></li>
+                            <li><a href="#">Trang chủ</a></li>
+                            <li><a href="#">Giỏ hàng của tôi</a></li>
                         </ul>
                     </div>
                 </div>
@@ -42,28 +42,28 @@
                                 <tbody>
                                 <tr class="d-flex">
                                     <th class="wsus__pro_img">
-                                        product item
+                                        Sản phẩm
                                     </th>
 
                                     <th class="wsus__pro_name">
-                                        product details
+                                        Chi tiết
                                     </th>
 
                                     <th class="wsus__pro_tk">
-                                        price
+                                        Giá
                                     </th>
 
                                     <th class="wsus__pro_select">
-                                        quantity
+                                        Số lượng
                                     </th>
 
                                     <th class="wsus__pro_tk">
-                                        Total
+                                        Tổng tiền
                                     </th>
                                     <th class="wsus__pro_icon">
                                         <form class="form-delete" action="{{route('clear-cart')}}" method="post">
                                             @csrf
-                                            <button type="button" class="clear-cart common_btn ">clear cart</button>
+                                            <button type="button" class="clear-cart common_btn ">Xóa giỏ hàng</button>
                                         </form>
 
                                     </th>
@@ -71,7 +71,7 @@
                                 @if(count($cartItems)==0)
                                     <tr class="d-flex cart-body" >
                                         <td class="wsus__pro_tk text-center">
-                                            <p class=" ext-center"> Empty Cart</p>
+                                            <p class=" ext-center"> Giỏ hàng trống!</p>
                                         </td>
                                     </tr>
                                 @endif
@@ -120,18 +120,18 @@
                 </div>
                 <div class="col-xl-3">
                     <div class="wsus__cart_list_footer_button" id="sticky_sidebar">
-                        <h6>total cart</h6>
-                        <p>subtotal: <span class="sub_total">{{getCartTotal()}}</span></p>
-                        <p>discount: <span class="discount">{{getCartDiscount()}}</span></p>
-                        <p class="total"><span>total:</span> <span class="cart_total_amount">{{getMainCartTotal()}}</span></p>
+                        <h6>Thành tiền</h6>
+                        <p>Tạm tính: <span class="sub_total">{{getCartTotal()}}</span></p>
+                        <p>Giảm giá: <span class="discount">{{getCartDiscount()}}</span></p>
+                        <p class="total"><span>Thành tiền:</span> <span class="cart_total_amount">{{getMainCartTotal()}}</span></p>
 
                         <form class="coupon_form" action="{{route('apply-coupon')}}" method="post">
                             @csrf
                             <input type="text" placeholder="code 5555" name="coupon_code" class="coupon_value" value="{{session()->has('coupon') ? session()->get('coupon')['coupon_code'] : ''}}">
-                            <button type="button" class="common_btn apply-btn">apply</button>
+                            <button type="button" class="common_btn apply-btn">Áp dụng</button>
                         </form>
-                        <a class="common_btn mt-4 w-100 text-center" href="{{route('user.checkout')}}">checkout</a>
-                        <a class="common_btn mt-1 w-100 text-center" href="{{route('home')}}"><i class="fab fa-shopify"></i> go shop</a>
+                        <a class="common_btn mt-4 w-100 text-center" href="{{route('user.checkout')}}">Thanh toán</a>
+                        <a class="common_btn mt-1 w-100 text-center" href="{{route('home')}}"><i class="fab fa-shopify"></i> Quay lại mua hàng</a>
                     </div>
                 </div>
             </div>
@@ -181,7 +181,7 @@
 
         window.addEventListener("DOMContentLoaded", (event) => {
 
-            /*== Handle Update Quantity  ==*/
+             // Handle Update Quantity
             const decreaseBtns = document.querySelectorAll('.sub');
             const increaseBtns = document.querySelectorAll('.add');
             const priceTotalArr = document.querySelectorAll('.price-total')
@@ -256,7 +256,6 @@
                 increaseBtns.forEach((increaseBtn=>{
                     increaseBtn.addEventListener('click',  (e) => {
                         e.preventDefault();
-                        // await calculateCouponDiscount()
                         const form = e.target.closest('form');
                         const quantityInput = form.querySelector('.quantity');
                         const priceInput = form.querySelector('.price');
@@ -304,7 +303,7 @@
                                         <div class="wsus__cart_text">
                                             <a class="wsus__cart_title" href="{{url('product-detail')}}/${item.options.slug}.html">${item.name}</a>
                                             <p>${formatPrice(item.price + item.options.variants_total)}</p>
-                                             <small>Qty: ${item.qty}</small>
+                                             <small>Slg: ${item.qty}</small>
                                         </div>
                                     </li>`;
                             });
@@ -348,7 +347,7 @@
                             'Content-Type': 'application/x-www-form-urlencoded',
                             'X-CSRF-TOKEN': csrfToken
                         },
-                        body: `quantity=${quantity}&rowId=${rowId}` // Pass the quantity and rowId as URL-encoded parameters
+                        body: `quantity=${quantity}&rowId=${rowId}`
                     });
 
                     // Handle the response
@@ -362,7 +361,6 @@
                             toastr.error(data.message);
                         }
                     } else {
-                        // Error handling
                         console.error('Error submitting the form');
                     }
                 } catch (error) {

@@ -12,10 +12,10 @@
             <div class="container">
                 <div class="row">
                     <div class="col-12">
-                        <h4>check out</h4>
+                        <h4>Thanh toán</h4>
                         <ul>
-                            <li><a href="{{route('home')}}">home</a></li>
-                            <li><a href="javascript:">check out</a></li>
+                            <li><a href="{{route('home')}}">Trang chủ</a></li>
+                            <li><a href="javascript:">Thanh toán</a></li>
                         </ul>
                     </div>
                 </div>
@@ -36,8 +36,8 @@
                 <div class="col-xl-8 col-lg-7">
                     <div class="wsus__check_form">
                         <div class="d-flex justify-content-between">
-                            <h5>Shipping Details</h5>
-                            <button class="btn common_btn" data-bs-toggle="modal" data-bs-target="#exampleModal">Add New Address</button>
+                            <h5>Chi tiết vận chuyển</h5>
+                            <button class="btn common_btn" data-bs-toggle="modal" data-bs-target="#exampleModal">Thêm địa chỉ nhận hàng</button>
                         </div>
                         <div class="row">
                             @if($addresses->count() > 0)
@@ -52,14 +52,14 @@
                                                 </label>
                                             </div>
                                             <ul>
-                                                <li><span>Name :</span> {{$address->name}}</li>
-                                                <li><span>Phone :</span> {{$address->phone}}</li>
+                                                <li><span>Tên :</span> {{$address->name}}</li>
+                                                <li><span>Số điện thoại :</span> {{$address->phone}}</li>
                                                 <li><span>Email :</span> {{isset($address->email) ? $address->email : ''}}</li>
-                                                <li><span>Province,City:</span> {{$address->province}}</li>
-                                                <li><span>District :</span> {{$address->district}}</li>
-                                                <li><span>Ward :</span> {{$address->ward}}</li>
-                                                <li><span>Address :</span> {{$address->address}}</li>
-                                                <li><span>Note :</span> {{$address->note}}</li>
+                                                <li><span>Tỉnh, Thành phố:</span> {{$address->province}}</li>
+                                                <li><span>Quận, Huyện :</span> {{$address->district}}</li>
+                                                <li><span>Phường, Xã :</span> {{$address->ward}}</li>
+                                                <li><span>Địa chỉ :</span> {{$address->address}}</li>
+                                                <li><span>Ghi chú :</span> {{$address->note}}</li>
                                             </ul>
                                         </div>
                                     </div>
@@ -70,7 +70,7 @@
                 </div>
                 <div class="col-xl-4 col-lg-5">
                     <div class="wsus__order_details" id="sticky_sidebar">
-                        <p class="wsus__product">shipping Methods</p>
+                        <p class="wsus__product">Phương thức vận chuyển</p>
                         @foreach($shippingMethods as $shippingMethod)
                             @if(getCartTotal()>=$shippingMethod->min_cost)
                                 <div class="form-check">
@@ -78,7 +78,7 @@
                                            value="{{$shippingMethod->id}}" data-cost="{{$shippingMethod->cost}}" >
                                     <label class="form-check-label" for="exampleRadios-{{$shippingMethod->id}}">
                                         {{$shippingMethod->name}}
-                                        <span>cost: {{format($shippingMethod->cost)}}</span>
+                                        <span>phí vận chuyển: {{format($shippingMethod->cost)}}</span>
 {{--                                            <span>(1 - 2 days)</span>--}}
                                     </label>
                                 </div>
@@ -88,23 +88,23 @@
                                            value="{{$shippingMethod->id}}" data-cost="{{$shippingMethod->cost}}">
                                     <label class="form-check-label" for="exampleRadios-{{$shippingMethod->id}}">
                                         {{$shippingMethod->name}}
-                                        <span>(3 - 5 days)</span>
+                                        <span>(3 - 5 ngày)</span>
                                     </label>
                                 </div>
                             @endif
                         @endforeach
                         <div class="wsus__order_details_summery">
-                            <p>subtotal: <span>{{getCartTotal()}}</span></p>
-                            <p>shipping fee: <span class="shipping_fee">0₫</span></p>
+                            <p>Tạm tính: <span>{{getCartTotal()}}</span></p>
+                            <p>Phí vận chuyển: <span class="shipping_fee">0₫</span></p>
                             <p>coupon: <span>{{getCartDiscount()}}</span></p>
-                            <p><b>total:</b> <span><b class="total_amount" data-cost="{{getCartTotalRaw()}}">{{getMainCartTotal()}}</b></span></p>
+                            <p><b>Thành tiền:</b> <span><b class="total_amount" data-cost="{{getCartTotalRaw()}}">{{getMainCartTotal()}}</b></span></p>
                         </div>
                         <div class="terms_area">
                             <div class="form-check">
                                 <input class="form-check-input agree-term" type="checkbox" value="" id="flexCheckChecked3"
                                        checked>
                                 <label class="form-check-label" for="flexCheckChecked3">
-                                    I have read and agree to the website <a href="#">terms and conditions *</a>
+                                   Tôi đồng ý với các <a href="#">điều khoản và điều kiện *</a>
                                 </label>
                             </div>
                         </div>
@@ -115,7 +115,7 @@
                             <input type="hidden" name="shipping_address_id" class="shipping_address_id" value="">
                         </form>
 
-                        <a href="" class="common_btn submit_checkout">Place Order</a>
+                        <a href="" class="common_btn submit_checkout">Đặt hàng</a>
                     </div>
                 </div>
             </div>
@@ -127,7 +127,7 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">add new address</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Thêm địa chỉ nhận hàng</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body p-0">
@@ -165,7 +165,7 @@
                                             @endif
                                         <div class="wsus__check_single_form">
                                             <select class="select_2 province" name="province">
-                                                <option value="0">Province, City *</option>
+                                                <option value="0">Tỉnh, Thành phố *</option>
                                                 @foreach($provinces  as $province)
                                                     <option value="{{$province->id}}" {{$province->_name == old('province') ? 'selected' : ''}}>{{$province->_name}}</option>
                                                 @endforeach
@@ -178,7 +178,7 @@
                                             @endif
                                         <div class="wsus__check_single_form">
                                             <select class="select_2 district" name="district">
-                                                <option value="0">District *</option>
+                                                <option value="0">Quận, Huyện *</option>
 
                                             </select>
                                         </div>
@@ -189,7 +189,7 @@
                                             @endif
                                         <div class="wsus__check_single_form">
                                             <select class="select_2 ward" name="ward">
-                                                <option value="0">Ward *</option>
+                                                <option value="0">Phường, Xã *</option>
                                             </select>
                                         </div>
 

@@ -213,39 +213,22 @@
                     let route = e.currentTarget.dataset.route;
                     const response = await fetch(route);
                     // const response = await fetch(`/user/wishlist/add-product/${productId}`);
-                    if (response.status === 200) {
-                        let data = await response.json();
-                        if (data.status === 'success') {
-                            toastr.success(data.message);
-                            document.querySelector('.count_wishlist_item').innerHTML = data.count;
-                        } else if (data.status === 'error') {
-                            toastr.error(data.message);
-                        }
-                    }else if (response.status === 401) {
-                        toastr.error('Login before adding to wishlist! <a href="/login" style="color: yellow; text-decoration: underline">Login Now !!!</a>');
+                    console.log(response)
+                    if(response.url === 'http://ecommerce.test/login'){
+                        return toastr.error('Bạn phải đăng nhập trước để có thể thêm sản phẩm vào yêu thích! <a href="/login" style="color: yellow; text-decoration: underline">Đăng nhập !</a>');
+                    }
+
+                    let data = await response.json();
+                    if (data.status === 'success') {
+                        toastr.success(data.message);
+                        document.querySelector('.count_wishlist_item').innerHTML = data.count;
+                    } else if (data.status === 'error') {
+                        toastr.error(data.message);
                     }
                 });
             });
         }
 
-        //Handle remove product from wishlist
-        const removeProducts = document.querySelectorAll('.remove_wishlist_product');
-        if(removeProducts.length){
-            removeProducts.forEach(product =>{
-                product.addEventListener('click',async (e)=>{
-                    e.preventDefault();
-                    let route = e.currentTarget.dataset.route;
-                    const response = await fetch(route);
-                    if (response.status === 200) {
-                        let data = await response.json();
-                        if (data.status === 'success') {
-                            toastr.success(data.message);
-                            setInterval(() => window.location.reload(), 1000);
-                        }
-                    }
-                })
-            })
-        }
 
         //Handle subscription
         const subscription = document.querySelector('.subscribe');

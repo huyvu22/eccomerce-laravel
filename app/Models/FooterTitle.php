@@ -8,5 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class FooterTitle extends Model
 {
     use HasFactory;
-    protected $fillable = ['title'];
+    protected $table = 'footer_titles';
+    protected $fillable = [
+        'footer_column_2_title,
+        footer_column_3_title'
+    ];
 }

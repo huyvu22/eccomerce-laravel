@@ -7,8 +7,8 @@
 
 </head>
 <body>
-    Hi, {{$name}}!
-	Here is your login credentials:
+    Xin chào, {{$name}}!
+	Dưới đây là thông tin đăng nhập của bạn:
 	Email : {{$email}}
 	Password : {{$password}}
 </body>

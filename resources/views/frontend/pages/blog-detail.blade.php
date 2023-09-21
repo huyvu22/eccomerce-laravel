@@ -11,10 +11,10 @@
             <div class="container">
                 <div class="row">
                     <div class="col-12">
-                        <h4>blog dtails</h4>
+                        <h4>Chi tiết bài viết</h4>
                         <ul>
-                            <li><a href="#">blog</a></li>
-                            <li><a href="#">blog details</a></li>
+                            <li><a href="#">Tin tức</a></li>
+                            <li><a href="#">Chi tiết bài viết</a></li>
                         </ul>
                     </div>
                 </div>
@@ -124,7 +124,7 @@
                                         <span class="text-danger">{{ $errors->first('comment') }}</span>
                                     @endif
                                 </div>
-                                <button class="common_btn" type="submit">post comment</button>
+                                <button class="common_btn" type="submit">Bình luận</button>
                             </form>
                         </div>
                     </div>
@@ -139,7 +139,7 @@
                             </form>
                         </div>
                         <div class="wsus__blog_category">
-                            <h4>Categories</h4>
+                            <h4>Danh mục nổi bật</h4>
                             <ul>
                                 @foreach($categories as $category)
                                     <li><a href="{{route('blog', ['category'=>$category->slug])}}">{{$category->name}}</a></li>
@@ -160,19 +160,6 @@
                                 </div>
                             @endforeach
 
-                        </div>
-                        <div class="wsus__popular_tag">
-                            <h4>popular tags</h4>
-                            <ul>
-                                <li><a href="#">Fashion</a></li>
-                                <li><a href="#">Style</a></li>
-                                <li><a href="#">Travel</a></li>
-                                <li><a href="#">Women</a></li>
-                                <li><a href="#">Men</a></li>
-                                <li><a href="#">Hobbies</a></li>
-                                <li><a href="#">Shopping</a></li>
-                                <li><a href="#">Photography</a></li>
-                            </ul>
                         </div>
                     </div>
                 </div>

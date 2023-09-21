@@ -21,7 +21,7 @@ class WishlistController extends Controller
     {
         if (!Auth::check()) {
             return response()->json([
-                'status' => 401,
+                'status' => 'not_authorized',
                 'message' => 'Login before adding to wishlist! <a href="'.route('login').'">Login Now !!!</a>'
             ], 401);
         }
@@ -58,10 +58,8 @@ class WishlistController extends Controller
 
         $wishlistProduct->delete();
 
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Product deleted successfully'
-        ]);
+        toastr()->success('Product removed successfully');
+        return redirect()->back();
 
     }
 }

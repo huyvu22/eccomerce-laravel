@@ -19,6 +19,7 @@
                     <a class="wsus__footer_2_logo" href="#">
                         <img src="{{asset(@$footerInfo->logo)}}" alt="logo" width="100">
                     </a>
+                    <p class="slogan">Cung cấp sản phẩm chất lượng từ các thương hiệu hàng đầu.</p>
                     <a class="action" href="callto:+8896254857456"><i class="fas fa-phone-alt"></i>
                         {{$footerInfo->phone}}</a>
                     <a class="action" href="mailto:example@gmail.com"><i class="far fa-envelope"></i>
@@ -53,17 +54,16 @@
             </div>
             <div class="col-xl-4 col-sm-7 col-md-8 col-lg-5">
                 <div class="wsus__footer_content wsus__footer_content_2">
-                    <h3>Subscribe To Our Newsletter</h3>
-                    <p>Get all the latest information on Events, Sales and Offers.
-                        Get all the latest information on Events.</p>
+                    <h3>Đăng ký ngay</h3>
+                    <p>Để không bỏ lỡ thông tin khuyến mại, sản phẩm mới nhanh nhất</p>
                     <form action="{{route('newsletter')}}" method="post" class="form_subscribe">
                         @csrf
                         <input type="text" class="email_input" placeholder="Email..." name="email">
                         <button type="button" class="common_btn subscribe">subscribe</button>
                     </form>
                     <div class="footer_payment">
-                        <p>We're using safe payment for :</p>
-                        <img src="images/credit2.png" alt="card" class="img-fluid">
+                        <p>Phương thức thanh toán :</p>
+                        <img src="https://asset.vuahanghieu.com/assets/images/payment-method.svg" alt="card" class="img-fluid">
                     </div>
                 </div>
             </div>

@@ -28,10 +28,10 @@
             <div class="container">
                 <div class="row">
                     <div class="col-12">
-                        <h4>vendor products</h4>
+                        <h4>Sản phẩm gian hàng</h4>
                         <ul>
-                            <li><a href="{{url('/')}}">home</a></li>
-                            <li><a href="javascript: ;">product</a></li>
+                            <li><a href="{{url('/')}}">Trang chủ</a></li>
+                            <li><a href="javascript: ;">Sản phẩm gian hàng</a></li>
                         </ul>
                     </div>
                 </div>
@@ -65,7 +65,7 @@
                                 <a href=""><i class="far fa-phone-alt" aria-hidden="true"></i> {{$vendor->phone}}</a>
                                 <a href=""><i class="far fa-envelope" aria-hidden="true"></i> {{$vendor->email}}</a>
                                 <p class="wsus__vendor_location"><i class="fal fa-map-marker-alt" aria-hidden="true"></i> {{$vendor->address}} </p>
-                                <p class="wsus__open_store"><i class="fab fa-shopify" aria-hidden="true"></i> store open</p>
+                                <p class="wsus__open_store"><i class="fab fa-shopify" aria-hidden="true"></i> Giờ mở cửa</p>
                                 <ul class="d-flex">
                                     <li><a class="facebook" href="{{$vendor->fb_link}}"><i class="fab fa-facebook-f" aria-hidden="true"></i></a></li>
                                     <li><a class="twitter" href="{{$vendor->tw_link}}"><i class="fab fa-twitter" aria-hidden="true"></i></a></li>
@@ -137,7 +137,7 @@
                                                             @endif
                                                         @endfor
 
-                                                        <span>({{$product->reviews->count()}} review)</span>
+                                                        <span>({{$product->reviews->count()}} đánh giá)</span>
                                                     </p>
                                                     <a class="wsus__pro_name" href="{{route('product-detail',$product->slug)}}">{{limitText($product->name,50)}}</a>
                                                     @if (checkDiscount($product))
@@ -157,7 +157,7 @@
                                                             </select>
                                                         @endforeach
                                                         <input class=" quantity" type="hidden" min="1" max="100" value="1" name="qty" />
-                                                        <button style="border: none" type="button" class="add_cart" >add to cart</button>
+                                                        <button style="border: none" type="button" class="add_cart" >Thêm vào giỏ</button>
                                                     </form>
 
                                                 </div>
@@ -195,7 +195,7 @@
                                                             @endif
                                                         @endfor
 
-                                                        <span>({{$product->reviews->count()}} review)</span>
+                                                        <span>({{$product->reviews->count()}} đánh giá)</span>
                                                     </p>
                                                     <a class="wsus__pro_name" href="{{route('product-detail',$product->slug)}}">{{$product->name}}</a>
                                                     @if (checkDiscount($product))
@@ -290,7 +290,7 @@
                                 <div class="col-xl-6 col-12 col-sm-12 col-md-12 col-lg-6">
                                     <div class="wsus__pro_details_text">
                                         <a class="title" href="{{route('product-detail',$product->slug)}}">{{$product->name}}</a>
-                                        <p class="wsus__stock_area"><span class="in_stock">in stock</span> (167 item)</p>
+{{--                                        <p class="wsus__stock_area"><span class="in_stock">in stock</span> (167 item)</p>--}}
                                         @if (checkDiscount($product))
                                             <h4><span class="product_price">{{format($product->offer_price)}}</span> <del class="old_product_price">{{ format($product->price) }}</del></h4>
                                             <input type="hidden" class="input_price" value="{{$product->offer_price}} {{$product->price}}">
@@ -312,14 +312,14 @@
                                                 @endif
                                             @endfor
 
-                                            <span>({{$product->reviews->count()}} review)</span>
+                                            <span>({{$product->reviews->count()}} đánh giá)</span>
                                         </p>
                                         <p class="description">{!! $product->short_description !!}</p>
 
                                         <form class="shopping-cart-form" action="{{route('add-to-cart')}}" method="post">
                                             @csrf
                                             <div class="wsus_pro_hot_deals">
-                                                <h5>offer ending time : </h5>
+                                                <h5>thời gian khuyến mại : </h5>
                                                 <div class="simply-countdown simply-countdown-one"></div>
                                             </div>
                                             <div class="wsus__selectbox">
@@ -350,13 +350,13 @@
                                                 </div>
                                             </div>
                                             <ul class="wsus__button_area">
-                                                <li><button type="button" class="add_cart" >add to cart</button></li>
-                                                <li><a class="buy_now" href="#">buy now</a></li>
+                                                <li><button type="button" class="add_cart" >Thêm vào giỏ</button></li>
+                                                <li><a class="buy_now" href="#">Mua ngay</a></li>
                                                 <li><a href="#" class="add_to_wishlist" data-route="{{ route('user.wishlist.store', ['productId' => $product->id]) }}"><i class="fal fa-heart add_to_wishlist"></i></a></li>
                                                 {{--                                                <li><a href="#"><i class="far fa-random"></i></a></li>--}}
                                             </ul>
                                         </form>
-                                        <p class="brand_model"><span>brand :</span> {{$product->brand->name}}</p>
+                                        <p class="brand_model"><span>Thương hiệu :</span> {{$product->brand->name}}</p>
                                     </div>
                                 </div>
                             </div>

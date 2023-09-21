@@ -4,29 +4,29 @@
             <div class="col-xl-3 col-sm-6 col-lg-3 pe-lg-0">
                 <div class="wsus__home_services_single home_service_single_2 border_left">
                     <i class="fal fa-truck"></i>
-                    <h5>Free Worldwide Shipping</h5>
-                    <p>Free shipping coast for all country</p>
+                    <h5>Miễn phí vận chuyển</h5>
+                    <p>Miễn phí vận chuyển trong nội thành Hà Nội, TP Hồ Chí Minh</p>
                 </div>
             </div>
             <div class="col-xl-3 col-sm-6 col-lg-3 pe-lg-0">
                 <div class="wsus__home_services_single home_service_single_2">
                     <i class="fal fa-headset"></i>
-                    <h5>24/7 Customer Support</h5>
-                    <p>Friendly 24/7 customer support</p>
+                    <h5>Hỗ trợ 24/7</h5>
+                    <p>Hỗ trợ khách hàng một cách nhanh chóng và hiệu quả nhất</p>
                 </div>
             </div>
             <div class="col-xl-3 col-sm-6 col-lg-3 pe-lg-0">
                 <div class="wsus__home_services_single home_service_single_2">
                     <i class="far fa-exchange-alt"></i>
-                    <h5>Money Back Guarantee</h5>
-                    <p>We return money within 30 days</p>
+                    <h5>Hoàn tiền nếu phát hiện hàng giả</h5>
+                    <p>Hoàn tiền nếu phát hiện hàng giả, trong vòng 30 ngày</p>
                 </div>
             </div>
             <div class="col-xl-3 col-sm-6 col-lg-3">
                 <div class="wsus__home_services_single home_service_single_2">
                     <i class="fal fa-credit-card"></i>
-                    <h5>Secure Online Payment</h5>
-                    <p>We posess SSL / Secure Certificate</p>
+                    <h5>Bảo mật thanh toán</h5>
+                    <p>Cam kết bảo mật thông tin cá nhân khách hàng</p>
                 </div>
             </div>
         </div>

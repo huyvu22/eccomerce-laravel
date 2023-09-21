@@ -31,12 +31,11 @@
                             <i class="fas fa-user-headset"></i>
                         </div>
                         <div class="wsus__call_text">
-                            <p>example@gmail.com</p>
-                            <p>+569875544220</p>
+                            <p>ecomerce@gmail.com</p>
+                            <p>+19001255</p>
                         </div>
                     </div>
                     <ul class="wsus__icon_area">
-
                         <li>
                             <a href="{{ route('user.wishlist.index') }}">
                                 <i class="fal fa-heart"></i>
@@ -77,14 +76,14 @@
                     </li>
                 @endforeach
                     @if(Cart::content()->count() === 0)
-                        <li class="alert alert-danger text-center" >Empty Cart!</li>
+                        <li class="alert alert-danger text-center" >Giỏ hàng trống!</li>
                     @endif
             </ul>
             <div class="mini_cart_actions {{Cart::content()->count() > 0 ? '' : 'd-none'}}">
-                <h5>sub total <span class="mini_cart_subtotal">{{getCartTotal()}}</span></h5>
+                <h5>Tạm tính <span class="mini_cart_subtotal">{{getCartTotal()}}</span></h5>
                 <div class="wsus__minicart_btn_area">
-                    <a class="common_btn" href="{{route('cart-detail')}}">view cart</a>
-                    <a class="common_btn" href="{{route('user.checkout')}}">checkout</a>
+                    <a class="common_btn" href="{{route('cart-detail')}}">Giỏ hàng</a>
+                    <a class="common_btn" href="{{route('user.checkout')}}">Thanh toán</a>
                 </div>
             </div>
     </div>

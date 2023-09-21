@@ -12,10 +12,10 @@
             <div class="container">
                 <div class="row">
                     <div class="col-12">
-                        <h4>vendors</h4>
+                        <h4>Gian hàng</h4>
                         <ul>
-                            <li><a href="{{url('home')}}">home</a></li>
-                            <li><a href="javascript: ;">vendors</a></li>
+                            <li><a href="{{url('home')}}">Trang chủ</a></li>
+                            <li><a href="javascript: ;">Gian hàng</a></li>
                         </ul>
                     </div>
                 </div>
@@ -51,7 +51,7 @@
                                             {{$vendor->phone}}</a>
                                         <a href="mailto:example@gmail.com"><i class="fal fa-envelope"></i>
                                             {{$vendor->email}}</a>
-                                        <a href="{{route('vendor.products',$vendor)}}" class="common_btn">visit store</a>
+                                        <a href="{{route('vendor.products',$vendor)}}" class="common_btn">Truy cập gian hàng</a>
                                     </div>
                                 </div>
                             </div>

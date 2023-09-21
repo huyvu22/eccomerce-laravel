@@ -11,10 +11,10 @@
             <div class="container">
                 <div class="row">
                     <div class="col-12">
-                        <h4>our latest blogs</h4>
+                        <h4>Bài viết mới</h4>
                         <ul>
-                            <li><a href="#">home</a></li>
-                            <li><a href="#">blogs</a></li>
+                            <li><a href="#">Trang chủ</a></li>
+                            <li><a href="#">Tin tức</a></li>
                         </ul>
                     </div>
                 </div>
@@ -42,7 +42,7 @@
                                 <img src="{{asset($blog->image)}}" alt="blog" class="img-fluid w-100">
                             </a>
                             <div class="wsus__blog_text">
-                                <a class="blog_top red" href="{{route('blog-detail',$blog)}}">{{$blog->category->name}}</a>
+                                <a class="blog_top red" href="{{route('blog', ['category'=>$blog->category->slug])}}">{{$blog->category->name}}</a>
                                 <div class="wsus__blog_text_center">
                                     <a href="{{route('blog-detail',$blog->slug)}}">{{limitText($blog->title,80)}}</a>
                                     <p class="date">{{$blog->created_at->format('d-m-Y')}}</p>

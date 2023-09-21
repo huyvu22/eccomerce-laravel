@@ -12,10 +12,10 @@
             <div class="container">
                 <div class="row">
                     <div class="col-12">
-                        <h4>About</h4>
+                        <h4>Về chúng tôi</h4>
                         <ul>
-                            <li><a href="{{route('home')}}">home</a></li>
-                            <li><a href="javascript:">About</a></li>
+                            <li><a href="{{route('home')}}">Trang chủ</a></li>
+                            <li><a href="javascript:">Về chúng tôi</a></li>
                         </ul>
                     </div>
                 </div>

@@ -12,10 +12,10 @@
             <div class="container">
                 <div class="row">
                     <div class="col-12">
-                        <h4>payment</h4>
+                        <h4>Thanh toán</h4>
                         <ul>
-                            <li><a href="{{route('home')}}">home</a></li>
-                            <li><a href="javascript:">payment</a></li>
+                            <li><a href="{{route('home')}}">Trang chủ</a></li>
+                            <li><a href="javascript:">Thanh toán</a></li>
                         </ul>
                     </div>
                 </div>
@@ -34,7 +34,7 @@
         <div class="container">
             <div class="wsus__pay_info_area">
                 <div class="row">
-                    <h1>Payment Success</h1>
+                    <h1>Bạn đã thanh toán đơn hàng thành công!</h1>
                 </div>
             </div>
         </div>

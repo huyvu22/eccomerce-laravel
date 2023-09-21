@@ -11,10 +11,10 @@
             <div class="container">
                 <div class="row">
                     <div class="col-12">
-                        <h4>wishlist</h4>
+                        <h4>Yêu thích</h4>
                         <ul>
-                            <li><a href="#">home</a></li>
-                            <li><a href="#">wishlist</a></li>
+                            <li><a href="{{url('/')}}">Trang chủ</a></li>
+                            <li><a href="javascript: ;">Yêu thích</a></li>
                         </ul>
                     </div>
                 </div>
@@ -39,30 +39,30 @@
                                 <tbody>
                                 <tr class="d-flex">
                                     <th class="wsus__pro_img">
-                                        product item
+                                        Sản phẩm
                                     </th>
 
                                     <th class="wsus__pro_name" style="width: 487px !important;">
-                                        product details
+                                        Chi tiết
                                     </th>
 
                                     <th class="wsus__pro_status" style="width: 200px !important;">
-                                        status
+                                        Trạng thái
                                     </th>
 
                                     <th class="wsus__pro_tk"  style="width: 200px !important;">
-                                        price
+                                        Giá
                                     </th>
 
                                     <th class="wsus__pro_icon">
-                                        action
+                                        Hàng động
                                     </th>
                                 </tr>
                                 @foreach($wishlistProduct as $item)
                                     <tr class="d-flex">
                                         <td class="wsus__pro_img"><img src="{{asset($item->product->thumb_image)}}" alt="product"
                                                                        class="img-fluid w-100">
-                                            <a href="#" class="remove_wishlist_product" data-route="{{route('user.wishlist.destroy',$item->product_id)}}"><i class="far fa-times"></i></a>
+                                            <a href="{{route('user.wishlist.destroy',$item->product_id)}}" class="remove_wishlist_product" data-route="{{route('user.wishlist.destroy',$item->product_id)}}"><i class="far fa-times"></i></a>
                                         </td>
 
                                         <td class="wsus__pro_name" style="width: 487px !important;">
@@ -79,7 +79,7 @@
                                         </td>
 
                                         <td class="wsus__pro_icon">
-                                            <a class="common_btn" href="{{route('product-detail',$item->product->slug)}}">View Product</a>
+                                            <a class="common_btn" href="{{route('product-detail',$item->product->slug)}}">Xem sản phẩm</a>
                                         </td>
                                     </tr>
                                 @endforeach

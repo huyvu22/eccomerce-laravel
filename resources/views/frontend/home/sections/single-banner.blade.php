@@ -11,9 +11,9 @@
                             <img src="{{asset($homepageBannerSection2->banner_1->banner_image)}}" alt="banner" class="img-fluid w-100">
                         </div>
                         <div class="wsus__single_banner_text">
-                            <h6>sell on <span>35% off</span></h6>
+                            {{-- <h6>sell on <span>35% off</span></h6>
                             <h3>smart watch</h3>
-                            <a class="shop_btn" href="{{$homepageBannerSection2->banner_1->banner_url}}">shop now</a>
+                            <a class="shop_btn" href="{{$homepageBannerSection2->banner_1->banner_url}}">shop now</a> --}}
                         </div>
                     </div>
                 @endif
@@ -25,9 +25,9 @@
                             <img src="{{asset($homepageBannerSection2->banner_2->banner_image)}}" alt="banner" class="img-fluid w-100">
                         </div>
                         <div class="wsus__single_banner_text">
-                            <h6>New Collection</h6>
+                            {{-- <h6>New Collection</h6>
                             <h3>bicycle</h3>
-                            <a class="shop_btn" href="{{$homepageBannerSection2->banner_2->banner_url}}">shop now</a>
+                            <a class="shop_btn" href="{{$homepageBannerSection2->banner_2->banner_url}}">shop now</a> --}}
                         </div>
                     </div>
                 @endif

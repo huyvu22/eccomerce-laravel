@@ -12,10 +12,10 @@
             <div class="container">
                 <div class="row">
                     <div class="col-12">
-                        <h4>contact us</h4>
+                        <h4>Liên hệ</h4>
                         <ul>
-                            <li><a href="{{url('/')}}">home</a></li>
-                            <li><a href="javascript:">contact us</a></li>
+                            <li><a href="{{url('/')}}">Trang chủ</a></li>
+                            <li><a href="javascript:">Liên hệ</a></li>
                         </ul>
                     </div>
                 </div>
@@ -39,7 +39,7 @@
                             <div class="col-xl-12">
                                 <div class="wsus__contact_single">
                                     <i class="fal fa-envelope"></i>
-                                    <h5>mail address</h5>
+                                    <h5>Địa chỉ email</h5>
                                     <a href="mailto:example@gmail.com">example@gmail.com</a>
                                     <span><i class="fal fa-envelope"></i></span>
                                 </div>
@@ -47,15 +47,15 @@
                             <div class="col-xl-12">
                                 <div class="wsus__contact_single">
                                     <i class="far fa-phone-alt"></i>
-                                    <h5>phone number</h5>
-                                    <a href="macallto:+69522145000001">+69522145000001</a>
+                                    <h5>Số điện thoại</h5>
+                                    <a href="macallto:+69522145000001">+8483084353</a>
                                     <span><i class="far fa-phone-alt"></i></span>
                                 </div>
                             </div>
                             <div class="col-xl-12">
                                 <div class="wsus__contact_single">
                                     <i class="fal fa-map-marker-alt"></i>
-                                    <h5>contact address</h5>
+                                    <h5>Địa chỉ liên hệ</h5>
                                     <a href="mailto:example@gmail.com">example@gmail.com</a>
                                     <span><i class="fal fa-map-marker-alt"></i></span>
                                 </div>
@@ -64,7 +64,7 @@
                     </div>
                     <div class="col-xl-8">
                         <div class="wsus__contact_question">
-                            <h5>Send Us a Message</h5>
+                            <h5>Lời nhắn</h5>
                             <form action="{{route('contact.post')}}" method="post">
                                 @csrf
                                 <div class="row">

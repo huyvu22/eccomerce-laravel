@@ -6,7 +6,7 @@
         <div class="row">
             <div class="col-xl-12">
                 <div class="wsus__section_header">
-                    <h3>hot deals of the day</h3>
+                    <h3>Sản phẩm hot trong ngày</h3>
                 </div>
             </div>
         </div>
@@ -72,7 +72,7 @@
                                         </select>
                                     @endforeach
                                     <input class=" quantity" type="hidden" min="1" max="100" value="1" name="qty" />
-                                    <button style="border: none" type="button" class="add_cart" >add to cart</button>
+                                    <button style="border: none" type="button" class="add_cart" >Thêm vào giỏ</button>
                                 </form>
 
                             </div>
@@ -93,11 +93,11 @@
                                 <div class="wsus__single_banner_img">
                                     <img src="{{asset($homepageBannerSection3->banner_1->banner_image)}}" alt="banner" class="img-fluid w-100">
                                 </div>
-                                <div class="wsus__single_banner_text">
-                                    <h6>sell on <span>35% off</span></h6>
-                                    <h3>smart watch</h3>
-                                    <a class="shop_btn" href="{{$homepageBannerSection3->banner_1->banner_url}}">shop now</a>
-                                </div>
+{{--                                <div class="wsus__single_banner_text">--}}
+{{--                                    <h6>Giảm giá <span>35%</span></h6>--}}
+{{--                                    <h3>Laptop Gaming</h3>--}}
+{{--                                    <a class="shop_btn" href="{{$homepageBannerSection3->banner_1->banner_url}}">shop now</a>--}}
+{{--                                </div>--}}
                             </div>
                         @endif
                     </div>
@@ -109,11 +109,11 @@
                                         <div class="wsus__single_banner_img">
                                             <img src="{{asset($homepageBannerSection3->banner_2->banner_image)}}" alt="banner" class="img-fluid w-100">
                                         </div>
-                                        <div class="wsus__single_banner_text">
-                                            <h6>New Collection</h6>
-                                            <h3>kid's fashion</h3>
-                                            <a class="shop_btn" href="{{$homepageBannerSection3->banner_2->banner_url}}">shop now</a>
-                                        </div>
+{{--                                        <div class="wsus__single_banner_text">--}}
+{{--                                            <h6>New Collection</h6>--}}
+{{--                                            <h3>kid's fashion</h3>--}}
+{{--                                            <a class="shop_btn" href="{{$homepageBannerSection3->banner_2->banner_url}}">shop now</a>--}}
+{{--                                        </div>--}}
                                     </div>
                                 @endif
                             </div>
@@ -123,11 +123,11 @@
                                         <div class="wsus__single_banner_img">
                                             <img src="{{asset($homepageBannerSection3->banner_3->banner_image)}}" alt="banner" class="img-fluid w-100">
                                         </div>
-                                        <div class="wsus__single_banner_text">
-                                            <h6>sell on <span>42% off</span></h6>
-                                            <h3>winter collection</h3>
-                                            <a class="shop_btn" href="{{$homepageBannerSection3->banner_3->banner_url}}">shop now</a>
-                                        </div>
+{{--                                        <div class="wsus__single_banner_text">--}}
+{{--                                            <h6>sell on <span>42% off</span></h6>--}}
+{{--                                            <h3>winter collection</h3>--}}
+{{--                                            <a class="shop_btn" href="{{$homepageBannerSection3->banner_3->banner_url}}">shop now</a>--}}
+{{--                                        </div>--}}
                                     </div>
                                 @endif
                             </div>
@@ -179,7 +179,7 @@
                                 <div class="col-xl-6 col-12 col-sm-12 col-md-12 col-lg-6">
                                     <div class="wsus__pro_details_text">
                                         <a class="title" href="{{route('product-detail',$product->slug)}}">{{$product->name}}</a>
-                                        <p class="wsus__stock_area"><span class="in_stock">in stock</span> (167 item)</p>
+{{--                                        <p class="wsus__stock_area"><span class="in_stock">in stock</span> (167 item)</p>--}}
                                         @if (checkDiscount($product))
                                             <h4><span class="product_price">{{format($product->offer_price)}}</span> <del class="old_product_price">{{ format($product->price) }}</del></h4>
                                             <input type="hidden" class="input_price" value="{{$product->offer_price}} {{$product->price}}">
@@ -193,14 +193,14 @@
                                             <i class="fas fa-star"></i>
                                             <i class="fas fa-star"></i>
                                             <i class="fas fa-star-half-alt"></i>
-                                            <span>20 review</span>
+                                            <span>({{$product->reviews->count()}} đánh giá)</span>
                                         </p>
                                         <p class="description">{!! $product->short_description !!}</p>
 
                                         <form class="shopping-cart-form" action="{{route('add-to-cart')}}" method="post">
                                             @csrf
                                             <div class="wsus_pro_hot_deals">
-                                                <h5>offer ending time : </h5>
+                                                <h5>Thời gian khuyến mại : </h5>
                                                 <div class="simply-countdown simply-countdown-one"></div>
                                             </div>
                                             <div class="wsus__selectbox">
@@ -225,19 +225,19 @@
                                                 </div>
                                             </div>
                                             <div class="wsus__quentity">
-                                                <h5>Quantity :</h5>
+                                                <h5>Số lượng :</h5>
                                                 <div class="select_number">
                                                     <input class=" quantity number_area" type="text" min="1" max="100" value="1" name="qty" />
                                                 </div>
                                             </div>
                                             <ul class="wsus__button_area">
-                                                <li><button type="button" class="add_cart" >add to cart</button></li>
-                                                <li><a class="buy_now" href="#">buy now</a></li>
+                                                <li><button type="button" class="add_cart" >Thêm vào giỏ</button></li>
+                                                <li><a class="buy_now" data-buy-product-route="{{ route('buy-product') }}">Mua ngay</a></li>
                                                 <li><a href="#" class="add_to_wishlist" data-route="{{ route('user.wishlist.store', ['productId' => $product->id]) }}"><i class="fal fa-heart add_to_wishlist"></i></a></li>
 {{--                                                <li><a href="#"><i class="far fa-random"></i></a></li>--}}
                                             </ul>
                                         </form>
-                                        <p class="brand_model"><span>brand :</span> {{$product->brand->name}}</p>
+                                        <p class="brand_model"><span>Thương hiệu :</span> {{$product->brand->name}}</p>
                                     </div>
                                 </div>
                             </div>
@@ -249,12 +249,3 @@
     @endforeach
 @endforeach
 
-{{--@push('scripts')--}}
-{{--    <script>--}}
-{{--        window.addEventListener('DOMContentLoaded',()=>{--}}
-{{--            window.onload = function(){--}}
-{{--                document.querySelector('.new-arrival-active').click();--}}
-{{--            }--}}
-{{--        });--}}
-{{--    </script>--}}
-{{--@endpush--}}

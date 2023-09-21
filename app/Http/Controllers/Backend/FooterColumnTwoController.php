@@ -107,16 +107,14 @@ class FooterColumnTwoController extends Controller
 
     public function changeTitle(Request $request)
     {
-
         $request->validate([
-            'title' => 'required|max:200',
+            'title' => 'required',
         ]);
-        FooterTitle::updateOrCreate(
-            ['id' => 1],
-            ['footer_column_2_title' => $request->title]
-        );
+        $footerColumn2 = FooterTitle::find(1);
+        $footerColumn2->footer_column_2_title = $request->title;
+        $footerColumn2->save();
+
         toastr()->success('Updated Successfully');
         return redirect()->back();
-
     }
 }
