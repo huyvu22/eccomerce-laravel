@@ -3430,10 +3430,16 @@ PRODUCT DETAILS START
     padding-top: 70px;
 }
 
-.wsus__details_bg {
+.wsus__details_bg_1 {
     background: #fff;
     box-shadow: rgb(50 50 93 / 15%) 0px 0px 5px 0px;
     padding: 20px;
+    border-radius: 5px;
+}
+.wsus__details_bg_2 {
+    background: #fff;
+    box-shadow: rgb(50 50 93 / 15%) 0px 0px 5px 0px;
+    padding: 40px;
     border-radius: 5px;
 }
 
@@ -4513,7 +4519,7 @@ CART VIEW PAGE START
 }
 
 .wsus__cart_list_footer_button input {
-    width: 100%;
+    width: 55%;
     padding: 10px 20px;
     font-size: 15px;
     font-weight: 400;
@@ -5392,7 +5398,7 @@ WISHLIST PAGE START
 
 .wsus__login .social_text {
     text-align: center;
-    text-transform: capitalize;
+    /* text-transform: capitalize; */
     margin: 20px 0px 15px 0px;
 }
 
@@ -7850,12 +7856,13 @@ TRACKING ORDER START
 
 .progtrckr {
     margin: 50px 0px 57px 0px;
+    text-align: center;
 }
 
 .progtrckr li {
     display: inline-block;
     text-align: center;
-    width: 24.75%;
+    width: 23.75%;
     text-transform: capitalize;
     font-size: 18px;
     font-weight: 700;
@@ -8528,6 +8535,43 @@ header .dropdown-menu a:hover {
 header .wsus__search button:hover {
     background: #08c !important;
     color: #fff !important;
+}
+
+.wsus__search {
+    position: relative;
+}
+
+.wsus__search .autocomplete-suggestions,
+.wsus__search .autocomplete-suggestions .not-found {
+    border: 1px solid #ccc;
+    background: #fff;
+    cursor: default;
+    overflow: auto;
+    width: 488px;
+    display: none;
+    z-index: 99999;
+    position: absolute;
+    max-height: 350px;
+    left: 20px;
+    top: 101%;
+    padding: 5px;
+    border-radius: 0 0 5px 5px;
+}
+
+.wsus__search .autocomplete-suggestions .autocomplete-suggestion {
+    padding: 3px 5px;
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+
+.wsus__search
+    .autocomplete-suggestions
+    .autocomplete-suggestion
+    table
+    tbody
+    tr
+    td {
+    padding-right: 5px;
 }
 
 .wsus__main_menu .cat_icon {

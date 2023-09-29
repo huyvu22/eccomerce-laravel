@@ -15,6 +15,7 @@ use App\Http\Controllers\Frontend\ProductDetailController;
 use App\Http\Controllers\Frontend\ProductTractController;
 use App\Http\Controllers\FrontEnd\ProvinceController;
 use App\Http\Controllers\Frontend\ReviewController;
+use App\Http\Controllers\Frontend\SocialiteLoginController;
 use App\Http\Controllers\Frontend\UserAddressController;
 use App\Http\Controllers\Frontend\UserDashboardController;
 use App\Http\Controllers\Frontend\UserOrderController;
@@ -56,6 +57,14 @@ require __DIR__.'/auth.php';
 // Route Login Admin
 Route::get('admin/login',[AdminController::class, 'login'])->name('admin.login');
 
+// Route Login User with Google Account
+Route::get('/login/google', [SocialiteLoginController::class, 'redirectToGoogle'])->name('login.google');
+Route::get('/login/google/callback', [SocialiteLoginController::class, 'handleGoogleCallback']);
+
+// Route Login User with Facebook Account
+Route::get('/login/facebook', [SocialiteLoginController::class, 'redirectToFacebook'])->name('login.facebook');
+Route::get('/login/facebook/callback', [SocialiteLoginController::class, 'handleFacebookCallback']);
+Route::get('/privacy-policy', [SocialiteLoginController::class, 'privacyPolicy']);
 
 
 /*Route Cart*/

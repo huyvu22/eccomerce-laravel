@@ -287,9 +287,7 @@ class PaymentController extends Controller
             'code' => '00', 'message' => 'success', 'data' => $vnp_Url
         );
 
-        //echo json_encode($returnData);
 
-//        return $returnData['data']; //chỉ lấy ra $vnp_Url thôi.
 
         if (isset($_POST['redirect'])) {
             header('Location: ' . $vnp_Url);
@@ -302,20 +300,17 @@ class PaymentController extends Controller
     public function vnPayCheck(Request $request)
     {
         $vnp_ResponseCode = $request->vnp_ResponseCode;
-        $vnp_TxnRef = $request->vnp_TxnRef;
         $vnp_Amount = $request->vnp_Amount;
         $vnp_TransactionNo = $request->vnp_TransactionNo;
-        $data = [
-            'vnp_TxnRef' => $vnp_TxnRef,
-            'vnp_Amount' => $vnp_Amount,
-        ];
-        $this->storeOrder('vnPay',1, $vnp_TransactionNo, $vnp_Amount);
-        $this->clearSession();
 
         if(!empty($vnp_ResponseCode)){
             if($vnp_ResponseCode == '00'){
-
-                return $request->all();
+                $this->storeOrder('vnPay',1, $vnp_TransactionNo, $vnp_Amount/100);
+                $this->clearSession();
+                return response()->json([
+                    'status'=>'success',
+                    'message'=>'Thanh toán đơn hàng thành công'
+                ]);
             }elseif ($payment_id === '2'){
                 $data_url = $this->connectVnPayPayment();
                 return redirect()->to($data_url);

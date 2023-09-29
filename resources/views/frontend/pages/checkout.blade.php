@@ -52,14 +52,14 @@
                                                 </label>
                                             </div>
                                             <ul>
-                                                <li><span>Tên :</span> {{$address->name}}</li>
-                                                <li><span>Số điện thoại :</span> {{$address->phone}}</li>
-                                                <li><span>Email :</span> {{isset($address->email) ? $address->email : ''}}</li>
-                                                <li><span>Tỉnh, Thành phố:</span> {{$address->province}}</li>
-                                                <li><span>Quận, Huyện :</span> {{$address->district}}</li>
-                                                <li><span>Phường, Xã :</span> {{$address->ward}}</li>
-                                                <li><span>Địa chỉ :</span> {{$address->address}}</li>
-                                                <li><span>Ghi chú :</span> {{$address->note}}</li>
+                                                <li><span>Tên :</span> <b>{{$address->name}}</b></li>
+                                                <li><span>Số điện thoại :</span> <b>{{$address->phone}}</b></li>
+                                                <li><span>Email :</span> <b>{{isset($address->email) ? $address->email : ''}}</b></li>
+                                                <li><span>Tỉnh, TP:</span> <b>{{$address->province}}</b></li>
+                                                <li><span>Quận, Huyện :</span> <b>{{$address->district}}</b></li>
+                                                <li><span>Phường, Xã :</span> <b>{{$address->ward}}</b></li>
+                                                <li><span>Địa chỉ :</span> <b>{{$address->address}}</b></li>
+                                                <li><span>Ghi chú :</span> <b>{{$address->note}}</b></li>
                                             </ul>
                                         </div>
                                     </div>

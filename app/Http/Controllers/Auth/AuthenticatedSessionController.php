@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
+use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -37,6 +38,7 @@ class AuthenticatedSessionController extends Controller
 			toastr()->error('User has been banned, please contact to support!','Account Banned!');
             return redirect('/');
         }
+
 
         if($request->user()->role==='admin' || $request->user()->role=='staff'){
             return redirect()->intended(RouteServiceProvider::ADMIN);

@@ -19,8 +19,6 @@
                         <i class="far fa-bars"></i>
                     </div>
                     <ul class="wsus_menu_cat_item show_home toggle_menu">
-                        {{--                        <li><a href="#"><i class="fas fa-star"></i> hot promotions</a></li>--}}
-
                         @foreach($categories as $category)
                             <li><a class="{{$category->subCategories->count() > 0 ? 'wsus__droap_arrow' : ''}}" href="{{route('products.index')}}?category={{$category->slug}}.html"><i class="{{$category->icon}}"></i>{{ $category->name}}</a>
                                 @if($category->subCategories->count()>0)

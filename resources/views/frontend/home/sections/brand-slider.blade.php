@@ -6,7 +6,7 @@
                 @foreach($brands as $brand)
                     <div class="col-xl-2">
                         <div class="wsus__brand_logo">
-                            <img src="{{$brand->logo}}" alt="brand-{{$brand->name}}" class="img-fluid w-100">
+                            <img src="{{$brand->logo}}" alt="brand-{{$brand->name}}" class="img-fluid w-100" loading="lazy">
                         </div>
                     </div>
                 @endforeach

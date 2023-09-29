@@ -11,11 +11,6 @@ Shop Now
         <div class="loader-section section-right"></div>
     </div>
 
-{{--    @include('frontend.layouts.header')--}}
-
-
-{{--    @include('frontend.layouts.menu')--}}
-
 
 <!--============================
     BANNER PART 2 START

@@ -83,7 +83,7 @@
                                         </td>
 
                                         <td class="wsus__pro_name">
-                                            <a class="m-2" href="{{route('product-detail',$item->options->slug)}}">{{$item->name}}</a>
+                                            <a class="m-2 text-center" href="{{route('product-detail',$item->options->slug)}}">{{$item->name}}</a>
                                             @if($item->options->variants)
                                                 @foreach($item->options->variants as $key => $variant)
                                                     <span>{{$key}}: {{$variant['name']}} (+{{format($variant['price'])}})</span>
@@ -131,7 +131,7 @@
                             <button type="button" class="common_btn apply-btn">Áp dụng</button>
                         </form>
                         <a class="common_btn mt-4 w-100 text-center" href="{{route('user.checkout')}}">Thanh toán</a>
-                        <a class="common_btn mt-1 w-100 text-center" href="{{route('home')}}"><i class="fab fa-shopify"></i> Quay lại mua hàng</a>
+                        <a class="common_btn mt-1 w-100 text-center" href="{{route('home')}}"><i class="fab fa-shopify"></i> Tiếp tục mua hàng</a>
                     </div>
                 </div>
             </div>
@@ -147,9 +147,7 @@
                                 <img src="{{asset($cartPageBanner->banner_1->banner_image)}}" alt="banner" class="img-fluid w-100">
                             </div>
                             <div class="wsus__single_banner_text">
-                                <h6>sell on <span>35% off</span></h6>
-                                <h3>smart watch</h3>
-                                <a class="shop_btn" href="{{$cartPageBanner->banner_1->banner_url}}">shop now</a>
+
                             </div>
                         </div>
                     @endif
@@ -161,9 +159,6 @@
                                 <img src="{{asset($cartPageBanner->banner_2->banner_image)}}" alt="banner" class="img-fluid w-100">
                             </div>
                             <div class="wsus__single_banner_text">
-                                <h6>New Collection</h6>
-                                <h3>Cosmetics</h3>
-                                <a class="shop_btn" href="{{$cartPageBanner->banner_2->banner_url}}">shop now</a>
                             </div>
                         </div>
                     @endif

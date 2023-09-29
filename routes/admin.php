@@ -176,6 +176,7 @@ Route::delete('flash-sale/{flashSaleItem}', [FlashSaleController::class,'destroy
 /* Setting Route*/
 Route::get('settings',[SettingController::class,'index'])->name('setting.index');
 Route::post('email-setting-update',[SettingController::class,'emailConfigSettingUpdate'])->name('email-setting-update');
+Route::post('general-setting-update',[SettingController::class,'generalSettingUpdate'])->name('general-setting-update');
 
 
 /* Homepage Route*/

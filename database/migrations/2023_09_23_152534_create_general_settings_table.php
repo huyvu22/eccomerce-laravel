@@ -11,8 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('genenal_settings', function (Blueprint $table) {
+        Schema::create('general_settings', function (Blueprint $table) {
             $table->id();
+            $table->string('site_name');
+            $table->string('email');
+            $table->string('phone');
+            $table->text('address');
+            $table->text('map');
+            $table->string('currency_name');
+            $table->string('currency_icon');
             $table->timestamps();
         });
     }
@@ -22,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('genenal_settings');
+        Schema::dropIfExists('general_settings');
     }
 };

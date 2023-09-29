@@ -61,7 +61,7 @@
                 <div class="row">
                     <div class="col-xl-12">
                         <div class="wsus__section_header rounded-0">
-                            <h3>Khuyến mại</h3>
+                            <h3>Khuyến Mại</h3>
                             <div class="wsus__offer_countdown">
                                 <span class="end_text">Thời gian kết thúc :</span>
                                 <div class="simply-countdown simply-countdown-one"></div>
@@ -113,7 +113,7 @@
                                         </p>
                                         <a class="wsus__pro_name" href="{{route('product-detail',$product->slug)}}">{{$product->name}}</a>
                                         @if (checkDiscount($item->product))
-                                            <p class="wsus__price">{{ format($product->offer) }} <del>{{ format($product->price) }}</del></p>
+                                            <p class="wsus__price">{{ format($product->offer_price) }} <del>{{ format($product->price) }}</del></p>
                                         @else
                                             <p class="wsus__price">{{ format($product->price) }} </p>
                                         @endif
@@ -130,12 +130,6 @@
                                             <input class=" quantity" type="hidden" min="1" max="100" value="1" name="qty" />
                                             <button style="border: none" type="button" class="add_cart" >Thêm vào giỏ</button>
                                         </form>
-                                    </div>
-                                </div>
-                                <div class="wsus__offer_progress">
-                                    <div class="progress">
-                                        <div class="progress-bar" role="progressbar" style="width: 65%;" aria-valuenow="65"
-                                             aria-valuemin="0" aria-valuemax="100">65%</div>
                                     </div>
                                 </div>
                             </div>
@@ -200,13 +194,12 @@
                                 <div class="col-xl-6 col-12 col-sm-12 col-md-12 col-lg-6">
                                     <div class="wsus__pro_details_text">
                                         <a class="title" href="{{route('product-detail',$product->slug)}}">{{$product->name}}</a>
-                                        <p class="wsus__stock_area"><span class="in_stock">in stock</span> (167 item)</p>
                                         @if (checkDiscount($product))
                                             <h4><span class="product_price">{{ format($product->offer_price)}}</span> <del class="old_product_price">{{ format($product->price) }}</del></h4>
                                             <input type="hidden" class="input_price" value="{{$product->offer_price}} {{$product->price}}">
                                         @else
                                             <h4><span class="product_price">{{ format($product->price) }}</span> </h4>
-                                            <input type="hidden" name="input_price" value="{{$product->price}}">
+                                            <input type="hidden" class="input_price" value="{{$product->price}}">
                                         @endif
                                         <p class="review">
                                             @php
@@ -257,9 +250,8 @@
                                             </div>
                                             <ul class="wsus__button_area">
                                                 <li><button type="button" class="add_cart" >Thêm vào giỏ</button></li>
-                                                <li><a class="buy_now" data-buy-product-route="{{ route('buy-product') }}">Mua ngay</a></li>
+                                                <li><button style="border: none" type="button" class="buy_now" data-buy-product-route="{{ route('buy-product') }}">Mua ngay</button></li>
                                                 <li><a href="#" class="add_to_wishlist" data-route="{{ route('user.wishlist.store', ['productId' => $product->id]) }}"><i class="fal fa-heart add_to_wishlist"></i></a></li>
-{{--                                                <li><a href="#"><i class="far fa-random"></i></a></li>--}}
                                             </ul>
                                         </form>
                                         <p class="brand_model"><span>Thương hiệu :</span> {{$product->brand->name}}</p>

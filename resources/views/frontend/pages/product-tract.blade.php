@@ -93,8 +93,8 @@
 																	@$order->order_status == 'out_for_delivery' ||
 																	@$order->order_status == 'delivered')
 																	?
-																	'check_mark' : ''}}">Đơn hàng đang được vận chuyển</li>
-                                    <li class="icon_three {{(@$order->order_status == 'delivered' || @$order->order_status == 'shipped' || @$order->order_status == 'out_for_delivery') ? 'check_mark' : ''}}">on the way</li>
+																	'check_mark' : ''}}">Đang được vận chuyển</li>
+                                    <li class="icon_three {{(@$order->order_status == 'delivered' || @$order->order_status == 'shipped' || @$order->order_status == 'out_for_delivery') ? 'check_mark' : ''}}">Đang giao hàng</li>
                                     <li class="icon_four {{@$order->order_status == 'delivered' ? 'check_mark' : ''}}">Đã giao</li>
                                 @endif
 

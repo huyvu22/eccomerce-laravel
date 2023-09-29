@@ -118,10 +118,10 @@
             minutes: 0,
             seconds: 0,
             words: {
-                days: { singular: 'day', plural: 'days' },
-                hours: { singular: 'hour', plural: 'hours' },
-                minutes: { singular: 'minute', plural: 'minutes' },
-                seconds: { singular: 'second', plural: 'seconds' }
+                days: { singular: 'ngày', plural: 'ngày' },
+                hours: { singular: 'giờ', plural: 'giờ' },
+                minutes: { singular: 'phút', plural: 'phút' },
+                seconds: { singular: 'giây', plural: 'giây' }
             },
             plural: true,
             inline: false,

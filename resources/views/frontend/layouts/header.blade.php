@@ -19,10 +19,15 @@
             <div class="col-xl-5 col-md-6 col-lg-4 d-none d-lg-block">
                 <div class="wsus__search">
                     <form action="{{route('products.index')}}" method="get">
-                        <input type="text" placeholder="Search..." name="search" value="{{isset(request()->search) ? request()->search : ''}}">
+                        <input type="text" placeholder="Search..." class="search_keyword" name="search" value="{{isset(request()->search) ? request()->search : ''}}">
                         <button type="submit"><i class="far fa-search"></i></button>
                     </form>
+                    <div class="autocomplete-suggestions">
+                        <div class="autocomplete-suggestions">
+                        </div>
+                    </div>
                 </div>
+
             </div>
             <div class="col-xl-5 col-3 col-md-3 col-lg-6">
                 <div class="wsus__call_icon_area">
@@ -44,7 +49,6 @@
         						</span>
                             </a>
                         </li>
-{{--                        <li><a href="compare.html"><i class="fal fa-random"></i><span>03</span></a></li>--}}
                         <li><a class="wsus__cart_icon" href="#"><i
                                     class="fal fa-shopping-bag"></i><span class="cart-count">{{Cart::content()->count()}}</span></a></li>
                     </ul>
@@ -54,7 +58,7 @@
     </div>
 
     <div class="wsus__mini_cart">
-        <h4>shopping cart <span class="wsus_close_mini_cart"><i class="far fa-times"></i></span></h4>
+        <h4>Giỏ hàng <span class="wsus_close_mini_cart"><i class="far fa-times"></i></span></h4>
             <ul class="mini-cart-wrapper">
                 @foreach(Cart::content() as $item)
                     <li class="mini_cart_{{$item->rowId}}">
@@ -92,3 +96,68 @@
 <!--============================
 HEADER END
 ==============================-->
+    <script>
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const formatPrice = (price)=>{
+                return  parseInt(price).toLocaleString('en').replace(/,/g, '.')+'₫' ;
+            }
+
+            const searchKeyword = document.querySelector('.search_keyword')
+            const tableSuggestion = document.querySelector('.autocomplete-suggestions');
+
+            const debounceSearch = debounce(async (searchKeywordValue) => {
+                if (searchKeywordValue) {
+                    const res = await fetch(`http://ecommerce.com/products?suggest_keywords=${searchKeywordValue}`);
+                    const data = await res.json();
+                    let productArr = data.products;
+                    tableSuggestion.innerHTML = '';
+                    tableSuggestion.style.display = 'block';
+                    if (productArr.length) {
+
+                        let html = '';
+                        productArr.forEach((product) => {
+                            html +=
+                                `<div class="autocomplete-suggestion">
+                                    <table>
+                                        <tbody>
+                                            <tr>
+                                                <td><a href="http://ecommerce.com/product-detail/${product.slug}.html"><img src="http://ecommerce.com/${product.thumb_image}" alt="img" width="100"></a></td>
+                                                <td><a href="http://ecommerce.com/product-detail/${product.slug}.html" class="product-name">${product.name}</a><br>
+                                                    <span class="product-price" style="color: orangered"><b>Giá: ${formatPrice(product.price)}</b></span>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>`;
+                        });
+
+                        tableSuggestion.innerHTML = html;
+                        tableSuggestion.style.display = 'block';
+                    } else {
+                        tableSuggestion.innerHTML =
+                            `<div class="autocomplete-suggestion">
+                                <table>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                <b>Không tìm thấy kết quả</b>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>`;
+                    }
+                } else {
+                    tableSuggestion.style.display = 'none';
+                }
+            }, 1000);
+
+            searchKeyword.addEventListener('input', (e) => {
+                const searchKeywordValue = e.target.value;
+                debounceSearch(searchKeywordValue);
+            });
+
+
+        });
+    </script>

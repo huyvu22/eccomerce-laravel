@@ -147,6 +147,7 @@ class VendorProductController extends Controller
                 'status' => 'required',
             ]);
         }
+
         /*Check user insert id on Url to edit product not theirs*/
         if($product->vendor_id !== Auth::user()->vendor->id){
             abort('404');

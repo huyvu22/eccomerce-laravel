@@ -6,9 +6,8 @@
         <div class="row">
             <div class="col-xl-12">
                 <div class="offer_time" style="background: url({{asset('frontend/images/flash_sell_bg.jpg')}})">
-{{--                <div class="offer_time" style="background: url({{asset('frontend/images/banner_sale.jpg')}})">--}}
                     <div class="wsus__flash_coundown">
-                        <span class=" end_text">Khuyến mại</span>
+                        <span class=" end_text">Flash Sale</span>
                         <div class="simply-countdown simply-countdown-one"></div>
                         <a class="common_btn" href="{{route('flash-sale')}}">Xem thêm <i class="fas fa-caret-right"></i></a>
                     </div>
@@ -28,8 +27,8 @@
                                 <span class="wsus__minus">-{{discountPercent($product->price, $product->offer_price)}}%</span>
                             @endif
                             <a class="wsus__pro_link" href="{{route('product-detail',$product->slug)}}">
-                                <img src="{{asset($product->thumb_image)}}" alt="product" class="img-fluid w-100 img_1" />
-                                <img src="{{asset(isset($product->productImageGalleries[0]->image) ? $product->productImageGalleries[0]->image : $product->thumb_imag) }}" alt="product" class="img-fluid w-100 img_2" />
+                                <img loading="lazy" src="{{asset($product->thumb_image)}}" alt="product" class="img-fluid w-100 img_1" />
+                                <img loading="lazy" src="{{asset(isset($product->productImageGalleries[0]->image) ? $product->productImageGalleries[0]->image : $product->thumb_imag) }}" alt="product" class="img-fluid w-100 img_2" />
                             </a>
                             <ul class="wsus__single_pro_icon">
                                 <li><a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal-{{$product->id}}"><i
@@ -115,13 +114,13 @@
                                         <div class="row modal_slider">
                                             <div class="col-xl-12">
                                                 <div class="modal_slider_img">
-                                                    <img src="{{asset($product->thumb_image)}}" alt="product" class="img-fluid w-100">
+                                                    <img loading="lazy" src="{{asset($product->thumb_image)}}" alt="product" class="img-fluid w-100">
                                                 </div>
                                             </div>
                                             @foreach($product->productImageGalleries as $image)
                                                 <div class="col-xl-12">
                                                     <div class="modal_slider_img">
-                                                        <img src="{{asset($image->image)}}" alt="product" class="img-fluid w-100">
+                                                        <img loading="lazy" src="{{asset($image->image)}}" alt="product" class="img-fluid w-100">
                                                     </div>
                                                 </div>
                                             @endforeach
@@ -131,13 +130,12 @@
                                 <div class="col-xl-6 col-12 col-sm-12 col-md-12 col-lg-6">
                                     <div class="wsus__pro_details_text">
                                         <a class="title" href="{{route('product-detail',$product->slug)}}">{{$product->name}}</a>
-{{--                                        <p class="wsus__stock_area"><span class="in_stock">in stock</span> (167 item)</p>--}}
                                         @if (checkDiscount($product))
                                             <h4><span class="product_price">{{ format($product->offer_price)}}</span> <del class="old_product_price">{{ format($product->price) }}</del></h4>
                                             <input type="hidden" class="input_price" value="{{$product->offer_price}} {{$product->price}}">
                                         @else
                                             <h4><span class="product_price">{{ format($product->price) }}</span> </h4>
-                                            <input type="hidden" name="input_price" value="{{$product->price}}">
+                                            <input type="hidden" class="input_price" value="{{$product->price}}">
                                         @endif
                                         <p class="review">
                                             @php
@@ -149,7 +147,7 @@
                                                 @if($i <= $avgRating)
                                                     <i class="fas fa-star"></i>
                                                 @else
-                                                    <i class="fas fa-star-half-alt"></i>
+                                                    <i class="far fa-star"></i>
                                                 @endif
                                             @endfor
 
@@ -188,9 +186,8 @@
                                             </div>
                                             <ul class="wsus__button_area">
                                                 <li><button type="button" class="add_cart" >Thêm vào giỏ</button></li>
-                                                <li><a class="buy_now" data-buy-product-route="{{ route('buy-product') }}">Mua ngay</a></li>
+                                                <li><button style="border: none" type="button" class="buy_now" data-buy-product-route="{{route('buy-product')}}">Mua ngay</button></li>
                                                 <li><a href="#" class="add_to_wishlist" data-route="{{ route('user.wishlist.store', ['productId' => $product->id]) }}"><i class="fal fa-heart add_to_wishlist"></i></a></li>
-{{--                                                <li><a href="#"><i class="far fa-random"></i></a></li>--}}
                                             </ul>
                                         </form>
                                         <p class="brand_model"><span>Thương hiệu :</span> {{$product->brand->name}}</p>

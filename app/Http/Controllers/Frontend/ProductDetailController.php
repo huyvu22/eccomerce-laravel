@@ -55,6 +55,19 @@ class ProductDetailController extends Controller
                         $cq->where('name', 'like', '%' . $searchKeyword . '%');
                     });
             });
+        } elseif ($request->has('suggest_keywords')){
+            $searchKeyword = $request->input('suggest_keywords');
+            $query->where(function ($q) use ($searchKeyword) {
+                $q->where('name', 'like', '%' . $searchKeyword . '%')
+                    ->orWhere('full_description', 'like', '%' . $searchKeyword . '%')
+                    ->orWhereHas('category', function ($cq) use ($searchKeyword) {
+                        $cq->where('name', 'like', '%' . $searchKeyword . '%');
+                    });
+            });
+            return response()->json([
+                'status' => 'success',
+                'products' => $query->get(),
+            ]);
         }
 
         // Filter by price range
@@ -78,14 +91,12 @@ class ProductDetailController extends Controller
                     $q->orderBy('rating', 'DESC');
                 });
             }
-
         }
 
         // Paginate the results
         $products = $query->orderBy('id', 'DESC')->paginate(12);
         $params = $request->all();
 
-//        dd($params);
         $categories = Category::where('status', 1)->get();
         $brands = Brand::where('status', 1)->get();
         $productPageBanner = Advertisement::where('key','product_page_banner' )->first();
@@ -144,13 +155,6 @@ class ProductDetailController extends Controller
         Cart::add($cartData);
 
         return  redirect()->route('cart-detail');
-    }
-
-    public function sortBy(string $type)
-    {
-//        if($type === 'price_asc'){
-//
-//        }
     }
 
 }

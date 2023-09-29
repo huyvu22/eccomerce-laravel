@@ -41,18 +41,27 @@
                                         <div class="wsus__hot_deals__single_text">
                                             <h5>{!! limitText($item->name) !!}</h5>
                                             <p class="wsus__rating">
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star"></i>
-                                                <i class="fas fa-star-half-alt"></i>
+                                                @php
+                                                    $avgRating = $item->reviews()->avg('rating');
+                                                    $avgRating = round($avgRating);
+                                                @endphp
+
+                                                @for($i = 1; $i <= 5; $i++)
+                                                    @if($i <= $avgRating)
+                                                        <i class="fas fa-star"></i>
+                                                    @else
+                                                        <i class="far fa-star"></i>
+                                                    @endif
+                                                @endfor
+
+                                                <span>({{$item->reviews->count()}} review)</span>
                                             </p>
                                             @if(checkDiscount($item))
                                                 <p style="font-size: 13px" class="wsus__tk">{{format($item->offer_price)}}
                                                     <del>{{format($item->price)}}</del>
                                                 </p>
                                             @else
-                                                <p style="font-size: 13px" class="wsus__tk">{{format($item->price)}}</p>
+                                                <p style="font-size: 13px; color: red" class="wsus__tk">{{format($item->price)}}</p>
                                             @endif
                                         </div>
                                     </a>

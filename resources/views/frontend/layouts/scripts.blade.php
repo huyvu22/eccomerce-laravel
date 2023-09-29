@@ -1,34 +1,36 @@
 <script>
     window.addEventListener("DOMContentLoaded", (event) => {
 
-        const variantSelects = document.querySelectorAll('.attribute');
-        const productPrice = document.querySelector('span.product_price');
-        const productOldPrice = document.querySelector('del.old_product_price');
-        const countCart = document.querySelector('.cart-count');
-        const inputPrice = document.querySelector('input.input_price');
-
         const formatPrice = (price)=>{
             return  parseInt(price).toLocaleString('en').replace(/,/g, '.')+'₫' ;
         }
+        const productContainers = document.querySelectorAll('.wsus__pro_details_text');
+        console.log(productContainers)
 
-        if (inputPrice) {
-            const inputValuePrice = document.querySelector('.input_price').value;
-            const [currentPrice, oldPrice] = inputValuePrice.split(" ");
-            if (variantSelects.length > 0) {
-                let variantItemPrices = Array.from({ length: variantSelects.length }, () => 0);
+        if (productContainers.length){
+            productContainers.forEach(productContainer=>{
+                const variantSelect = productContainer.querySelector('.attribute');
+                const productPrice = productContainer.querySelector('span.product_price');
+                const productOldPrice = productContainer.querySelector('del.old_product_price');
+                const inputPrice = productContainer.querySelector('.input_price');
 
-                variantSelects.forEach((variantSelect, index) => {
-                    $(variantSelect).on('select2:select', (e) => {
-                        variantItemPrices[index] = parseInt(e.params.data.title);
 
-                        let totalVariantItemPrice = variantItemPrices.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
-                        productPrice.innerText = (totalVariantItemPrice + parseInt(currentPrice)).toLocaleString('en').replace(/,/g, '.') + '₫';
-                        productOldPrice.innerText = (totalVariantItemPrice + parseInt(oldPrice)).toLocaleString('en').replace(/,/g, '.') + '₫';
-                    });
+                $(variantSelect).on('select2:select', (e) => {
+                    const inputValuePrice = inputPrice.value;
+                    const [currentPrice, oldPrice] = inputValuePrice.split(' ');
+                    const variantItemPrice = parseInt(e.params.data.title);
+                    const totalVariantItemPrice = variantItemPrice + parseInt(currentPrice);
+
+                    if (productOldPrice) {
+                        const totalVariantOldPrice = variantItemPrice + parseInt(oldPrice);
+                        productOldPrice.innerText = formatPrice(totalVariantOldPrice);
+                        productPrice.innerText = formatPrice(totalVariantItemPrice);
+                    }else{
+                        productPrice.innerText = formatPrice(totalVariantItemPrice);
+                    }
                 });
-            }
+            })
         }
-
 
         // Show Products in Sidebar
         const sidebarProducts = document.querySelector('.mini-cart-wrapper');
@@ -47,7 +49,7 @@
                                             <a href="{{url('product-detail')}}/${item.options.slug}.html"><img src="{{asset('/')}}${item.options.image}" alt="product" class="img-fluid w-100"></a>
                                             <form class="form-delete-item"  action="{{url('cart/remove-sidebar-product')}}" method="POST">
                                                   @csrf
-                            <button class="remove-item wsis__del_icon" data-rowid="${item.rowId}" type="button">&times;</button>
+                                            <button class="remove-item wsis__del_icon" data-rowid="${item.rowId}" type="button">&times;</button>
                                             </form>
                                         </div>
                                         <div class="wsus__cart_text">
@@ -146,16 +148,22 @@
             })
         }
 
-        const cartForm = document.querySelector('.shopping-cart-form');
-        const buyNowButton = document.querySelector('.buy_now');
+        //Buy a new product
+        const buyNowButtons = document.querySelectorAll('.buy_now');
+        if(buyNowButtons.length){
+            buyNowButtons.forEach((buyNowButton) =>{
+                buyNowButton.addEventListener('click', function (e) {
+                    let buyNowRoute = buyNowButton.getAttribute('data-buy-product-route');
+                    const cartForm = e.target.closest('.shopping-cart-form');
+                    cartForm.action = buyNowRoute;
+                    cartForm.method = 'get';
+                    cartForm.submit();
+                });
+            })
+        }
 
-        buyNowButton.addEventListener('click', function () {
-            let buyNowRoute = buyNowButton.getAttribute('data-buy-product-route');
-            console.log(cartForm)
-            cartForm.action = buyNowRoute;
-            cartForm.method = 'get';
-            cartForm.submit();
-        });
+
+
 
         // Remove product from sidebar
         const miniCartWrapper = document.querySelector('.mini-cart-wrapper');
@@ -212,8 +220,6 @@
                     let productId = e.currentTarget.dataset.id;
                     let route = e.currentTarget.dataset.route;
                     const response = await fetch(route);
-                    // const response = await fetch(`/user/wishlist/add-product/${productId}`);
-                    console.log(response)
                     if(response.url === 'http://ecommerce.test/login'){
                         return toastr.error('Bạn phải đăng nhập trước để có thể thêm sản phẩm vào yêu thích! <a href="/login" style="color: yellow; text-decoration: underline">Đăng nhập !</a>');
                     }

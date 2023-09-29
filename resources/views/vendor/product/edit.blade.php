@@ -44,7 +44,7 @@
                                         <div class="form-group mb-3">
                                                 <label for="">Category</label>
                                                 <select class="form-control category" name="category" style="font-size: 14px">
-                                                    <option value="" >Select</option>
+                                                    <option value="0" >Select</option>
                                                     @foreach($categories as $category)
                                                         <option value="{{$category->id}}" {{ $product->category_id == $category->id ? 'selected' : '' }}>{{$category->name}}</option>
                                                     @endforeach
@@ -58,7 +58,7 @@
                                         <div class="form-group mb-3">
                                                 <label for="">Sub Category</label>
                                                 <select class="form-control sub_category" name="sub_category" style="font-size: 14px">
-                                                    <option value="" >Select</option>
+                                                    <option value="0" >Select</option>
                                                     @foreach($subCategories as $subCategory)
                                                         <option value="{{$subCategory->id}}" {{$subCategory->id == $product->subCategory->id ? 'selected':''}}>{{$subCategory->name}}</option>
                                                     @endforeach
@@ -72,7 +72,7 @@
                                         <div class="form-group mb-3">
                                                 <label for="">Child Category</label>
                                                 <select class="form-control child_category" name="child_category" style="font-size: 14px">
-                                                    <option value="">Select</option>
+                                                    <option value="0">Select</option>
                                                     @foreach($childCategories as $childCategory)
                                                         <option value="{{$childCategory->id}}" {{$childCategory->id == $product->child_category_id ? 'selected' : ''}} >{{$childCategory->name}}</option>
                                                     @endforeach

@@ -92,7 +92,7 @@
                                         <div class="wsus__con_form_single">
                                             <textarea cols="3" rows="5" placeholder="Message" name="message"></textarea>
                                         </div>
-                                        <button type="submit" class="common_btn">send now</button>
+                                        <button type="submit" class="common_btn">gửi</button>
                                     </div>
                                 </div>
                             </form>
@@ -100,9 +100,7 @@
                     </div>
                     <div class="col-xl-12">
                         <div class="wsus__con_map">
-                            <iframe
-                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3650.1435090089785!2d90.42196781465853!3d23.81349539228068!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755c62fb95f16c1%3A0xb333248370356dee!2sJamuna%20Future%20Park!5e0!3m2!1sen!2sbd!4v1639724859199!5m2!1sen!2sbd"
-                                width="1600" height="450" style="border:0;" allowfullscreen="100"
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3542.26384404306!2d105.85147373450859!3d21.028455691612432!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135ab9bd9861ca1%3A0xe7887f7b72ca17a9!2zSMOgIE7hu5lpLCBWaeG7h3QgTmFt!5e0!3m2!1svi!2s!4v1695438337008!5m2!1svi!2s" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>                                width="1600" height="450" style="border:0;" allowfullscreen="100"
                                 loading="lazy"></iframe>
                         </div>
                     </div>

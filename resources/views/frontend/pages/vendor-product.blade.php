@@ -119,7 +119,6 @@
                                                     <li><a href="#" data-bs-toggle="modal" data-bs-target="#product-{{$product->id}}"><i
                                                                 class="far fa-eye"></i></a></li>
                                                     <li><a href="#" class="add_to_wishlist" data-route="{{ route('user.wishlist.store', ['productId' => $product->id]) }}"><i class="fal fa-heart add_to_wishlist"></i></a></li>
-                                                    {{--                                                    <li><a href="#"><i class="far fa-random"></i></a>--}}
                                                 </ul>
                                                 <div class="wsus__product_details">
                                                     <a class="wsus__category" href="#">{{$product->category->name}} </a>
@@ -217,13 +216,11 @@
                                                                     </select>
                                                                 @endforeach
                                                                 <input class=" quantity" type="hidden" min="1" max="100" value="1" name="qty" />
-                                                                <button style="border: 1px solid #08c; border-radius: 3px; background: #fff; color: #08c" type="button" class="add_cart" >add to cart</button>
+                                                                <button style="border: 1px solid #08c; border-radius: 3px; background: #fff; color: #08c" type="button" class="add_cart" >Thêm vào giỏ</button>
                                                             </form>
                                                         </li>
 
                                                         <li><a href="#" class="add_to_wishlist" data-route="{{ route('user.wishlist.store', ['productId' => $product->id]) }}"><i class="fal fa-heart add_to_wishlist"></i></a></li>
-
-                                                        {{--                                                    <li><a href="#"><i class="far fa-random"></i></a>--}}
                                                     </ul>
                                                 </div>
                                             </div>
@@ -296,7 +293,7 @@
                                             <input type="hidden" class="input_price" value="{{$product->offer_price}} {{$product->price}}">
                                         @else
                                             <h4><span class="product_price">{{format($product->price) }}</span> </h4>
-                                            <input type="hidden" name="input_price" value="{{$product->price}}">
+                                            <input type="hidden" class="input_price" value="{{$product->price}}">
                                         @endif
                                         <p class="review">
                                             @php

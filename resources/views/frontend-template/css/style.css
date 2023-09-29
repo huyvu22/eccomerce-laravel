@@ -5398,7 +5398,7 @@ WISHLIST PAGE START
 
 .wsus__login .social_text {
   text-align: center;
-  text-transform: capitalize;
+  /*text-transform: capitalize;*/
   margin: 20px 0px 15px 0px;
 }
 
