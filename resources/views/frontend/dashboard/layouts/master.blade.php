@@ -4,12 +4,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
-          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, target-densityDpi=device-dpi" />
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, target-densityDpi=device-dpi"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+        rel="stylesheet">
     <title>
         @yield('title')
     </title>
-    <link rel="icon" type="image/png" href="{{asset('frontend/images/favicon.png')}}">
+    <link rel="icon" type="image/png" href="{{asset('uploads/logo.png')}}">
     <link rel="stylesheet" href="{{asset('frontend/css/all.min.css')}}">
     <link rel="stylesheet" href="{{asset('frontend/css/bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{asset('frontend/css/select2.min.css')}}">
@@ -28,6 +32,7 @@
 
     <link rel="stylesheet" href="{{asset('frontend/css/style.css')}}">
     <link rel="stylesheet" href="{{asset('frontend/css/responsive.css')}}">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
     <!-- <link rel="stylesheet" href="css/rtl.css"> -->
 </head>
 
@@ -68,6 +73,10 @@
 ==============================-->
 
 
+<script src="{{asset('frontend/js/main.js')}}"></script>
+<!--Ajax JS-->
+@include('frontend.layouts.scripts')
+
 <!--jquery library js-->
 <script src="{{asset('frontend/js/jquery-3.6.0.min.js')}}"></script>
 <!--bootstrap js-->
@@ -106,17 +115,17 @@
 <!--toastr js-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
-<!--main/custom js-->
-<script src="{{asset('frontend/js/script.js')}}"></script>
-
-<script src="{{asset('frontend/js/main.js')}}"></script>
-
-
 <script>
-    @if($errors->any())
-    toastr.error('Please check some errors below')
-    @endif
+    $('.close_icon').on('click', function () {
+        $('.dashboard_sidebar').toggleClass('show_dash_menu');
+    });
+
+    $('.close_icon').on('click', function () {
+        $('.dash_close').toggleClass('dash_opasity');
+    });
 </script>
+
+@stack('scripts')
 </body>
 
 </html>

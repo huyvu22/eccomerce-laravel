@@ -1,6 +1,6 @@
 @extends('frontend.layouts.master')
 @section('title')
-    Shop Now
+    Shop Now | Blog
 @endsection
 @section('content')
     <!--============================

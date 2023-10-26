@@ -31,11 +31,14 @@
                 <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-gift"></i> <span>Manage Product</span></a>
                 <ul class="dropdown-menu">
                     @can('brand.view')
-                    <li class="{{setActive(['admin.brand.*'])}}"><a class="nav-link" href="{{route('admin.brand.index')}}">Brands</a></li>
+                        <li class="{{setActive(['admin.brand.*'])}}"><a class="nav-link" href="{{route('admin.brand.index')}}">Brands</a></li>
                     @endcan
-                    <li class="{{setActive(['admin.products.*','admin.products-image-gallery.*','admin.products-variant.*','admin.products-variant-item.*'])}}"><a class="nav-link" href="{{route('admin.products.index')}}">Products</a></li>
+                    <li class="{{setActive(['admin.products.*','admin.products-image-gallery.*','admin.products-variant.*','admin.products-variant-item.*'])}}"><a class="nav-link"
+                                                                                                                                                                   href="{{route('admin.products.index')}}">Products</a>
+                    </li>
                     <li class="{{setActive(['admin.seller-products.*'])}}"><a class="nav-link" href="{{route('admin.seller-products.index')}}">Seller Products</a></li>
-                    <li class="{{setActive(['admin.seller-pending-products'])}}"><a class="nav-link" href="{{route('admin.seller-pending-products.index')}}">Seller Pending Products</a></li>
+                    <li class="{{setActive(['admin.seller-pending-products.*'])}}"><a class="nav-link" href="{{route('admin.seller-pending-products.index')}}">Seller Pending
+                            Products</a></li>
                     <li class="{{setActive(['admin.review.*'])}}"><a class="nav-link" href="{{route('admin.review.index')}}">Product Reviews</a></li>
                 </ul>
             </li>
@@ -63,10 +66,11 @@
                 </ul>
             </li>
 
-            <li class="{{setActive(['admin.transaction.*'])}}"><a class="nav-link" href="{{route('admin.transaction.index')}}"><i class="fas fa-money-bill"></i> Transactions</a></li>
+            <li class="{{setActive(['admin.transaction.*'])}}"><a class="nav-link" href="{{route('admin.transaction.index')}}"><i class="fas fa-money-bill"></i> Transactions</a>
+            </li>
 
 
-            <li class="dropdown {{setActive(['admin.vendor-profile.*','admin.flash-sale.*','admin.coupon.*','admin.shipping-rule.*','admin.payment-settings.*'])}}">
+            <li class="dropdown {{setActive(['ad-profile.*','admin.flash-sale.*','admin.coupon.*','admin.shipping-rule.*','admin.payment-settings.*'])}}">
                 <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-shopping-bag"></i> <span>Ecommerce</span></a>
                 <ul class="dropdown-menu">
                     <li class="{{setActive(['admin.vendor-profile.*'])}}"><a class="nav-link" href="{{route('admin.vendor-profile.index')}}">Vendor Profile</a></li>
@@ -126,18 +130,19 @@
             <li class="{{setActive(['admin.subscriber.*'])}}"><a class="nav-link" href="{{route('admin.subscriber.index')}}"><i class="fas fa-user"></i> Subscribers</a></li>
             <li class="{{setActive(['admin.setting.*'])}}"><a class="nav-link" href="{{route('admin.setting.index')}}"><i class="fas fa-cog"></i> Settings</a></li>
 
-{{--            @can('groups')--}}
-                <li class="menu-header">Role & Permission</li>
+            {{--            @can('groups')--}}
+            <li class="menu-header">Role & Permission</li>
 
-                <li class="dropdown {{setActive(['admin.permission*','admin.role.*','admin.modules.*','admin.add-role-permission','admin.update-role-permission'])}}">
-                    <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-box"></i> <span>Role & Permission</span></a>
-                    <ul class="dropdown-menu">
-                        <li class="{{setActive(['admin.modules.*'])}}"><a class="nav-link" href="{{route('admin.modules.index')}}">Modules Permission</a></li>
-                        <li class="{{setActive(['admin.permission.*'])}}"><a class="nav-link" href="{{route('admin.permission.index')}}">Permissions</a></li>
-                        <li class="{{setActive(['admin.role.*','admin.add-role-permission','admin.update-role-permission'])}}"><a class="nav-link" href="{{route('admin.role.index')}}">User Roles and Permission</a></li>
-                    </ul>
-                </li>
-{{--            @endcan--}}
+            <li class="dropdown {{setActive(['admin.permission*','admin.role.*','admin.modules.*','admin.add-role-permission','admin.update-role-permission'])}}">
+                <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-box"></i> <span>Role & Permission</span></a>
+                <ul class="dropdown-menu">
+                    <li class="{{setActive(['admin.modules.*'])}}"><a class="nav-link" href="{{route('admin.modules.index')}}">Modules Permission</a></li>
+                    <li class="{{setActive(['admin.permission.*'])}}"><a class="nav-link" href="{{route('admin.permission.index')}}">Permissions</a></li>
+                    <li class="{{setActive(['admin.role.*','admin.add-role-permission','admin.update-role-permission'])}}"><a class="nav-link" href="{{route('admin.role.index')}}">User
+                            Roles and Permission</a></li>
+                </ul>
+            </li>
+            {{--            @endcan--}}
 
         </ul>
 

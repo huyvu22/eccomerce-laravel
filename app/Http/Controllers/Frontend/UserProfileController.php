@@ -3,10 +3,11 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use File;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class UserProfileController extends Controller
 {
@@ -18,11 +19,24 @@ class UserProfileController extends Controller
     public function updateProfile(Request $request)
     {
         $user= Auth::user();
-        $request->validate([
-            'name'=>'required',
-            'email' =>'required|email|unique:users,email,' .$user->id,
-            'image' =>'image|max:2048'
-        ]);
+        $request->validate(
+            [
+                'name'=>'required',
+                'email' =>'required|email|unique:users,email,' .$user->id,
+                'image' =>'image|max:2048'
+            ],
+            [
+                'required' =>':attribute bắt buộc phải nhập',
+                'email' =>':attribute không đúng định dạng',
+                'image' => ':attribute phải là ảnh',
+                'unique' => ':attribute đã tồn tại',
+            ],
+            [
+                'name' => 'Tên',
+                'email' => 'Email',
+                'image' => 'Ảnh',
+            ]
+        );
 
         //upload image to public/uploads
         if($request->hasFile('image')){
@@ -42,22 +56,38 @@ class UserProfileController extends Controller
         $user->name=$request->name;
         $user->email=$request->email;
         $user->save();
-        toastr()->success('Profile updated successfully');
+        toastr()->success('Cập nhật thành công');
         return redirect()->back();
     }
 
     public function updatePassword(Request $request)
     {
-        $request->validate([
-            'current_password'=>'required|current_password',
-            'password'=>'required|min:8',
-            'confirm_password'=>'required|same:password',
-        ]);
+        $request->validate(
+            [
+                'current_password'=>'required|current_password',
+                'password'=>'required|min:8',
+                'confirm_password'=>'required|same:password',
+            ],
+            [
+                'required' =>':attribute bắt buộc phải nhập',
+                'email' =>':attribute không đúng định dạng',
+                'confirmed' => ':attribute mới không khớp',
+                'min' => ':attribute phải có 8 ký tự',
+                'same' => ':attribute không khớp',
+                'current_password' => ':attribute không đúng',
+            ],
+            [
+                'current_password' => 'Mật khẩu cũ',
+                'password' => 'Mật khẩu mới',
+                'confirm_password' => 'Nhập lại mật khẩu',
+            ]
+        );
 
         $request->user()->update([
-            'password'=>Hash::make($request->password)
+            'password'=>Hash::make($request->password),
+            'remember_token' => Str::random(60),
         ]);
-        toastr()->success('Password updated successfully');
+        toastr()->success('Mật khẩu cập nhật thành công');
 
         return redirect()->back();
     }

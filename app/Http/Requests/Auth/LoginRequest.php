@@ -37,6 +37,24 @@ class LoginRequest extends FormRequest
      *
      * @throws \Illuminate\Validation\ValidationException
      */
+
+    public function messages(): array
+    {
+        return[
+            'required' =>':attribute bắt buộc phải nhập',
+            'email' =>':attribute không đúng định dạng',
+        ];
+    }
+
+    public function attributes(): array
+    {
+        return [
+            'email' => 'Email',
+            'password' => 'Mật khẩu',
+
+        ];
+    }
+
     public function authenticate(): void
     {
         $this->ensureIsNotRateLimited();

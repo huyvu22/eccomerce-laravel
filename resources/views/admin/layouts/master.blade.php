@@ -28,7 +28,11 @@
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-94034622-3"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
         gtag('js', new Date());
 
         gtag('config', 'UA-94034622-3');
@@ -55,7 +59,9 @@
         </div>
         <footer class="main-footer">
             <div class="footer-left">
-                Copyright &copy; 2023 <div class="bullet"></div> Design By <a href="https://nauval.in/">Vu Duc Huy</a>
+                Copyright &copy; 2023
+                <div class="bullet"></div>
+                Design By <a href="https://nauval.in/">Vu Duc Huy</a>
             </div>
             <div class="footer-right">
 
@@ -84,13 +90,12 @@
 <script src="{{asset('backend/assets/modules/chocolat/dist/js/jquery.chocolat.min.js')}}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
-<script  src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script src="{{asset('backend/assets/js/bootstrap-iconpicker.bundle.min.js')}}"></script>
 <script src="{{asset('backend/assets/modules/bootstrap-daterangepicker/daterangepicker.js')}}"></script>
 <script src="{{asset('backend/assets/modules/select2/dist/js/select2.full.min.js')}}"></script>
-
 
 
 <!-- Page Specific JS File -->
@@ -99,16 +104,6 @@
 <!-- Template JS File -->
 <script src="{{asset('backend/assets/js/scripts.js')}}"></script>
 <script src="{{asset('backend/assets/js/custom.js')}}"></script>
-
-
-{{--<script>--}}
-{{--    @if($errors->any())--}}
-{{--    // toastr.error('Please check some errors below')--}}
-{{--    @foreach($errors->all() as $error)--}}
-{{--    toastr.error('{{ $error }}');--}}
-{{--    @endforeach--}}
-{{--    @endif--}}
-{{--</script>--}}
 
 
 @stack('scripts')

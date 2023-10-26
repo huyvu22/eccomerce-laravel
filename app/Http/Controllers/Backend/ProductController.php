@@ -32,6 +32,7 @@ class ProductController extends Controller
      */
     public function create()
     {
+        $this->authorize('product.add',Product::class);
         $categories = Category::where('status',1)->get();
         $brands = Brand::where('status',1)->get();
         return view('admin.product.create', compact('categories','brands'));
@@ -110,6 +111,7 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
+        $this->authorize('product.edit',$product);
         $categories = Category::where('status',1)->get();
         $subCategories = SubCategory::where('category_id',$product->category_id)->get();
         $childCategories = ChildCategory::where('sub_category_id',$product->sub_category_id)->get();
@@ -122,6 +124,7 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
+        $this->authorize('product.edit',$product);
 
         if (!$request->has('switch_status')) {
             $request->validate([
@@ -188,6 +191,7 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
+        $this->authorize('product.delete',$product);
         $galleryImages = ProductImageGallery::where('product_id', $product->id)->get();
 
         if(OrderProduct::where('product_id', $product->id)->count() > 0){

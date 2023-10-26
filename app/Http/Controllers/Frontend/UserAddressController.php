@@ -35,7 +35,8 @@ class UserAddressController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
+        $request->validate(
+            [
             'name' => 'required|max:200',
             'email' => 'nullable|email',
             'phone' => 'required',
@@ -44,7 +45,21 @@ class UserAddressController extends Controller
             'ward' => 'required',
             'address' => 'required',
             'note' => 'nullable'
-        ]);
+            ],
+            [
+                'required' => ':attribute bắt buộc phải nhập',
+            ],
+            [
+                'name' => 'Tên',
+                'email' => 'Email',
+                'phone' => 'Số điện thoại',
+                'province' => 'Tỉnh, thành phố',
+                'district' => 'Quận, huyện',
+                'ward' => 'Xã, Phường',
+                'address' => 'Địa chỉ',
+                'note' => 'Ghi chú'
+            ],
+        );
 
         $userAddress = new UserAddress();
         $userAddress->user_id = \Auth::user()->id;
@@ -57,7 +72,7 @@ class UserAddressController extends Controller
         $userAddress->address = $request->address;
         $userAddress->note = $request->note;
         $userAddress->save();
-        toastr()->success('Created address successfully');
+        toastr()->success('Thêm địa chỉ thành công');
         return \redirect()->route('user.address.index');
     }
 
@@ -108,7 +123,7 @@ class UserAddressController extends Controller
         $address->address = $request->address;
         $address->note = $request->note;
         $address->save();
-        \toastr()->success('Updated successfully');
+        \toastr()->success('Cập nhật thành công');
         return \redirect()->route('user.address.index');
     }
 
@@ -118,7 +133,7 @@ class UserAddressController extends Controller
     public function destroy(UserAddress $address,)
     {
         $address->delete();
-        \toastr()->success('Deleted successfully');
+        \toastr()->success('Xóa thành công');
         return \redirect()->back();
     }
 

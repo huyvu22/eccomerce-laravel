@@ -22,7 +22,7 @@
                                     <h3>headphones</h3>
                                     <h5>up to 20% off</h5>
                                     <p>Spring's collection has discounted now!</p>
-                                    <a class="shop_btn" href="{{$homepageBannerSection4->banner_url}}">shop now</a>
+                                    <a class="shop_btn" href="{{$homepageBannerSection4->banner_url}}">Mua ngay</a>
                                 </div>
                             </div>
                         </div>

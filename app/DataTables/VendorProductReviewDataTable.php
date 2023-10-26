@@ -8,8 +8,6 @@ use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
-use Yajra\DataTables\Html\Editor\Editor;
-use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
 class VendorProductReviewDataTable extends DataTable
@@ -22,19 +20,23 @@ class VendorProductReviewDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-            ->addColumn('product', function($query){
+            ->addColumn('Sản phẩm', function($query){
                 return '<a href="'.route('product-detail',$query->product->slug).'">'.$query->product->name.'</a>';
             })
+            ->addColumn('Stt', function ($query) use (&$count) {
+                $count++;
+                return $count;
+             })
             ->addColumn('rating', function($query){
                 return $query->rating.' <span style="font-size: 12px; color: orange;" class="fas fa-star"></i></span>';
             })
-            ->addColumn('username', function($query){
+            ->addColumn('Khách hàng', function($query){
                 return $query->user->name;
             })
-            ->addColumn('status',function ($query){
+            ->addColumn('Trạng thái',function ($query){
                 return $query->status ==1 ?'<i class="badge bg-success">approved</i>' :'<i class="badge bg-danger">Pending</i>';
             })
-            ->rawColumns(['rating', 'product','status'])
+            ->rawColumns(['rating', 'Sản phẩm','Trạng thái'])
             ->setRowId('id');
     }
 
@@ -75,16 +77,11 @@ class VendorProductReviewDataTable extends DataTable
     {
         return [
             Column::make('id'),
-            Column::make('product'),
+            Column::make('Sản phẩm'),
             Column::make('rating'),
             Column::make('review'),
-            Column::make('username'),
-            Column::make('status'),
-//            Column::computed('action')
-//                  ->exportable(false)
-//                  ->printable(false)
-//                  ->width(60)
-//                  ->addClass('text-center'),
+            Column::make('Khách hàng'),
+            Column::make('Trạng thái'),
         ];
     }
 

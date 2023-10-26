@@ -24,29 +24,29 @@
                                         <div class="row">
                                             <div class="col-xl-4 col-md-4 mb-5 mb-md-0">
                                                 <div class="wsus__invoice_single">
-                                                    <h5>Billing Information</h5>
-                                                    <h6>Name: {{$address->name}}</h6>
+                                                    <h5>Thông tin hóa đơn</h5>
+                                                    <h6>Tên: {{$address->name}}</h6>
                                                     <p>Email: {{$address->email}}</p>
-                                                    <p>Phone: {{$address->phone}}</p>
-                                                    <p>Address: {{$address->address}}, {{$address->ward}}, {{$address->district}}, {{$address->province}}</p>
+                                                    <p>Số đt: {{$address->phone}}</p>
+                                                    <p>Địa chỉ: {{$address->address}}, {{$address->ward}}, {{$address->district}}, {{$address->province}}</p>
                                                 </div>
                                             </div>
                                             <div class="col-xl-4 col-md-4 mb-5 mb-md-0">
                                                 <div class="wsus__invoice_single text-md-center">
-                                                    <h5>shipping information</h5>
-                                                    <h6>Name: {{$address->name}}</h6>
+                                                    <h5>Thông tin nhận hàng</h5>
+                                                    <h6>Tên: {{$address->name}}</h6>
                                                     <p>Email: {{$address->email}}</p>
-                                                    <p>Phone: {{$address->phone}}</p>
-                                                    <p>Address: {{$address->address}}, {{$address->ward}}, {{$address->district}}, {{$address->province}}</p>
+                                                    <p>Số đt: {{$address->phone}}</p>
+                                                    <p>Địa chỉ: {{$address->address}}, {{$address->ward}}, {{$address->district}}, {{$address->province}}</p>
                                                 </div>
                                             </div>
                                             <div class="col-xl-4 col-md-4">
                                                 <div class="wsus__invoice_single text-md-end">
-                                                    <h5>Order id: #{{$order->invoice_id}}</h5>
-                                                    <h6>Order ststus: {{config('order_status.order_status_admin')[$order->order_status]['status']}}</h6>
-                                                    <p>Payment status: {{$order->payment_status}}</p>
-                                                    <p>Payment Method: {{$order->payment_method}}</p>
-                                                    <p>Transaction id: {{$order->transaction->transaction_id}}</p>
+                                                    <h5>Mã đơn hàng: #{{$order->invoice_id}}</h5>
+                                                    <h6>Trạng thái đơn hàng: {{config('order_status.order_status_admin')[$order->order_status]['status']}}</h6>
+                                                    <p>Trạng thái thanh toán: {{$order->payment_status}}</p>
+                                                    <p>Phương thức thanh toán: {{$order->payment_method}}</p>
+                                                    <p>Mã giao dịch: {{$order->transaction->transaction_id}}</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -56,26 +56,26 @@
                                             <table class="table">
                                                 <tr>
                                                     <th class="name">
-                                                        product
+                                                        Sản phẩm
                                                     </th>
                                                     <th class="amount">
-                                                        vendor
+                                                        Gian hàng
                                                     </th>
 
                                                     <th class="amount">
-                                                        amount
+                                                        Đơn giá
                                                     </th>
 
                                                     <th class="quentity">
-                                                        quentity
+                                                        Số lượng
                                                     </th>
                                                     <th class="total">
-                                                        total
+                                                        Thành tiền
                                                     </th>
                                                 </tr>
                                                 @foreach($order->orderProducts as $product)
 
-                                                @if($product->vendor_id == Auth::user()->vendor->id)
+                                                    @if($product->vendor_id == Auth::user()->vendor->id)
                                                         @php
                                                             $variants = json_decode($product->variants);
                                                             $total = 0;
@@ -94,30 +94,30 @@
                                                             </td>
 
                                                             <td class="amount">
-                                                                {{$product->unit_price}}
+                                                                {{format($product->unit_price)}}
                                                             </td>
 
                                                             <td class="quentity">
                                                                 {{$product->quantity}}
                                                             </td>
                                                             <td class="total">
-                                                                {{($product->unit_price * $product->quantity) + $product->variant_total}}
+                                                                {{format(($product->unit_price * $product->quantity) + $product->variant_total)}}
                                                             </td>
                                                         </tr>
-                                                @endif
+                                                    @endif
 
                                                 @endforeach
                                             </table>
                                         </div>
                                         <div class="wsus__invoice_footer">
-                                            <p><span>Total Amount:</span>{{ $total}} </p>
+                                            <p><span>Thành tiền:</span>{{ format($total)}} </p>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-5">
                                         <div class="form-group">
-                                            <label for="">Order Status</label>
+                                            <label for="">Trạng thái đơn hàng</label>
                                             <select name="order_status" data-id="{{$order->id}}" class="form-control order_status">
                                                 @foreach(config('order_status.order_status_vendor') as $key=>$orderStatus)
                                                     <option {{$order->order_status == $key ? 'selected' : ''}} value="{{$key}}">{{$orderStatus['status']}}</option>
@@ -126,7 +126,7 @@
                                         </div>
                                     </div>
                                     <div class="mt-4">
-                                        <button class="btn btn-warning btn-icon icon-left print_invoice"><i class="fas fa-print"></i> Print</button>
+                                        <button class="btn btn-warning btn-icon icon-left print_invoice"><i class="fas fa-print"></i> In</button>
                                     </div>
                                 </div>
 

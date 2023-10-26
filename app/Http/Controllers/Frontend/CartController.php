@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\FrontEnd;
+namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Advertisement;
@@ -19,7 +19,7 @@ class CartController extends Controller
     {
         $cartItems = Cart::content();
         if ($cartItems->count() === 0) {
-            toastr()->warning('Cart is empty! Shopping now');
+            toastr()->warning('Giỏ hàng trống');
             Session::forget('coupon');
             return redirect()->route('home');
         }
@@ -35,12 +35,12 @@ class CartController extends Controller
         if($product->quantity === 0){
             return response([
                 'status' =>'error',
-                'message' =>'Product stock out'
+                'message' =>'Hết hàng'
             ]);
         }else if($product->quantity < $request->qty){
             return response([
                 'status' =>'error',
-                'message' =>'Quantity not available in our stock'
+                'message' =>'Số lượng sản phẩm trong kho không đủ, vui lòng chọn lại'
             ]);
         }
         $variants = [];
@@ -77,7 +77,7 @@ class CartController extends Controller
 
         return response([
             'status' => 'success',
-            'message' => 'Added product successfully'
+            'message' => 'Thêm vào giỏ thành công '
         ]);
 
     }
@@ -92,12 +92,12 @@ class CartController extends Controller
         if($product->quantity === 0){
             return response([
                 'status' =>'error',
-                'message' =>'Product stock out'
+                'message' =>'Hết hàng'
             ]);
         }else if($product->quantity < $request->quantity){
             return response([
                 'status' =>'error',
-                'message' =>'Quantity not available in our stock'
+                'message' =>'Số lượng sản phẩm trong kho không đủ'
             ]);
         }
 
@@ -106,7 +106,7 @@ class CartController extends Controller
 
         return response([
             'status' => 'success',
-            'message' => 'Product quantity updated successfully',
+            'message' => 'Cập nhật số lượng sản phẩm thành công',
             'product_total' => $productTotal,
         ]);
     }
@@ -127,7 +127,7 @@ class CartController extends Controller
     public function removeItem($rowId)
     {
         Cart::remove($rowId);
-        toastr()->success('Product removed successfully');
+        toastr()->success('Xóa sản phẩm thành công');
         return redirect()->route('cart-detail');
     }
 
@@ -137,7 +137,7 @@ class CartController extends Controller
 
         return response()->json([
             'count' => $cartCount,
-            'message' => 'Cart count fetched successfully.',
+            'message' => 'Thành công',
         ]);
     }
 
@@ -146,7 +146,7 @@ class CartController extends Controller
         $cartProducts =  Cart::content();
         return response()->json([
             'cartProducts' => $cartProducts,
-            'message' => 'Cart products fetched successfully.',
+            'message' => 'Thành công',
         ]);
     }
 
@@ -156,7 +156,7 @@ class CartController extends Controller
         $cartCount = Cart::content()->count();
         return response()->json([
             'status' => 'success',
-            'message' => ' Products removed successfully.',
+            'message' => 'Xóa sản phẩm thành công',
             'count' => $cartCount,
         ]);
     }
@@ -175,7 +175,7 @@ class CartController extends Controller
         if($request->coupon_code == null){
             return response()->json([
                 'status' => 'error',
-                'message' => 'Coupon not empty',
+                'message' => 'Coupon không được để trống',
             ]);
         }
 
@@ -183,20 +183,20 @@ class CartController extends Controller
        if($coupon == null){
            return response()->json([
                'status' => 'error',
-               'message' => 'Coupon not exist',
+               'message' => 'Coupon không tồn tại',
            ]);
        }
         if(Carbon::now() < $coupon->start_date || Carbon::now() > $coupon->end_date ){
             return response()->json([
                 'status' => 'error',
-                'message' => 'Coupon expired',
+                'message' => 'Coupon hết hạn',
             ]);
         }
 
         if($coupon->quantity <= $coupon->total_used) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Coupon has been used up',
+                'message' => 'Coupon đã được sử dụng hết',
             ]);
         }
 
@@ -217,7 +217,7 @@ class CartController extends Controller
         }
         return response()->json([
                 'status' => 'success',
-                'message' => 'Apply coupon successfully',
+                'message' => 'Áp dụng coupon thành công',
         ]);
 
     }

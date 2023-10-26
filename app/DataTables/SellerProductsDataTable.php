@@ -3,6 +3,7 @@
 namespace App\DataTables;
 
 use App\Models\Product;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
@@ -97,7 +98,9 @@ class SellerProductsDataTable extends DataTable
      */
     public function query(Product $model): QueryBuilder
     {
-        return $model::with('vendor')->where('vendor_id','!=',\Auth::user()->vendor->id)
+        //Get vendor id of admin shop, because staff has permission to access vendor's products
+        $admin = User::where('role', 'admin')->first();
+        return $model::with('vendor')->where('vendor_id','!=',$admin->vendor->id)
             ->where('is_approved',1)
             ->newQuery();
     }
@@ -141,7 +144,7 @@ class SellerProductsDataTable extends DataTable
             Column::computed('action')
                 ->exportable(false)
                 ->printable(false)
-                ->width(200)
+                ->width(150)
                 ->addClass('text-center'),
         ];
     }

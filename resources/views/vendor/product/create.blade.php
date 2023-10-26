@@ -19,25 +19,25 @@
                                 <form action="{{route('vendor.products.store')}}" method="post" enctype="multipart/form-data">
                                     @csrf
                                     <div class="form-group mb-3">
-                                        <label for="">Image</label>
+                                        <label for="">Ảnh<b style="color: red">*</b></label>
                                         <input type="file" name="image" class="form-control" value="{{ old('image') }}" style="font-size: 14px">
                                         @if($errors->has('image'))
                                             <span class="text-danger">{{ $errors->first('image') }}</span>
                                         @endif
                                     </div>
                                     <div class="form-group mb-3">
-                                        <label for="">Name</label>
+                                        <label for="">Tên<b style="color: red">*</b></label>
                                         <input type="text" name="name" class="form-control" value="{{old('name')}}" style="font-size: 14px">
-                                    @if($errors->has('name'))
+                                        @if($errors->has('name'))
                                             <span class="text-danger">{{ $errors->first('name') }}</span>
                                         @endif
                                     </div>
                                     <div class="row">
                                         <div class="col-md-4">
                                             <div class="form-group mb-3">
-                                                <label for="">Category</label>
+                                                <label for="">Hạng mục cha<b style="color: red">*</b></label>
                                                 <select class="form-control category" name="category" style="font-size: 14px">
-                                                    <option value="" >Select</option>
+                                                    <option value="">Chọn</option>
                                                     @foreach($categories as $category)
                                                         <option value="{{$category->id}}" {{ old('category') == $category->id ? 'selected' : '' }}>{{$category->name}}</option>
                                                     @endforeach
@@ -49,9 +49,9 @@
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group mb-3">
-                                                <label for="">Sub Category</label>
+                                                <label for="">Hạng mục con<b style="color: red">*</b></label>
                                                 <select class="form-control sub_category" name="sub_category" style="font-size: 14px">
-                                                    <option value="" >Select</option>
+                                                    <option value="">Chọn</option>
                                                 </select>
                                                 @if($errors->has('sub_category'))
                                                     <span class="text-danger">{{ $errors->first('sub_category') }}</span>
@@ -60,9 +60,9 @@
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group mb-3">
-                                                <label for="">Child Category</label>
+                                                <label for="">Hạng mục nhỏ hơn<b style="color: red">*</b></label>
                                                 <select class="form-control child_category" name="child_category" style="font-size: 14px">
-                                                    <option value="">Select</option>
+                                                    <option value="">Chọn</option>
                                                 </select>
                                                 @if($errors->has('child_category'))
                                                     <span class="text-danger">{{ $errors->first('child_category') }}</span>
@@ -72,9 +72,9 @@
                                     </div>
 
                                     <div class="form-group mb-3">
-                                        <label for="">Brand</label>
+                                        <label for="">Thương hiệu<b style="color: red">*</b></label>
                                         <select class="form-control" name="brand" style="font-size: 14px">
-                                            <option value="" >Select</option>
+                                            <option value="">Select</option>
                                             @foreach($brands as $brand)
                                                 <option value="{{$brand->id}}" {{ old('brand') == $brand->id ? 'selected' : '' }} >{{$brand->name}}</option>
                                             @endforeach
@@ -93,7 +93,7 @@
                                     </div>
 
                                     <div class="form-group mb-3">
-                                        <label for="">Price</label>
+                                        <label for="">Giá mặc định<b style="color: red">*</b></label>
                                         <input type="text" name="price" class="form-control" value="{{old('price')}}" style="font-size: 14px">
                                         @if($errors->has('price'))
                                             <span class="text-danger">{{ $errors->first('price') }}</span>
@@ -101,7 +101,7 @@
                                     </div>
 
                                     <div class="form-group mb-3">
-                                        <label for="">Offer Price</label>
+                                        <label for="">Giá đề nghị<b style="color: red">*</b></label>
                                         <input type="text" name="offer_price" class="form-control" value="{{old('offer_price')}}" style="font-size: 14px">
                                         @if($errors->has('offer_price'))
                                             <span class="text-danger">{{ $errors->first('offer_price') }}</span>
@@ -111,8 +111,9 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="form-group mb-3">
-                                                <label for="">Offer Start Date </label>
-                                                <input type="text" name="offer_start_date" class="form-control datepicker" value="{{old('offer_start_date')}}" style="font-size: 14px">
+                                                <label for="">Ngày bắt đầu khuyến mại</label>
+                                                <input type="text" name="offer_start_date" class="form-control datepicker" value="{{old('offer_start_date')}}"
+                                                       style="font-size: 14px">
                                                 @if($errors->has('offer_start_date'))
                                                     <span class="text-danger">{{ $errors->first('offer_start_date') }}</span>
                                                 @endif
@@ -120,7 +121,7 @@
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group mb-3">
-                                                <label for="">Offer End Date</label>
+                                                <label for="">Ngày kết thúc khuyến mại</label>
                                                 <input type="text" name="offer_end_date" class="form-control datepicker" value="{{old('offer_end_date')}}" style="font-size: 14px">
                                                 @if($errors->has('offer_end_date'))
                                                     <span class="text-danger">{{ $errors->first('offer_end_date') }}</span>
@@ -130,7 +131,7 @@
                                     </div>
 
                                     <div class="form-group mb-3">
-                                        <label for="">Stock Quantity</label>
+                                        <label for="">Số lượng trong kho<b style="color: red">*</b></label>
                                         <input type="number" name="stock_quantity" min="0" class="form-control" value="{{old('stock_quantity')}}" style="font-size: 14px">
                                         @if($errors->has('stock_quantity'))
                                             <span class="text-danger">{{ $errors->first('stock_quantity') }}</span>
@@ -146,15 +147,15 @@
                                     </div>
 
                                     <div class="form-group mb-3">
-                                        <label for="">Short Description</label>
-                                        <textarea name="short_description" id="" class="form-control"  style="font-size: 14px">{{ old('short_description') }}</textarea>
+                                        <label for="">Mô tả ngắn<b style="color: red">*</b></label>
+                                        <textarea name="short_description" id="" class="form-control" style="font-size: 14px">{{ old('short_description') }}</textarea>
                                         @if($errors->has('short_description'))
                                             <span class="text-danger">{{ $errors->first('short_description') }}</span>
                                         @endif
                                     </div>
 
                                     <div class="form-group mb-3">
-                                        <label for="">Full Description</label>
+                                        <label for="">Mô tả chi tiết<b style="color: red">*</b></label>
                                         <textarea name="full_description" id="" class="form-control summernote" style="font-size: 14px">{{ old('full_description') }}</textarea>
                                         @if($errors->has('full_description'))
                                             <span class="text-danger">{{ $errors -> first('full_description') }}</span>
@@ -162,7 +163,7 @@
                                     </div>
 
                                     <div class="form-group mb-3">
-                                        <label for="">Product Type</label>
+                                        <label for="">Kiểu sản phẩm<b style="color: red">*</b></label>
                                         <select class="form-control" name="product_type" style="font-size: 14px">
                                             <option value="">Select</option>
                                             <option value="new_arrival" {{ old('product_type') == 'new_arrival' ? 'selected' : '' }}>New Arrival</option>
@@ -186,22 +187,21 @@
 
                                     <div class="form-group mb-3">
                                         <label for="">Seo Description</label>
-                                        <textarea name="seo_description" id="" class="form-control summernote"  style="font-size: 14px">{{ old('seo_description') }}</textarea>
+                                        <textarea name="seo_description" id="" class="form-control summernote" style="font-size: 14px">{{ old('seo_description') }}</textarea>
                                         @if($errors->has('seo_description'))
                                             <span class="text-danger">{{ $errors->first('seo_description') }}</span>
                                         @endif
                                     </div>
 
                                     <div class="form-group mb-3">
-                                        <label for="">Status</label>
+                                        <label for="">Trạng thái<b style="color: red">*</b></label>
                                         <select class="form-control" name="status" style="font-size: 14px">
-                                            <option value="" {{old('status') == '' ? 'selected' : ''}}>Select</option>
-                                            <option value="1" {{old('status') == 1 ? 'selected' : ''}}>Active</option>
-                                            <option value="0" {{old('status') === 0 ? 'selected' : ''}}>Inactive</option>
+                                            <option value="1" {{old('status') == 1 ? 'selected' : ''}}>Kích hoạt</option>
+                                            <option value="0" {{old('status') === 0 ? 'selected' : ''}}>Không kích hoạt</option>
                                         </select>
                                     </div>
 
-                                    <button type="submit" class="btn btn-primary">Create</button>
+                                    <button type="submit" class="btn btn-primary">Tạo</button>
                                 </form>
                             </div>
                         </div>

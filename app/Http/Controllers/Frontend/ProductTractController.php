@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Order;
-use App\Models\Product;
 use Illuminate\Http\Request;
 
 class ProductTractController extends Controller
@@ -20,12 +19,13 @@ class ProductTractController extends Controller
     {
         $request->validate([
             'track_id' => 'required',
-        ]);
+        ],['required' => ':attribute không được để trống'], ['track_id' => 'Mã đơn hàng']);
 
         $order = Order::where('invoice_id', $request->track_id)->first();
 
         if (!$order) {
-            return redirect()->back()->withErrors(['track_id' => 'Order not found']);
+            toastr('Không tìm thấy mã đơn hàng', 'error');
+            return redirect()->back();
         }
 
         // Store the order in the session

@@ -15,7 +15,7 @@
 
 @extends('frontend.layouts.master')
 @section('title')
-    Shop Now - Vendor Product
+    Shop Now | Gian hàng
 @endsection
 @section('content')
 
@@ -216,7 +216,7 @@
                                                                     </select>
                                                                 @endforeach
                                                                 <input class=" quantity" type="hidden" min="1" max="100" value="1" name="qty" />
-                                                                <button style="border: 1px solid #08c; border-radius: 3px; background: #fff; color: #08c" type="button" class="add_cart" >Thêm vào giỏ</button>
+                                                                <button style="border: 1px solid #03a676; border-radius: 3px; background: #fff; color: #03a676" type="button" class="add_cart" >Thêm vào giỏ</button>
                                                             </form>
                                                         </li>
 

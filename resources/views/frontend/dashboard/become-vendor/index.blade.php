@@ -12,9 +12,9 @@
             <div class="row">
                 <div class="col-xl-9 col-xxl-10 col-lg-9 ms-auto">
                     <div class="dashboard_content">
-                        <h3><i class="fal fa-gift-card"></i> Become a Vendor</h3>
+                        <h3><i class="fal fa-gift-card"></i> Trở thành người bán hàng</h3>
                         <div class="wsus__dashboard_add mb-4">
-							{!! $condition->content !!}
+                            {!! $condition->content !!}
                         </div>
                         <div class="wsus__dashboard_add ">
                             <form action="{{route('user.become-vendor.create')}}" method="post" enctype="multipart/form-data">
@@ -26,7 +26,7 @@
                                 <div class="col-xl-6 col-md-6">
                                     <div class="wsus__dash_pro_single">
                                         <i class="fas fa-image" aria-hidden="true"></i>
-                                        <input type="file" name="shop_banner" value="{{old('shop_name')}}" placeholder="Shop Banner" >
+                                        <input type="file" name="shop_banner" value="{{old('shop_name')}}" placeholder="Ảnh bìa">
                                     </div>
                                 </div>
 
@@ -35,7 +35,7 @@
                                 @endif
                                 <div class="wsus__dash_pro_single">
                                     <i class="fas fa-user-tie" aria-hidden="true"></i>
-                                    <input type="text" name="shop_name" value="{{old('shop_name')}}" placeholder="Shop Name">
+                                    <input type="text" name="shop_name" value="{{old('shop_name')}}" placeholder="Tên shop">
                                 </div>
 
 
@@ -43,22 +43,22 @@
                                     @if($errors->has('shop_mail'))
                                         <span class="text-danger">{{ $errors->first('shop_mail') }}</span>
                                     @endif
-                                   <div class="col-xl-6 col-md-6">
-                                       <div class="wsus__dash_pro_single">
-                                           <i class="fal fa-envelope-open" aria-hidden="true"></i>
-                                           <input type="text" name="shop_mail" value="{{old('shop_mail')}}" placeholder="Shop Mail">
-                                       </div>
-                                   </div>
+                                    <div class="col-xl-6 col-md-6">
+                                        <div class="wsus__dash_pro_single">
+                                            <i class="fal fa-envelope-open" aria-hidden="true"></i>
+                                            <input type="text" name="shop_mail" value="{{old('shop_mail')}}" placeholder="Email">
+                                        </div>
+                                    </div>
 
                                     @if($errors->has('shop_phone'))
                                         <span class="text-danger">{{ $errors->first('shop_phone') }}</span>
                                     @endif
-                                   <div class="col-xl-6 col-md-6">
-                                       <div class="wsus__dash_pro_single">
-                                           <i class="fas fa-phone" aria-hidden="true"></i>
-                                           <input type="text" name="shop_phone" value="{{old('shop_phone')}}" placeholder="Shop phone">
-                                       </div>
-                                   </div>
+                                    <div class="col-xl-6 col-md-6">
+                                        <div class="wsus__dash_pro_single">
+                                            <i class="fas fa-phone" aria-hidden="true"></i>
+                                            <input type="text" name="shop_phone" value="{{old('shop_phone')}}" placeholder="Số điện thoại">
+                                        </div>
+                                    </div>
                                 </div>
 
                                 @if($errors->has('shop_address'))
@@ -66,16 +66,16 @@
                                 @endif
                                 <div class="wsus__dash_pro_single">
                                     <i class="fal fa-map-marker-alt" aria-hidden="true"></i>
-                                    <input type="text" name="shop_address" value="{{old('shop_address')}}" placeholder="Shop Address">
+                                    <input type="text" name="shop_address" value="{{old('shop_address')}}" placeholder="Địa chỉ">
                                 </div>
 
                                 @if($errors->has('shop_about'))
                                     <span class="text-danger">{{ $errors->first('shop_about') }}</span>
                                 @endif
                                 <div class="wsus__dash_pro_single">
-                                    <textarea id="" name="shop_about" placeholder="About Your Shop">{{old('shop_about')}}</textarea>
+                                    <textarea id="" name="shop_about" placeholder="Miêu tả">{{old('shop_about')}}</textarea>
                                 </div>
-                                <button class="btn btn-primary" type="submit">Submit</button>
+                                <button class="btn btn-primary" type="submit">Gửi</button>
                             </form>
                         </div>
 

@@ -5,9 +5,6 @@ namespace App\Http\Controllers\Frontend;
 use App\Http\Controllers\Controller;
 use App\Models\Wishlist;
 use Auth;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
-use Symfony\Component\HttpFoundation\Response as ResponseAlias;
 
 class WishlistController extends Controller
 {
@@ -22,7 +19,7 @@ class WishlistController extends Controller
         if (!Auth::check()) {
             return response()->json([
                 'status' => 'not_authorized',
-                'message' => 'Login before adding to wishlist! <a href="'.route('login').'">Login Now !!!</a>'
+                'message' => 'Đăng nhập để thêm sản phẩm vào yêu thích!'
             ], 401);
         }
 
@@ -30,7 +27,7 @@ class WishlistController extends Controller
         if ($wishlist) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Product is already in the wishlist'
+                'message' => 'Sản phẩm đã có trong yêu thích'
             ]);
         }
 
@@ -43,9 +40,10 @@ class WishlistController extends Controller
 
         return response()->json([
             'status' => 'success',
-            'message' => 'Wishlist added successfully',
+            'message' => 'Thêm sản phẩm vào yêu thích',
             'count' => $count
         ]);
+
     }
 
     public function destroy($wishlistItemId)
@@ -58,7 +56,7 @@ class WishlistController extends Controller
 
         $wishlistProduct->delete();
 
-        toastr()->success('Product removed successfully');
+        toastr()->success('Xóa sản phẩm thành công');
         return redirect()->back();
 
     }

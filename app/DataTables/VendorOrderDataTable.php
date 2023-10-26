@@ -23,29 +23,51 @@ class VendorOrderDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-            ->addColumn('action', function ($query){
+            ->addColumn('Hành động', function ($query){
                 return '<a href="'.route('vendor.orders.show', $query).'" class="btn btn-primary mr-1"><i class="fas fa-eye"></i></a>';
 
             })
-            ->addColumn('customer', function ($query){
+            ->addColumn('Stt', function ($query) use (&$count) {
+                $count++;
+                return $count;
+             })
+            ->addColumn('Khách hàng', function ($query){
                 return $query->user->name;
             })
-            ->addColumn('date', function ($query){
+            ->addColumn('Số lượng', function ($query){
+                return $query->product_quantity;
+            })
+            ->addColumn('Thành tiền', function ($query){
+                return format($query->amount);
+            })
+            ->addColumn('Thanh toán qua', function ($query){
+                return $query->payment_method;
+            })
+            ->addColumn('Ngày mua', function ($query){
                 return Carbon::parse($query->created_at)->format('d-m-Y');
             })
 
-            ->addColumn('order_status', function ($query){
-                return '<i class="badge bg-info">'.$query->order_status.'</i>';
-            })
-            ->addColumn('payment_status', function ($query){
-                if($query->payment_status == 1){
-                    return '<i class="badge bg-success">Complete</i>';
+            ->addColumn('Trạng thái', function ($query){
 
+                if($query->order_status == 'pending' ){
+                    return '<i class="badge bg-danger">'.$query->order_status.'</i>';
+                }elseif ($query->order_status == 'canceled'){
+                    return '<i class="badge bg-dark">'.$query->order_status.'</i>';
+                } elseif ($query->order_status == 'delivered'){
+                    return '<i class="badge bg-success">'.$query->order_status.'</i>';
                 }else{
-                    return '<i class="badge bg-danger">Pending</i>';
+                    return '<i class="badge bg-info">'.$query->order_status.'</i>';
                 }
             })
-            ->rawColumns(['order_status', 'action','payment_status'])
+            ->addColumn('Thanh toán', function ($query){
+                if($query->payment_status == 1){
+                    return '<i class="badge bg-success">Hoàn thành</i>';
+
+                }else{
+                    return '<i class="badge bg-danger">Chưa hoàn thành</i>';
+                }
+            })
+            ->rawColumns(['Trạng thái', 'Hành động','Thanh toán'])
             ->setRowId('id');
     }
     /**
@@ -88,17 +110,17 @@ class VendorOrderDataTable extends DataTable
         return [
             Column::make('id'),
             Column::make('invoice_id'),
-            Column::make('customer'),
-            Column::make('date'),
-            Column::make('product_quantity'),
-            Column::make('amount'),
-            Column::make('order_status'),
-            Column::make('payment_status'),
-            Column::make('payment_method'),
-            Column::computed('action')
+            Column::make('Khách hàng'),
+            Column::make('Ngày mua'),
+            Column::make('Số lượng'),
+            Column::make('Thành tiền'),
+            Column::make('Trạng thái'),
+            Column::make('Thanh toán'),
+            Column::make('Thanh toán qua'),
+            Column::computed('Hành động')
                 ->exportable(false)
                 ->printable(false)
-                ->width(220)
+                ->width(70)
                 ->addClass('text-center'),
         ];
     }

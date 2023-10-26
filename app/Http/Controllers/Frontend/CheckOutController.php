@@ -45,7 +45,7 @@ class CheckOutController extends Controller
         $userAddress->address = $request->address;
         $userAddress->note = $request->note;
         $userAddress->save();
-        toastr()->success('Created successfully');
+        toastr()->success('Thêm địa chỉ thành công');
         return redirect()->route('user.checkout');
     }
     public function getProvince(string $provinceId)

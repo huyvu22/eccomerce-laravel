@@ -107,7 +107,7 @@ class ProductDetailController extends Controller
     public function showProductDetail(string $slug)
     {
         $product = Product::with(['vendor','category','subCategory','productImageGalleries','variants', 'brand'])->where('slug',$slug)->where('status',1)->first();
-        $reviews = ProductReview::where(['status' => 1, 'product_id' => $product?->id])->paginate(2);
+        $reviews = ProductReview::where(['status' => 1, 'product_id' => $product?->id])->paginate(10);
         $relatedProducts = Product::with(['category', 'variants'])->where('slug','!=',$slug)->where('status',1)->where('category_id',$product->category_id)->take(6)->get();
 
         return view('frontend.pages.product-detail', compact('product','reviews', 'relatedProducts'));
@@ -119,7 +119,7 @@ class ProductDetailController extends Controller
 
         //Check product quantity in stock
         if($product->quantity === 0){
-           toastr()->error('Product stock out');
+           toastr()->error('Xin lỗi, sản phẩm này đã hết');
            return redirect()->back();
         }
         $variants = [];

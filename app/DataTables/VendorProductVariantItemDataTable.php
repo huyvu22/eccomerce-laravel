@@ -20,10 +20,24 @@ class VendorProductVariantItemDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-            ->addColumn('variant',function ($query){
+            ->addColumn('Thuộc tính cha',function ($query){
                 return $query->variant->name;
             })
-            ->addColumn('status', function ($query) {
+
+            ->addColumn('Stt', function ($query) use (&$count) {
+                $count++;
+                return $count;
+             })
+
+            ->addColumn('Giá',function ($query){
+                return $query->price;
+            })
+
+            ->addColumn('Tên',function ($query){
+                return $query->name;
+            })
+
+            ->addColumn('Trạng thái', function ($query) {
                 $checked = $query->status == 1 ? 'checked' : null;
                 return '<label class="switch-status form-check form-switch" style="cursor: pointer"">
                             <form class="form-status" action="'.route('vendor.products-variant-item.update', $query).'" method="post" type="submit">
@@ -34,7 +48,7 @@ class VendorProductVariantItemDataTable extends DataTable
                             </form>
                         </label>';
             })
-            ->addColumn('action', function ($query){
+            ->addColumn('Hàng động', function ($query){
                 return '<a href="'.route('vendor.products-variant-item.edit', $query).'" class="btn btn-primary"><i class="fas fa-edit"></i></a>
                         <form class="form-delete me-2" style="display:inline-block" action="'.route('vendor.products-variant-item.destroy', $query).'" method="POST">
                             ' . csrf_field() . '
@@ -42,10 +56,10 @@ class VendorProductVariantItemDataTable extends DataTable
                             <button type="submit" class="btn btn-danger btn-delete-item"><i class="fas fa-trash"></i></button>
                         </form>';
             })
-            ->addColumn('is_default', function ($query) {
-                return '<button class="badge ' . ($query->is_default == 1 ? 'bg-success' : 'bg-info') . '">' . ($query->is_default == 1 ? 'default' : 'no') . '</a>';
+            ->addColumn('Mặc định (0đ)', function ($query) {
+                return '<button class="badge ' . ($query->is_default == 1 ? 'bg-success' : 'bg-info') . '">' . ($query->is_default == 1 ? 'Ođ' : 'Không') . '</a>';
             })
-            ->rawColumns(['variant','status','action','is_default'])
+            ->rawColumns(['Thuộc tính cha','Trạng thái','Hàng động','Mặc định (0đ)'])
             ->setRowId('id');
     }
 
@@ -86,12 +100,12 @@ class VendorProductVariantItemDataTable extends DataTable
     {
         return [
             Column::make('id')->width(70),
-            Column::make('name'),
-            Column::make('variant'),
-            Column::make('price'),
-            Column::make('is_default'),
-            Column::make('status'),
-            Column::computed('action')
+            Column::make('Tên'),
+            Column::make('Thuộc tính cha'),
+            Column::make('Giá'),
+            Column::make('Mặc định (0đ)'),
+            Column::make('Trạng thái'),
+            Column::computed('Hàng động')
                 ->exportable(false)
                 ->printable(false)
                 ->width(200)

@@ -20,7 +20,15 @@ class VendorProductVariantDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-            ->addColumn('status', function ($query) {
+
+            ->addColumn('Tên thuộc tính', function ($query){
+                return $query->name;
+            })
+            ->addColumn('Stt', function ($query) use (&$count) {
+                $count++;
+                return $count;
+             })
+            ->addColumn('Trạng thái', function ($query) {
                 $checked = $query->status == 1 ? 'checked' : null;
                 return '<label class="switch-status form-check form-switch" style="cursor: pointer">
                             <form class="form-status" action="'.route('vendor.products-variant.update', $query).'" method="post" type="submit">
@@ -31,8 +39,8 @@ class VendorProductVariantDataTable extends DataTable
                             </form>
                         </label>';
             })
-            ->addColumn('action', function ($query){
-                $variantBtn = '<a href="'.route('vendor.products-variant-item.index',['productId' => request()->product, 'variantId' => $query->id]).'" class="btn btn-info me-1"><i class="fa fa-edit"></i> Variant Items</a>';
+            ->addColumn('Hành động', function ($query){
+                $variantBtn = '<a href="'.route('vendor.products-variant-item.index',['productId' => request()->product, 'variantId' => $query->id]).'" class="btn btn-info me-1"><i class="fa fa-edit"></i> Tạo thuộc tính con</a>';
 //                $variantBtn = '<a href="'.route('admin.products-variant-item.index').'?productId='.request()->product.'&variantId='.$query->id.'" class="btn btn-info mr-1"><i class="fa fa-edit"></i> Variant Items</a>';
                 $editBtn= '<a href="'.route('vendor.products-variant.edit', $query).'" class="btn btn-primary"><i class="fas fa-edit"></i></a>';
                 $deleteBtn= ' <form class="form-delete" style="display:inline-block" action="'.route('vendor.products-variant.destroy', $query).'" method="POST">
@@ -43,7 +51,7 @@ class VendorProductVariantDataTable extends DataTable
                 return $variantBtn.$editBtn.$deleteBtn;
 
             })
-            ->rawColumns(['status','action'])
+            ->rawColumns(['Trạng thái','Hành động'])
             ->setRowId('id');
     }
 
@@ -84,9 +92,9 @@ class VendorProductVariantDataTable extends DataTable
     {
         return [
             Column::make('id'),
-            Column::make('name'),
-            Column::make('status')->addClass('text-center'),
-            Column::computed('action')
+            Column::make('Tên thuộc tính'),
+            Column::make('Trạng thái')->addClass('text-center'),
+            Column::computed('Hành động')
                 ->exportable(false)
                 ->printable(false)
                 ->width(310)

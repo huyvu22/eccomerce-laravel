@@ -11,10 +11,10 @@ use App\Models\Product;
 use App\Models\StripeSetting;
 use App\Models\Transaction;
 use Auth;
+use Cart;
 use Illuminate\Http\Request;
 use Session;
 use Srmklive\PayPal\Services\PayPal as PayPalClient;
-use Cart;
 use Stripe\Charge;
 use Stripe\Stripe;
 
@@ -22,8 +22,8 @@ class PaymentController extends Controller
 {
     public function index()
     {
-        if(!Session::has('shipping_address')){
-          return \redirect()->route('user.checkout');
+        if (!Session::has('shipping_address')) {
+            return \redirect()->route('user.checkout');
         }
         return view('frontend.pages.payment');
     }
@@ -33,11 +33,21 @@ class PaymentController extends Controller
         return view('frontend.pages.payment-success');
     }
 
-    public function storeOrder($paymentMethod, $paymentStatus,$transactionId,$payAmount)
+    public function vnPaySuccess()
+    {
+        return view('frontend.pages.payment-vnpay-success');
+    }
+
+    public function paymentCancel()
+    {
+        return view('frontend.pages.payment-cancel');
+    }
+
+    public function storeOrder($paymentMethod, $paymentStatus, $transactionId, $payAmount)
     {
         //Store order
         $order = new Order();
-        $order->invoice_id = rand(1,10000);
+        $order->invoice_id = rand(1, 10000);
         $order->user_id = Auth::user()->id;
         $order->sub_total = getCartTotalRaw();
         $order->amount = getPayAmountRaw();
@@ -76,22 +86,21 @@ class PaymentController extends Controller
         }
 
         //Store transaction detail
-        $transaction  = new Transaction();
+        $transaction = new Transaction();
         $transaction->order_id = $order->id;
         $transaction->transaction_id = $transactionId;
         $transaction->payment_method = $paymentMethod;
         $transaction->amount = $payAmount;
         $transaction->save();
 
-
     }
 
     public function clearSession()
     {
-       Cart::destroy();
-       Session::forget('shipping_address');
-       Session::forget('shipping_method');
-       Session::forget('coupon');
+        Cart::destroy();
+        Session::forget('shipping_address');
+        Session::forget('shipping_method');
+        Session::forget('coupon');
     }
 
     /* Pay with PayPal*/
@@ -99,23 +108,23 @@ class PaymentController extends Controller
     {
         $paypalSetting = PaypalSetting::first();
         $config = [
-            'mode'    => $paypalSetting->mode == 1 ? 'live' : 'sandbox',
+            'mode' => $paypalSetting->mode == 1 ? 'live' : 'sandbox',
             'sandbox' => [
-                'client_id'         => $paypalSetting->client_id ,
-                'client_secret'     => $paypalSetting->secret_key,
-                'app_id'            => '',
+                'client_id' => $paypalSetting->client_id,
+                'client_secret' => $paypalSetting->secret_key,
+                'app_id' => '',
             ],
             'live' => [
-                'client_id'         => $paypalSetting->client_id ,
-                'client_secret'     => $paypalSetting->secret_key,
-                'app_id'            => '',
+                'client_id' => $paypalSetting->client_id,
+                'client_secret' => $paypalSetting->secret_key,
+                'app_id' => '',
             ],
 
-            'payment_action' =>  'Sale',
-            'currency'       => $paypalSetting->currency_name,
-            'notify_url'     => '',
-            'locale'         => 'en_US',
-            'validate_ssl'   =>  true,
+            'payment_action' => 'Sale',
+            'currency' => $paypalSetting->currency_name,
+            'notify_url' => '',
+            'locale' => 'en_US',
+            'validate_ssl' => true,
         ];
         return $config;
     }
@@ -128,44 +137,39 @@ class PaymentController extends Controller
 
         $provider->getAccessToken();
 
-
-
-
         $paypalSetting = PaypalSetting::first();
 //        $totalPay = round(getPayAmountRaw() * $paypalSetting->currency_rate,2); // 100 -> 100.00
 
-        $totalPay = round(getPayAmountRaw()/23223,2 );
+        $totalPay = round(getPayAmountRaw() / 23223, 2);
 
         $response = $provider->createOrder([
             "intent" => "CAPTURE",
             "application_context" => [
                 "return_url" => route('user.paypal.success'),
-                "cancel_url" => route('user.paypal.cancel')
+                "cancel_url" => route('user.payment.cancel'),
             ],
             "purchase_units" => [
                 [
                     "amount" => [
                         "currency_code" => $config['currency'],
                         "value" => $totalPay,
-                    ]
-                ]
-            ]
+                    ],
+                ],
+            ],
         ]);
 
-        if (isset($response['id'] )&& $response['id'] != null){
-            foreach ($response['links'] as $link){
-                if ($link['rel'] === 'approve'){
+        if (isset($response['id']) && $response['id'] != null) {
+            foreach ($response['links'] as $link) {
+                if ($link['rel'] === 'approve') {
                     return redirect()->away($link['href']);
                 }
             }
-        }else {
+        } else {
             return redirect()->route('user.paypal.cancel');
         }
-
-
     }
 
-    public function paypalPaymentSuccess(Request $request)
+    public function paypalSuccess(Request $request)
     {
         $config = $this->paypalConfig();
         $provider = new PayPalClient($config);
@@ -173,23 +177,24 @@ class PaymentController extends Controller
 
         $response = $provider->capturePaymentOrder($request->token);
 
-         if(isset($response['status']) && $response['status'] == 'COMPLETED'){
-             $paypalSetting = PaypalSetting::first();
-             $totalPay = round(getPayAmountRaw() * $paypalSetting->currency_rate,2); // 100 -> 100.00
+        if (isset($response['status']) && $response['status'] == 'COMPLETED') {
+            $paypalSetting = PaypalSetting::first();
+            $totalPay = round(getPayAmountRaw() * $paypalSetting->currency_rate, 2); // 100 -> 100.00
 
-             // storeOrder in Database
-             $this->storeOrder('paypal',1, $response['id'], $totalPay);
-             $this->clearSession();
-             return redirect()->route('user.payment.success');
-         }else{
-             toastr()->error('Thanh toán không thành công!');
-             return redirect()->route('user.paypal.cancel');
-         }
+            // storeOrder in Database
+            $this->storeOrder('paypal', 1, $response['id'], $totalPay);
+            $this->clearSession();
+            toastr()->success('Thanh toán thành công!');
+            return redirect()->route('user.payment.success');
+        } else {
+            toastr()->error('Thanh toán không thành công!');
+            return redirect()->route('user.payment.cancel');
+        }
     }
 
-    public function paypalPaymentCancel()
+    public function paypalCancel()
     {
-        toastr()->error('Something went wrong try again');
+        toastr()->error('Đã có lỗi xảy ra, vui lòng thử lại sau');
         return redirect()->route('user.payment');
     }
 
@@ -200,23 +205,22 @@ class PaymentController extends Controller
         $total = getPayAmountRaw();
         $stripeSetting = StripeSetting::first();
         Stripe::setApiKey($stripeSetting->secret_key);
-        $response =  Charge::create(
+        $response = Charge::create(
             [
                 'amount' => $stripeSetting->currency_rate * ($total) * 100,
                 'currency' => 'USD',
                 'source' => $request->stripe_token,
-                'description' => "Test Stripe payment"
+                'description' => "Test Stripe payment",
             ]
         );
-        if($response->status == 'succeeded'){
-            $this->storeOrder('stripe',1, $response->id, $total);
+        if ($response->status == 'succeeded') {
+            $this->storeOrder('stripe', 1, $response->id, $total);
             $this->clearSession();
             return redirect()->route('user.payment.success');
-        }else{
+        } else {
             toastr()->error('Thanh toán không thành công!');
-            return redirect()->route('user.paypal.cancel');
+            return redirect()->route('user.payment.cancel');
         }
-
     }
 
     /* Pay with VnPay*/
@@ -231,13 +235,13 @@ class PaymentController extends Controller
         $vnp_TmnCode = "BZU9ONFY";
         $vnp_HashSecret = "MCXMMMPVHKTACIAGMMBQDNQRCGUKRBYK";
         $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
-        $vnp_Returnurl = url('user/payment-success');
+        $vnp_Returnurl = url('user/payment-vnpay-success');
         //Config input format
         //Expire
         $startTime = date("YmdHis");
         $expire = date('YmdHis', strtotime('+15 minutes', strtotime($startTime)));
 
-        $vnp_TxnRef = rand(1,10000); // order_id
+        $vnp_TxnRef = rand(1, 10000); // order_id
         $vnp_Amount = $totalPay; // Số tiền thanh toán
         $vnp_Locale = 'vn'; //Ngôn ngữ chuyển hướng thanh toán
         $vnp_IpAddr = $_SERVER['REMOTE_ADDR']; //IP Khách hàng thanh toán
@@ -251,12 +255,12 @@ class PaymentController extends Controller
             "vnp_CurrCode" => "VND",
             "vnp_IpAddr" => $vnp_IpAddr,
             "vnp_Locale" => $vnp_Locale,
-            "vnp_OrderInfo" => "Thanh toan GD tren Ecommerce",
+            "vnp_OrderInfo" => "Thanh toan GD tren Shop Now",
             "vnp_OrderType" => "other",
             "vnp_ReturnUrl" => $vnp_Returnurl,
             "vnp_TxnRef" => $vnp_TxnRef,
             "vnp_ExpireDate" => $expire,
-            'vnp_BankCode' => 'ncb'
+            'vnp_BankCode' => 'ncb',
         );
 
         if (isset($vnp_BankCode) && $vnp_BankCode != "") {
@@ -279,15 +283,13 @@ class PaymentController extends Controller
 
         $vnp_Url = $vnp_Url . "?" . $query;
         if (isset($vnp_HashSecret)) {
-            $vnpSecureHash =   hash_hmac('sha512', $hashdata, $vnp_HashSecret); //
+            $vnpSecureHash = hash_hmac('sha512', $hashdata, $vnp_HashSecret); //
             $vnp_Url .= 'vnp_SecureHash=' . $vnpSecureHash;
         }
 
         $returnData = array(
-            'code' => '00', 'message' => 'success', 'data' => $vnp_Url
+            'code' => '00', 'message' => 'success', 'data' => $vnp_Url,
         );
-
-
 
         if (isset($_POST['redirect'])) {
             header('Location: ' . $vnp_Url);
@@ -303,15 +305,15 @@ class PaymentController extends Controller
         $vnp_Amount = $request->vnp_Amount;
         $vnp_TransactionNo = $request->vnp_TransactionNo;
 
-        if(!empty($vnp_ResponseCode)){
-            if($vnp_ResponseCode == '00'){
-                $this->storeOrder('vnPay',1, $vnp_TransactionNo, $vnp_Amount/100);
+        if (!empty($vnp_ResponseCode)) {
+            if ($vnp_ResponseCode == '00') {
+                $this->storeOrder('vnPay', 1, $vnp_TransactionNo, $vnp_Amount / 100);
                 $this->clearSession();
                 return response()->json([
-                    'status'=>'success',
-                    'message'=>'Thanh toán đơn hàng thành công'
+                    'status' => 'success',
+                    'message' => 'Thanh toán đơn hàng thành công',
                 ]);
-            }elseif ($payment_id === '2'){
+            } elseif ($payment_id === '2') {
                 $data_url = $this->connectVnPayPayment();
                 return redirect()->to($data_url);
             }
@@ -322,15 +324,14 @@ class PaymentController extends Controller
     public function payWithCod(Request $request)
     {
         $codSetting = CodSetting::first();
-        if ($codSetting->status == 0){
+        if ($codSetting->status == 0) {
             toastr('Vui lòng thử lại sau, xin cảm ơn!', 'error');
             return redirect()->back();
         }
 
         $total = getPayAmountRaw();
-        $this->storeOrder('COD',0, \Str::random(10), $total);
+        $this->storeOrder('COD', 0, \Str::random(10), $total);
         $this->clearSession();
         return redirect()->route('user.payment.success');
     }
 }
-

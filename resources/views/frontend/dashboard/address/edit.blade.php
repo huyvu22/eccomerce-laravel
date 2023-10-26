@@ -12,7 +12,7 @@
             <div class="row">
                 <div class="col-xl-9 col-xxl-10 col-lg-9 ms-auto">
                     <div class="dashboard_content mt-2 mt-md-0">
-                        <h3><i class="fal fa-gift-card"></i>Edit address</h3>
+                        <h3><i class="fal fa-gift-card"></i>Sửa địa chỉ</h3>
                         <div class="wsus__dashboard_add wsus__add_address">
                             <form action="{{route('user.address.update',$address)}}" method="post">
                                 @csrf
@@ -44,7 +44,7 @@
                                     </div>
                                     <div class="col-xl-6 col-md-6">
                                         <div class="wsus__add_address_single">
-                                            <label> Province<b>*</b></label>
+                                            <label> Tỉnh, Thành Phố<b>*</b></label>
                                             <div class="wsus__topbar_select">
                                                 <select class="select_2 province" name="province">
                                                     <option value="">Chọn Tỉnh, Thành Phố</option>
@@ -62,7 +62,7 @@
                                         <div class="wsus__add_address_single">
                                             <label>Quận, Huyện<b>*</b></label>
                                             <div class="wsus__topbar_select">
-                                                <select class="district select_2" name="district" >
+                                                <select class="district select_2" name="district">
                                                     <option value="">Chọn Quận, Huyện</option>
                                                     @foreach($districts as $district)
                                                         <option value="{{$district->id}}" {{$address->district == $district->_name ? 'selected' : ''}}>{{$district->_name}}</option>
@@ -78,7 +78,7 @@
                                         <div class="wsus__add_address_single">
                                             <label>Phường, Xã <b>*</b></label>
                                             <div class="wsus__topbar_select">
-                                                <select class="ward select_2" name="ward" >
+                                                <select class="ward select_2" name="ward">
                                                     <option value="0">Chọn Phường, Xã</option>
                                                     @foreach($wards as $ward)
                                                         <option value="{{$ward->id}}" {{$address->ward == $ward->_name ? 'selected' : ''}}>{{$ward->_name}}</option>
@@ -102,11 +102,11 @@
                                     <div class="col-xl-12">
                                         <div class="wsus__add_address_single">
                                             <label>Ghi chú</label>
-                                            <textarea cols="3" rows="5" placeholder="Ghi chú" name="note" >{{$address->note}}</textarea>
+                                            <textarea cols="3" rows="5" placeholder="Ghi chú" name="note">{{$address->note}}</textarea>
                                         </div>
                                     </div>
                                     <div class="col-xl-6">
-                                        <button type="submit" class="common_btn">update</button>
+                                        <button type="submit" class="common_btn">Cập nhật</button>
                                     </div>
                                 </div>
                             </form>

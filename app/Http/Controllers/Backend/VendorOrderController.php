@@ -5,8 +5,6 @@ namespace App\Http\Controllers\Backend;
 use App\DataTables\VendorOrderDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\Order;
-use Illuminate\Http\Request;
-use function Termwind\render;
 
 class VendorOrderController extends Controller
 {
@@ -28,7 +26,7 @@ class VendorOrderController extends Controller
         $order->save();
         return response([
             'status' => $status,
-            'message' => 'Updated Order status successfully'
+            'message' => 'Cập nhật trạng thái đơn hàng thành công'
         ]);
     }
 }

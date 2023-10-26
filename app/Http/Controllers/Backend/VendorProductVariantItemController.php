@@ -40,13 +40,25 @@ class VendorProductVariantItemController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'variant_id' => 'required|integer',
-            'item_name' => 'required|max:200',
-            'price' => 'required|integer',
-            'is_default' => 'required',
-            'status' => 'required'
-        ]);
+        $request->validate(
+            [
+                'variant_id' => 'required|integer',
+                'item_name' => 'required|max:200',
+                'price' => 'required|integer',
+                'is_default' => 'required',
+                'status' => 'required'
+            ],
+            [
+                'required' => ':attribute không được để trống',
+                'image' => ':attribute phải ở dạng ảnh',
+                'integer' => ':attribute phải là số',
+            ],
+            [
+                'item_name' => 'Tên thuộc tính con',
+                'price' => 'Giá',
+                'status' => 'Trạng thái'
+            ]
+        );
 
         $variantItem = new ProductVariantItem();
         $variantItem->product_variant_id = $request->variant_id;
@@ -55,7 +67,7 @@ class VendorProductVariantItemController extends Controller
         $variantItem->is_default = $request->is_default;
         $variantItem->status = $request->status;
         $variantItem->save();
-        toastr()->success('Created successfully');
+        toastr()->success('Thêm mới thành công');
         return redirect()->route('vendor.products-variant-item.index',['productId'=>$request->product_id,'variantId'=>$request->variant_id]);
     }
 
@@ -85,17 +97,29 @@ class VendorProductVariantItemController extends Controller
     public function update(Request $request,ProductVariantItem $variantItem)
     {
         if (!$request->has('switch_status')) {
-            $request->validate([
-                'item_name' => 'required|max:200',
-                'price' => 'required|integer',
-                'is_default' => 'required',
-                'status' => 'required'
-            ]);
+            $request->validate(
+                [
+                    'item_name' => 'required|max:200',
+                    'price' => 'required|integer',
+                    'is_default' => 'required',
+                    'status' => 'required'
+                ],
+                [
+                    'required' => ':attribute không được để trống',
+                    'image' => ':attribute phải ở dạng ảnh',
+                    'integer' => ':attribute phải là số',
+                ],
+                [
+                    'item_name' => 'Tên thuộc tính con',
+                    'price' => 'Giá',
+                    'status' => 'Trạng thái'
+                ]
+            );
         }
         if ($request->has('switch_status')) {
             $variantItem->status = $request->switch_status;
             $variantItem->save();
-            return response(['message' =>'Status has been updated!']);
+            return response(['message' =>'Trạng thái được cập nhật thành công']);
         } else {
 
             $variantItem->name = $request->item_name;
@@ -103,7 +127,7 @@ class VendorProductVariantItemController extends Controller
             $variantItem->is_default = $request->is_default;
             $variantItem->status = $request->status;
             $variantItem->save();
-            toastr()->success('Created successfully');
+            toastr()->success('Cập nhật thành công');
             return redirect()->route('vendor.products-variant-item.index',['productId'=>$variantItem->variant->product_id,'variantId'=>$variantItem->product_variant_id]);
         }
     }
@@ -114,7 +138,7 @@ class VendorProductVariantItemController extends Controller
     public function destroy(ProductVariantItem $variantItem)
     {
         $variantItem->delete();
-        toastr()->success('Delete successfully');
+        toastr()->success('Xóa thành công');
         return redirect()->back();
     }
 }

@@ -8,7 +8,7 @@
     $footerColumnThree = FooterColumnThree::where('status',1)->get();
     $footerTitle = FooterTitle::first();
 @endphp
-    <!--============================
+        <!--============================
     FOOTER PART START
 ==============================-->
 <footer class="footer_2">
@@ -17,12 +17,14 @@
             <div class="col-xl-3 col-sm-7 col-md-6 col-lg-3">
                 <div class="wsus__footer_content">
                     <a class="wsus__footer_2_logo" href="#">
-                        <img src="{{asset(@$footerInfo->logo)}}" alt="logo" width="100">
+                        {{--                        <img src="{{asset(@$footerInfo->logo)}}" alt="logo" width="100">--}}
+                        <img src="{{ asset('frontend/images/logo.png') }}" alt="log">
+
                     </a>
                     <p class="slogan">Cung cấp sản phẩm chất lượng từ các thương hiệu hàng đầu.</p>
-                    <a class="action" href="callto:+8896254857456"><i class="fas fa-phone-alt"></i>
+                    <a class="action" href="callto:0943603845"><i class="fas fa-phone-alt"></i>
                         {{$footerInfo->phone}}</a>
-                    <a class="action" href="mailto:example@gmail.com"><i class="far fa-envelope"></i>
+                    <a class="action" href="mailto:vuduchuyds@gmail.com"><i class="far fa-envelope"></i>
                         {{$footerInfo->email}}</a>
                     <p><i class="fal fa-map-marker-alt"></i>{{$footerInfo->address}}</p>
                     <ul class="wsus__footer_social">
@@ -59,7 +61,7 @@
                     <form action="{{route('newsletter')}}" method="post" class="form_subscribe">
                         @csrf
                         <input type="text" class="email_input" placeholder="Email..." name="email">
-                        <button type="button" class="common_btn subscribe">subscribe</button>
+                        <button type="button" class="common_btn subscribe">Đăng ký</button>
                     </form>
                     <div class="footer_payment">
                         <p>Phương thức thanh toán :</p>

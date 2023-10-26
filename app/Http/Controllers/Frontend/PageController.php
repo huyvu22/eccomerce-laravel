@@ -40,7 +40,7 @@ class PageController extends Controller
 
         $setting = EmailConfig::first();
         \Mail::to($setting->email)->send(new Contact($request->subject, $request->message, $request->email));
-        toastr()->success('Email sent successfully');
+        toastr()->success('Đã gửi email liên hệ thành công');
         return redirect()->back();
     }
 }

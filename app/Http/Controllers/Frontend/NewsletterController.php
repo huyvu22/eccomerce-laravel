@@ -14,9 +14,18 @@ class NewsletterController extends Controller
 {
     public function newsLetter(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'email' => 'required|email',
-        ]);
+        $validator = Validator::make($request->all(),
+            [
+                'email' => 'required|email',
+            ],
+            [
+                'required' => ':attribute không được để trống'
+            ],
+            [
+                'email' => 'Email'
+            ]
+
+        );
 
         if ($validator->fails()) {
             return response()->json([
@@ -42,13 +51,13 @@ class NewsletterController extends Controller
 
                 return response()->json([
                     'status' => 'success',
-                    'message' => 'Check your email to activate newsletter',
+                    'message' => 'Vui lòng kiểm tra email của bạn để kích hoạt tài khoản',
                 ]);
 
             }else if($existSubscriber->is_verified == 1){
                 return response()->json([
                     'status' => 'error',
-                    'message' => 'Your already subscribed',
+                    'message' => 'Email đã được đăng ký',
                 ]);
             }
         }else{
@@ -66,7 +75,7 @@ class NewsletterController extends Controller
 
             return response()->json([
                 'status' => 'success',
-                'message' => 'Check your email to activate newsletter',
+                'message' => 'Vui lòng kiểm tra email của bạn để kích hoạt tài khoản',
             ]);
 
         }
@@ -81,9 +90,9 @@ class NewsletterController extends Controller
             $verify->verified_token = 'verified';
             $verify->is_verified = 1;
             $verify->save();
-            toastr()->success('Email verification successfully');
+            toastr()->success('Bạn đã kích hoạt email thành công');
         }else {
-            toastr()->error('Invalid Token');
+            toastr()->error('Token hết hạn');
         }
 
         return redirect()->route('home');

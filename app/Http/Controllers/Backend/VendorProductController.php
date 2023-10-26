@@ -41,27 +41,55 @@ class VendorProductController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'image' => 'required|image|max:2048',
-            'name' => 'required|max:200',
-            'category' => 'required',
-            'sub_category' => 'required',
-            'child_category' => 'required',
-            'brand' => 'required',
-            'sku' => 'nullable',
-            'price' => 'required',
-            'offer_price' => 'nullable',
-            'offer_start_date' => 'nullable',
-            'offer_end_date' => 'nullable',
-            'stock_quantity' => 'required',
-            'Video_link' => 'nullable',
-            'short_description' => 'required|max:600',
-            'full_description' => 'required',
-            'product_type' => 'nullable',
-            'seo_title' => 'nullable|max:200',
-            'seo_description' => 'nullable',
-            'status' => 'required',
-        ]);
+        $request->validate(
+            [
+                'image' => 'required|image|max:2048',
+                'name' => 'required|max:200',
+                'category' => 'required',
+                'sub_category' => 'required',
+                'child_category' => 'required',
+                'brand' => 'required',
+                'sku' => 'nullable',
+                'price' => 'required',
+                'offer_price' => 'nullable',
+                'offer_start_date' => 'nullable',
+                'offer_end_date' => 'nullable',
+                'stock_quantity' => 'required',
+                'Video_link' => 'nullable',
+                'short_description' => 'required|max:600',
+                'full_description' => 'required',
+                'product_type' => 'nullable',
+                'seo_title' => 'nullable|max:200',
+                'seo_description' => 'nullable',
+                'status' => 'required',
+            ],
+            [
+                'required' => ':attribute không được để trống',
+                'image' => ':attribute phải ở dạng ảnh',
+                'max' => ':attribute không được vượt quá :max ký tự',
+            ],
+            [
+                'image' => 'Ảnh',
+                'name' => 'Tên',
+                'category' => 'Thuộc tính',
+                'sub_category' => 'Thuộc tính con',
+                'child_category' => 'Thuộc tính nhỏ hơn',
+                'brand' => 'Thương hiệu',
+                'sku' => 'SKU',
+                'price' => 'Giá mặc định',
+                'offer_price' => 'Giá đề nghị',
+                'offer_start_date' => 'Ngày bắt đầu khuyến mại',
+                'offer_end_date' => 'Ngày kết thúc khuyến mại',
+                'stock_quantity' => 'Số lượng sản phẩm',
+                'Video_link' => 'Video kink',
+                'short_description' => 'Mô tả ngắn',
+                'full_description' => 'Mô tả chi tiết',
+                'product_type' => 'Loại sản phẩm',
+                'seo_title' => 'SEO',
+                'seo_description' => 'SEO chi tiết',
+                'status' => 'Trạng thái',
+            ]
+        );
 
         $imagePath= $this->uploadImage( $request, 'image','uploads');
 
@@ -91,7 +119,7 @@ class VendorProductController extends Controller
         $product->status = $request->status;
 
         $product->save();
-        toastr('Created Successfully','success');
+        toastr('Thêm mới thành công','success');
         return redirect()->route('vendor.products.index');
     }
 
@@ -125,27 +153,54 @@ class VendorProductController extends Controller
     public function update(Request $request, Product $product)
     {
         if (!$request->has('switch_status')) {
-            $request->validate([
-                'image' => 'nullable|image|max:2048',
-                'name' => 'required|max:200',
-                'category' => 'required',
-                'sub_category' => 'required',
-                'child_category' => 'required',
-                'brand' => 'required',
-                'sku' => 'nullable',
-                'price' => 'required',
-                'offer_price' => 'nullable',
-                'offer_start_date' => 'nullable',
-                'offer_end_date' => 'nullable',
-                'stock_quantity' => 'required',
-                'Video_link' => 'nullable',
-                'short_description' => 'required|max:600',
-                'full_description' => 'required',
-                'product_type' => 'nullable',
-                'seo_title' => 'nullable|max:200',
-                'seo_description' => 'nullable',
-                'status' => 'required',
-            ]);
+            $request->validate(
+                [
+                    'image' => 'nullable|image|max:2048',
+                    'name' => 'required|max:200',
+                    'category' => 'required',
+                    'sub_category' => 'required',
+                    'child_category' => 'required',
+                    'brand' => 'required',
+                    'sku' => 'nullable',
+                    'price' => 'required',
+                    'offer_price' => 'nullable',
+                    'offer_start_date' => 'nullable',
+                    'offer_end_date' => 'nullable',
+                    'stock_quantity' => 'required',
+                    'Video_link' => 'nullable',
+                    'short_description' => 'required|max:600',
+                    'full_description' => 'required',
+                    'product_type' => 'nullable',
+                    'seo_title' => 'nullable|max:200',
+                    'seo_description' => 'nullable',
+                    'status' => 'required',
+                ],
+                [
+                    'required' => ':attribute không được để trống',
+                    'image' => ':attribute phải ở dạng ảnh',
+                    'max' => ':attribute không được vượt quá :max ký tự',
+                ],
+                [
+                    'image' => 'Ảnh',
+                    'name' => 'Tên',
+                    'category' => 'Thuộc tính',
+                    'sub_category' => 'Thuộc tính con',
+                    'child_category' => 'Thuộc tính nhỏ hơn',
+                    'brand' => 'Thương hiệu',
+                    'sku' => 'SKU',
+                    'price' => 'Giá mặc định',
+                    'offer_price' => 'Giá đề nghị',
+                    'offer_start_date' => 'Ngày bắt đầu khuyến mại',
+                    'offer_end_date' => 'Ngày kết thúc khuyến mại',
+                    'stock_quantity' => 'Số lượng sản phẩm',
+                    'Video_link' => 'Video kink',
+                    'short_description' => 'Mô tả ngắn',
+                    'full_description' => 'Mô tả chi tiết',
+                    'product_type' => 'Loại sản phẩm',
+                    'seo_title' => 'SEO',
+                    'seo_description' => 'SEO chi tiết',
+                    'status' => 'Trạng thái',
+                ]);
         }
 
         /*Check user insert id on Url to edit product not theirs*/
@@ -156,7 +211,7 @@ class VendorProductController extends Controller
         if ($request->has('switch_status')) {
             $product->status = $request->switch_status;
             $product->save();
-            return response(['message' =>'Status has been updated!']);
+            return response(['message' =>'Trạng thái được cập nhật thành công']);
         } else {
             $imagePath = $this->updateImage($request, 'image', 'uploads', $product->thumb_image);
             $product->thumb_image = $imagePath ?? $product->thumb_image;
@@ -183,7 +238,7 @@ class VendorProductController extends Controller
             $product->status = $request->status;
 
             $product->save();
-            toastr('Updated Successfully', 'success');
+            toastr('Cập nhật thành công', 'success');
             return redirect()->route('vendor.products.index');
         }
     }
@@ -217,7 +272,7 @@ class VendorProductController extends Controller
         }
 
         $product->delete();
-        toastr('Delete Successfully','success');
+        toastr('Xóa thành công','success');
         return redirect()->back();
     }
 

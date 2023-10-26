@@ -1,7 +1,7 @@
 @php use App\Models\Product; @endphp
 @extends('frontend.layouts.master')
 @section('title')
-    Shop Now
+    Shop Now | Tra cứu đơn hàng
 @endsection
 @section('content')
     <!--============================
@@ -42,6 +42,9 @@
                             <div class="wsus__track_input">
                                 <label class="d-block mb-2">invoice id*</label>
                                 <input type="text" placeholder="21578455" name="track_id" value="{{@$order->invoice_id}}">
+                                  @if($errors->has('track_id'))
+                                    <span class="text-danger">{{ $errors->first('track_id') }}</span>
+                                  @endif
                             </div>
                             <button type="submit" class="common_btn">Tra cứu</button>
                         </form>

@@ -44,6 +44,7 @@ class AuthServiceProvider extends ServiceProvider
 
         if($modules->count()>0){
             foreach ($modules as $module){
+
                 Gate::define($module->name.'.view',function (User $user) use ($module){
                    $userRole = $user->role;
                    $permission = Role::where('name',$userRole)->first();
@@ -72,7 +73,7 @@ class AuthServiceProvider extends ServiceProvider
                     if ($module->name === 'blog') {
 
                         //Check permissions case user is 'admin'
-                        if($user->role == 'admin'){
+                        if($user->role == 'admin' || $user->role == 'staff'){
                             $userRole = $user->role;
                             $permission = Role::where('name', $userRole)->first();
                             if ($permission) {
@@ -112,7 +113,7 @@ class AuthServiceProvider extends ServiceProvider
                     if ($module->name === 'blog') {
 
                         //Check permissions case user is 'admin'
-                        if($user->role == 'admin'){
+                        if($user->role == 'admin' || $user->role == 'staff'){
                             $userRole = $user->role;
                             $permission = Role::where('name', $userRole)->first();
                             if ($permission) {

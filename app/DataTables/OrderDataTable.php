@@ -9,8 +9,6 @@ use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
-use Yajra\DataTables\Html\Editor\Editor;
-use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
 class OrderDataTable extends DataTable
@@ -42,8 +40,11 @@ class OrderDataTable extends DataTable
                 return Carbon::parse($query->created_at)->format('d-m-Y');
             })
 
+            ->addColumn('amount', function ($query){
+                return format($query->amount);
+            })
+
             ->addColumn('order_status', function ($query){
-//                return '<span class="badge badge-info">'.$query->order_status.'</span>';
 
                 if($query->order_status == 'pending' ){
                     return '<span class="badge badge-danger">'.$query->order_status.'</span>';

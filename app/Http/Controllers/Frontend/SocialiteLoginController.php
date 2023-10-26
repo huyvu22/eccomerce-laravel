@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Models\SocialiteLogin;
 use App\Models\User;
-
 use Auth;
 use Illuminate\Support\Str;
 use Laravel\Socialite\Facades\Socialite;
@@ -31,13 +30,13 @@ class SocialiteLoginController extends \App\Http\Controllers\Controller
         );
 
         SocialiteLogin::firstOrCreate(
-            [
-                'user_id' => $user->id,
-                'provider' => 'google',
-            ],
-            [
-                'provider_id' => $socialiteUser->getId()
-            ]
+                    [
+                        'user_id' => $user->id,
+                        'provider' => 'google',
+                    ],
+                    [
+                        'provider_id' => $socialiteUser->getId()
+                    ]
         );
 
         Auth::login($user, true);

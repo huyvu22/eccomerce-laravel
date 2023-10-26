@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Backend;
 
-use App\DataTables\ProductImageGalleryDataTable;
 use App\DataTables\VendorProductImageGalleryDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
@@ -41,9 +40,19 @@ class VendorProductImageGalleryController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'image.*' => 'required|image|max:2048',
-        ]);
+        $request->validate(
+            [
+                'image.*' => 'required|image|max:2048',
+            ],
+            [
+                'required' => ':attribute không được để trống',
+                'image' => ':attribute phải ở dạng ảnh',
+                'max' => ':attribute không được vượt quá :max Mb',
+            ],
+            [
+                'image' => 'Ảnh'
+            ]
+        );
 
         $imagePaths = $this->uploadMultiImage($request, 'image','uploads');
 
@@ -54,7 +63,7 @@ class VendorProductImageGalleryController extends Controller
                 $productImageGallery -> image = $imagePath;
                 $productImageGallery -> save();
             }
-            toastr('Upload successful');
+            toastr('Tải ảnh thành công');
         }
         return redirect()->back();
 
@@ -95,7 +104,7 @@ class VendorProductImageGalleryController extends Controller
         }
         $this->deleteImage($productImage->image);
         $productImage->delete();
-        toastr('Deleted successfully');
+        toastr('Xóa thành công');
         return redirect()->back();
     }
 }

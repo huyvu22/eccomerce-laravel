@@ -36,18 +36,29 @@ class VendorProductVariantController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'name'=>'required|max:200',
-            'product'=>'required|integer:',
-            'status'=>'required'
-        ]);
+        $request->validate(
+            [
+                'name'=>'required|max:200',
+                'product'=>'required',
+                'status'=>'required'
+            ],
+            [
+                'required' => ':attribute không được để trống',
+                'max' => ':attribute không được vượt quá :max ký tự',
+            ],
+            [
+                'name'=>'Tên',
+                'status'=>'Trạng thái'
+            ]
+
+        );
 
         $variant = new ProductVariant();
         $variant->product_id = $request->product;
         $variant->name = $request->name;
         $variant->status = $request->status;
         $variant->save();
-        toastr()->success('Create successfully');
+        toastr()->success('Tạo mới thành công');
         return redirect()->route('vendor.products-variant.index',['product'=>$request->product]);
     }
 
@@ -89,7 +100,7 @@ class VendorProductVariantController extends Controller
         if ($request->has('switch_status')) {
             $products_variant->status = $request->switch_status;
             $products_variant->save();
-            return response(['message' =>'Status has been updated!']);
+            return response(['message' =>'Cập nhật trạng thái thành công']);
         } else {
             $products_variant->name = $request->name;
             $products_variant->status = $request->status;
@@ -110,10 +121,10 @@ class VendorProductVariantController extends Controller
 
         $variantItems = $products_variant->variantItems;
         if($variantItems->count() > 0){
-            toastr()->error('Delete failed, because there are more than one variant items');
+            toastr()->error('Không thể xóa, vì vẫn còn thuộc tính con');
         }else {
             $products_variant->delete();
-            toastr()->success('Delete successfully');
+            toastr()->success('Xóa thành công');
         }
         return redirect()->back();
     }

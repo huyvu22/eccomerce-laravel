@@ -10,8 +10,6 @@ use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
-use Yajra\DataTables\Html\Editor\Editor;
-use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
 class ProcessedOrderDataTable extends DataTable
@@ -38,9 +36,15 @@ class ProcessedOrderDataTable extends DataTable
             ->addColumn('customer', function ($query){
                 return $query->user->name;
             })
+
+            ->addColumn('amount', function ($query){
+                return format($query->amount);
+            })
+
             ->addColumn('date', function ($query){
                 return Carbon::parse($query->created_at)->format('d-m-Y');
             })
+            
             ->addColumn('order_status', function ($query){
                 return '<span class="badge badge-info">'.$query->order_status.'</span>';
             })
@@ -103,7 +107,7 @@ class ProcessedOrderDataTable extends DataTable
             Column::computed('action')
                 ->exportable(false)
                 ->printable(false)
-                ->width(220)
+                ->width(100)
                 ->addClass('text-center'),
         ];
     }

@@ -8,8 +8,6 @@ use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
-use Yajra\DataTables\Html\Editor\Editor;
-use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
 class TransactionDataTable extends DataTable
@@ -30,6 +28,11 @@ class TransactionDataTable extends DataTable
                     $query->where('invoice_id','like', "%$keyword%");
                 });
             })
+
+            ->addColumn('amount', function ($query){
+                return format($query->amount);
+            })
+
             ->setRowId('id');
     }
 

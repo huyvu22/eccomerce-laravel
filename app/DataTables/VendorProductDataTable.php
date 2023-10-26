@@ -20,11 +20,21 @@ class VendorProductDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-            ->addColumn('thumb_image',function ($query){
+
+            ->addColumn('Tên',function ($query){
+                return $query->name;
+            })
+
+            ->addColumn('Stt', function ($query) use (&$count) {
+                $count++;
+                return $count;
+             })
+
+            ->addColumn('Ảnh',function ($query){
                 $img = '<img width="70" src="'.asset($query->thumb_image).'">';
                 return $img;
             })
-            ->addColumn('action', function ($query){
+            ->addColumn('Hành động', function ($query){
                 $editBtn = '<a href="'.route('vendor.products.edit', $query).'" class="btn btn-primary"><i class="fas fa-edit"></i></a>';
                 $deleteBtn = ' <form class="form-delete" style="display:inline-block" action="'.route('vendor.products.destroy', $query).'" method="POST">
                                 ' . csrf_field() . '
@@ -36,19 +46,19 @@ class VendorProductDataTable extends DataTable
                                     <i class="fas fa-cog"></i>
                                   </button>
                                   <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="'.route('vendor.products-image-gallery.index',['product'=>$query]).'"><i class="fas fa-images"></i> Image Galleries</a></li>
-                                    <li><a class="dropdown-item" href="'.route('vendor.products-variant.index',['product'=>$query]).'"><i class="fas fa-file"></i> Variants</a></li>
+                                    <li><a class="dropdown-item" href="'.route('vendor.products-image-gallery.index',['product'=>$query]).'"><i class="fas fa-images"></i> Thêm ảnh</a></li>
+                                    <li><a class="dropdown-item" href="'.route('vendor.products-variant.index',['product'=>$query]).'"><i class="fas fa-file"></i> Tạo thuộc tính</a></li>
                                   </ul>
                                 </div>';
                 return $moreAction.$editBtn.$deleteBtn;
 
             })
 
-            ->addColumn('price',function ($query){
+            ->addColumn('Giá',function ($query){
                 return number_format($query->price,0,',','.').'₫';
             })
 
-            ->addColumn('status', function ($query) {
+            ->addColumn('Trạng thái', function ($query) {
                 $checked = $query->status == 1 ? 'checked' : null;
                 return '<label class="switch-status form-check form-switch">
                             <form class="form-status" action="'.route('vendor.products.update', $query).'" method="post" type="submit" >
@@ -60,7 +70,7 @@ class VendorProductDataTable extends DataTable
                         </label>';
             })
 
-            ->addColumn('product_type', function ($query){
+            ->addColumn('Phân loại', function ($query){
                 switch ($query){
                     case $query->product_type =='top_product':
                         return '<i class="badge bg-success">Top Product</i>';
@@ -75,15 +85,15 @@ class VendorProductDataTable extends DataTable
                 }
             })
 
-            ->addColumn('approved', function ($query){
+            ->addColumn('Phê duyệt', function ($query){
                if($query->is_approved === 0){
-                   return '<i class="badge bg-danger">pending</i>';
+                   return '<i class="badge bg-danger">Chưa duyệt</i>';
                }else {
-                   return '<i class="badge bg-success">approved</i>';
+                   return '<i class="badge bg-success">Đã duyệt</i>';
                }
             })
 
-            ->rawColumns(['thumb_image','action','status','approved','product_type'])
+            ->rawColumns(['Ảnh','Hành động','Trạng thái','Phê duyệt','Phân loại'])
             ->setRowId('id');
     }
 
@@ -123,14 +133,15 @@ class VendorProductDataTable extends DataTable
     public function getColumns(): array
     {
         return [
-            Column::make('id'),
-            Column::make('name'),
-            Column::make('thumb_image'),
-            Column::make('price'),
-            Column::make('approved'),
-            Column::make('product_type'),
-            Column::make('status'),
-            Column::computed('action')
+
+            Column::make('Stt'),
+            Column::make('Tên'),
+            Column::make('Ảnh'),
+            Column::make('Giá'),
+            Column::make('Phê duyệt'),
+            Column::make('Phân loại'),
+            Column::make('Trạng thái'),
+            Column::computed('Hành động')
                 ->exportable(false)
                 ->printable(false)
                 ->width(200)

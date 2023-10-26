@@ -1,8 +1,7 @@
 <?php
-
-
 //active sidebar item
 use App\Models\Product;
+
 
 function isRole($dataArr,$moduleName,$role='view')
 {

@@ -27,7 +27,7 @@ class ReviewController extends Controller
 
         $checkReviewExists = ProductReview::where(['product_id' => $request->product_id, 'user_id' => Auth::user()->id])->first();
         if ($checkReviewExists){
-            toastr()->error('You already added review to this product!');
+            toastr()->error('Bạn đã đánh giá sản phẩm này trước đó');
             return redirect()->back();
         }
 
@@ -40,7 +40,7 @@ class ReviewController extends Controller
         $productReview->product_id = $request->product_id;
         $productReview->vendor_id = $request->vendor_id;
         $productReview->user_id = Auth::user()->id;
-        $productReview->status = 0;
+        $productReview->status = 1;
         $productReview->save();
 
         if(!empty($imagePaths)){
@@ -51,7 +51,7 @@ class ReviewController extends Controller
                 $reviewGallery->save();
             }
         }
-        toastr()->success('Thank you for your review!');
+        toastr()->success('Cám ơn đã để lại đánh giá');
         return redirect()->back();
     }
 }

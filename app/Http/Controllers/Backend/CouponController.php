@@ -22,6 +22,7 @@ class CouponController extends Controller
      */
     public function create()
     {
+        $this->authorize('coupon.add',Coupon::class);
         return view('admin.coupon.create');
     }
 
@@ -70,6 +71,7 @@ class CouponController extends Controller
      */
     public function edit(Coupon $coupon)
     {
+        $this->authorize('coupon.edit',$coupon);
         return view('admin.coupon.edit', compact('coupon'));
     }
 
@@ -78,6 +80,7 @@ class CouponController extends Controller
      */
     public function update(Request $request, Coupon $coupon)
     {
+        $this->authorize('coupon.edit',$coupon);
 
         if (!$request->has('switch_status')) {
             $request->validate([
@@ -119,6 +122,7 @@ class CouponController extends Controller
      */
     public function destroy(Coupon $coupon)
     {
+        $this->authorize('coupon.delete',$coupon);
        $coupon->delete();
         toastr()->success('Deleted Successfully');
         return redirect()->back();

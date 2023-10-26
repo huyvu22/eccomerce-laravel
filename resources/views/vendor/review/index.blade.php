@@ -13,7 +13,7 @@
             <div class="row">
                 <div class="col-xl-9 col-xxl-10 col-lg-9 ms-auto">
                     <div class="dashboard_content mt-2 mt-md-0">
-                        <h4>All Reviews</h4>
+                        <h4>Tất cả đánh giá</h4>
                         <div class="wsus__dashboard_profile">
                             <div class="wsus__dash_pro_area" style="font-size: 14px">
                                 {{$dataTable->table()}}

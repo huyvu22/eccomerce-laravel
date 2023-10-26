@@ -19,14 +19,29 @@ class BecomeAVendorRequestController extends Controller
 
     public function create(Request $request)
     {
-        $request->validate([
-            'shop_banner' => 'required|image|max:2048',
-            'shop_name' => 'required|max:200',
-            'shop_mail' => 'required|email',
-            'shop_phone' => 'required',
-            'shop_address' => 'required',
-            'shop_about' => 'required',
-        ]);
+        $request->validate(
+            [
+                'shop_banner' => 'required|image|max:2048',
+                'shop_name' => 'required|max:200',
+                'shop_mail' => 'required|email',
+                'shop_phone' => 'required',
+                'shop_address' => 'required',
+                'shop_about' => 'required',
+            ],
+            [
+                'required' => ':attribute không được để trống',
+                'image' => ':attribute phải là ảnh',
+                'max' => ':attribute không vượt quá :max 2048 Mb',
+            ],
+            [
+                'shop_banner' => 'Ảnh đại diện',
+                'shop_name' => 'Tên shop',
+                'shop_mail' => 'Email',
+                'shop_phone' => 'Số điện thoại',
+                'shop_address' => 'Địa chỉ',
+                'shop_about' => 'Mô tả',
+            ],
+        );
 
         if(Auth::user()->role == 'vendor'){
             return redirect()->back();
@@ -45,7 +60,7 @@ class BecomeAVendorRequestController extends Controller
         $vendor->status = 0;
         $vendor->save();
 
-        toastr()->success('Submitted successfully! Please wait for approval!');
+        toastr()->success('Gửi đề nghị thành công, chúng tôi sẽ phản hồi sớm nhất có thể');
         return redirect()->back();
     }
 }

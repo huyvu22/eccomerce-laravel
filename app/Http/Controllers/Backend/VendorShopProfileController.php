@@ -32,16 +32,34 @@ class VendorShopProfileController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'phone'=>'required|max:11',
-            'shop_name'=>'required|max:200',
-            'email'=>'required|email',
-            'address'=>'required',
-            'description'=>'required',
-            'fb_link'=>'nullable|url',
-            'tw_link'=>'nullable|url',
-            'insta_link'=>'nullable|url',
-        ]);
+        $request->validate(
+            [
+                'phone' => 'required|max:11',
+                'shop_name' => 'required|max:200',
+                'email' => 'required|email',
+                'address' => 'required',
+                'description' => 'required',
+                'fb_link '=> 'nullable|url',
+                'tw_link' => 'nullable|url',
+                'insta_link' => 'nullable|url',
+            ],
+            [
+                'required' =>':attribute bắt buộc phải nhập',
+                'email' =>':attribute không đúng định dạng',
+                'max' => ':attribute tối đa :max ký tự',
+                'url' => ':attribute phải là link url',
+            ],
+            [
+                'phone' => 'Số điện thoại',
+                'shop_name' => 'Tên shop',
+                'email' => 'Email',
+                'address' => 'Địa chỉ',
+                'description' => 'Mô tả',
+                'fb_link' => 'Link facebook',
+                'tw_link' => 'Link X',
+                'insta_link' => 'Link instagram',
+            ]
+        );
 
         $vendor= Vendor::where('user_id',Auth::user()->id)->first();
         $bannerPath = $this->updateImage($request,'banner','uploads',$vendor->banner);
@@ -55,7 +73,7 @@ class VendorShopProfileController extends Controller
         $vendor->tw_link = $request->tw_link;
         $vendor->insta_link = $request->insta_link;
         $vendor->save();
-        toastr('Updated Successfully','success');
+        toastr('Cập nhật thành công','success');
         return redirect()->back();
     }
 

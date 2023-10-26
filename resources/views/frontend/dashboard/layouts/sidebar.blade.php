@@ -5,20 +5,20 @@
         </span>
     <a href="{{route('home')}}" class="dash_logo"><img src="{{asset('frontend/images/logo.png')}}" alt="logo" class="img-fluid"></a>
     <ul class="dashboard_link">
-        <li><a class="{{setActive(['user.dashboard'])}}" href="{{route('user.dashboard')}}"><i class="fas fa-tachometer"></i>Dashboard</a></li>
-        <li><a class="{{setActive(['home'])}}" href="{{route('home')}}"><i class="fas fa-home"></i>Home page</a></li>
+        <li><a class="{{setActive(['home'])}}" href="{{route('home')}}"><i class="fas fa-home"></i>Mua hàng</a></li>
+        <li><a class="{{setActive(['user.dashboard'])}}" href="{{route('user.dashboard')}}"><i class="fas fa-tachometer"></i>Thống kê</a></li>
 
         @if(auth()->user()->role == 'vendor')
-            <li><a href="{{route('vendor.dashboard')}}" class="{{setActive(['vendor.dashboard'])}}"><i class="fas fa-tachometer"></i>Go Vendor Dashboard</a></li>
+            <li><a href="{{route('vendor.dashboard')}}" class="{{setActive(['vendor.dashboard'])}}"><i class="fas fa-tachometer"></i>QUản lý shop</a></li>
         @endif
 
-        <li><a href="{{route('user.orders.index')}}" class="{{setActive(['user.orders.*'])}}"><i class="fas fa-list-ul"></i> Orders</a></li>
-        <li><a href="{{route('user.review.index')}}" class="{{setActive(['user.review.*'])}}"><i class="far fa-star"></i> Reviews</a></li>
-        <li><a href="{{route('user.profile')}}" class="{{setActive(['user.profile.*'])}}"><i class="far fa-user"></i> My Profile</a></li>
-        <li><a href="{{route('user.address.index')}}" class="{{setActive(['user.address.*'])}}"><i class="fal fa-map-marker-alt"></i> Addresses</a></li>
+        <li><a href="{{route('user.orders.index')}}" class="{{setActive(['user.orders.*'])}}"><i class="fas fa-list-ul"></i> Các đơn hàng</a></li>
+        <li><a href="{{route('user.review.index')}}" class="{{setActive(['user.review.*'])}}"><i class="far fa-star"></i> Đánh giá</a></li>
+        <li><a href="{{route('user.profile')}}" class="{{setActive(['user.profile.*'])}}"><i class="far fa-user"></i> Cá nhân</a></li>
+        <li><a href="{{route('user.address.index')}}" class="{{setActive(['user.address.*'])}}"><i class="fal fa-map-marker-alt"></i> Địa chỉ</a></li>
 
         @if(auth()->user()->role !== 'vendor')
-            <li><a href="{{route('user.become-vendor.index')}}" class="{{setActive(['user.become-vendor.*'])}}"><i class="fal fa-gift-card"></i> Become a vendor</a></li>
+            <li><a href="{{route('user.become-vendor.index')}}" class="{{setActive(['user.become-vendor.*'])}}"><i class="fal fa-gift-card"></i>Trở thành shop</a></li>
         @endif
 
         <li>

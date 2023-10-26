@@ -1,6 +1,6 @@
 @extends('frontend.layouts.master')
 @section('title')
-    Shop Now - WishList
+    Shop Now | Yêu thích
 @endsection
 @section('content')
     <!--============================
@@ -34,7 +34,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="wsus__cart_list wishlist">
-                        <div class="table-responsive" style="overflow-x: hidden !important;">
+                        <div class="table-responsive">
                             <table>
                                 <tbody>
                                 <tr class="d-flex">

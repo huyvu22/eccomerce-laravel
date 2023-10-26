@@ -4,13 +4,12 @@ namespace App\DataTables;
 
 use App\Models\Product;
 use App\Models\SellerPendingProduct;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
-use Yajra\DataTables\Html\Editor\Editor;
-use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
 class SellerPendingProductsDataTable extends DataTable
@@ -100,7 +99,8 @@ class SellerPendingProductsDataTable extends DataTable
      */
     public function query(Product $model): QueryBuilder
     {
-        return $model::with('vendor')->where('vendor_id','!=',\Auth::user()->vendor->id)->where('is_approved',0)->newQuery();
+        $admin = User::where('role', 'admin')->first();
+        return $model::with('vendor')->where('vendor_id','!=',$admin->vendor->id)->where('is_approved',0)->newQuery();
     }
 
     /**
@@ -142,7 +142,7 @@ class SellerPendingProductsDataTable extends DataTable
             Column::computed('action')
                 ->exportable(false)
                 ->printable(false)
-                ->width(200)
+                ->width(150)
                 ->addClass('text-center'),
         ];
     }

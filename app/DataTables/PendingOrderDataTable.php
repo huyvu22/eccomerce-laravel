@@ -10,8 +10,6 @@ use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
-use Yajra\DataTables\Html\Editor\Editor;
-use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
 class PendingOrderDataTable extends DataTable
@@ -38,6 +36,11 @@ class PendingOrderDataTable extends DataTable
             ->addColumn('customer', function ($query){
                 return $query->user->name;
             })
+
+            ->addColumn('amount', function ($query){
+                return format($query->amount);
+            })
+
             ->addColumn('date', function ($query){
                 return Carbon::parse($query->created_at)->format('d-m-Y');
             })
@@ -110,7 +113,7 @@ class PendingOrderDataTable extends DataTable
             Column::computed('action')
                 ->exportable(false)
                 ->printable(false)
-                ->width(220)
+                ->width(100)
                 ->addClass('text-center'),
         ];
     }

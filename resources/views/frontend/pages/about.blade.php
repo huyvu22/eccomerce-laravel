@@ -1,7 +1,7 @@
 @php use App\Models\Product; @endphp
 @extends('frontend.layouts.master')
 @section('title')
-    Shop Now
+    Shop Now | Về chúng tôi
 @endsection
 @section('content')
     <!--============================

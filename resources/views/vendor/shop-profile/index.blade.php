@@ -13,14 +13,14 @@
             <div class="row">
                 <div class="col-xl-9 col-xxl-10 col-lg-9 ms-auto">
                     <div class="dashboard_content mt-2 mt-md-0">
-                        <h3><i class="far fa-user"></i> shop profile</h3>
+                        <h3><i class="far fa-user"></i>Thông tin shop</h3>
                         <div class="wsus__dashboard_profile">
                             <div class="wsus__dash_pro_area">
                                 <form action="{{route('vendor.shop-profile.store')}}" method="post" enctype="multipart/form-data">
                                     @csrf
 
                                     <div class="form-group mb-3">
-                                        <label for="">Preview Banner</label>
+                                        <label for="">Ảnh đại diện</label>
                                         <br>
                                         <img width="200" src="{{asset($profile->banner)}}" alt="">
                                     </div>
@@ -32,14 +32,14 @@
                                         @endif
                                     </div>
                                     <div class="form-group mb-3 mt-3">
-                                        <label for="">Shop name</label>
-                                        <input type="text" name="shop_name"  value="{{$profile->shop_name}}" class="form-control" style="font-size: 14px" >
+                                        <label for="">Tên shop</label>
+                                        <input type="text" name="shop_name" value="{{$profile->shop_name}}" class="form-control" style="font-size: 14px">
                                         @if($errors->has('shop_name'))
                                             <span class="text-danger">{{ $errors->first('shop_name') }}</span>
                                         @endif
                                     </div>
                                     <div class="form-group mb-3 mt-3">
-                                        <label for="">Phone</label>
+                                        <label for="">Số điện thoại</label>
                                         <input type="text" name="phone" class="form-control" value="{{$profile->phone}}" style="font-size: 14px">
                                         @if($errors->has('type'))
                                             <span class="text-danger">{{ $errors->first('type') }}</span>
@@ -53,22 +53,22 @@
                                         @endif
                                     </div>
                                     <div class="form-group  mb-3 mt-3">
-                                        <label for="">Address</label>
+                                        <label for="">Địa chỉ</label>
                                         <input type="text" name="address" class="form-control" value="{{$profile->address}}" style="font-size: 14px">
                                         @if($errors->has('address'))
                                             <span class="text-danger">{{ $errors->first('address') }}</span>
                                         @endif
                                     </div>
                                     <div class="form-group  mb-3 mt-3">
-                                        <label for="">Description</label>
-                                        <textarea name="description" class="summernote"  style="font-size: 14px">{{$profile->description}}</textarea>
+                                        <label for="">Mô tả</label>
+                                        <textarea name="description" class="summernote" style="font-size: 14px">{{$profile->description}}</textarea>
                                         @if($errors->has('description'))
                                             <span class="text-danger">{{ $errors->first('description') }}</span>
                                         @endif
                                     </div>
                                     <div class="form-group mb-3 mt-3">
                                         <label for="">Facebook</label>
-                                        <input type="text" name="fb_link" class="form-control" value="{{$profile->fb_link}}"  style="font-size: 14px">
+                                        <input type="text" name="fb_link" class="form-control" value="{{$profile->fb_link}}" style="font-size: 14px">
                                         @if($errors->has('fb_link'))
                                             <span class="text-danger">{{ $errors->first('fb_link') }}</span>
                                         @endif
@@ -86,7 +86,7 @@
                                         @if($errors->has('insta_link'))
                                             <span class="text-danger">{{ $errors->first('insta_link') }}</span>
                                         @endif
-                                        <button type="submit" class="btn btn-primary mt-3">Update</button>
+                                        <button type="submit" class="btn btn-primary mt-3">Cập nhật</button>
                                     </div>
                                 </form>
 

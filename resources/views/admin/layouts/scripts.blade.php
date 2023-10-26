@@ -16,16 +16,16 @@
                     const data = await res.json();
                     if (data.status === 'success') {
                         let option = '<option value="0">Select</option>\n';
-                        let { subCategories } = data;
+                        let {subCategories} = data;
                         if (subCategories.length) {
-                            subCategories.forEach(({ id, name }) => {
+                            subCategories.forEach(({id, name}) => {
                                 option += `<option value="${id}">${name}</option>\n`;
                             });
                         }
                         subCategorySelect.innerHTML = option;
                     }
                     childCategorySelect.innerHTML = '<option value="0">Select</option>\n';
-                }else {
+                } else {
                     subCategorySelect.innerHTML = '<option value="0">Select</option>\n';
                     childCategorySelect.innerHTML = '<option value="0">Select</option>\n';
                 }
@@ -41,22 +41,23 @@
                     const data = await res.json();
                     if (data.status === 'success') {
                         let option = '<option value="0">Select</option>\n';
-                        let { childCategories } = data;
+                        let {childCategories} = data;
                         if (childCategories.length) {
-                            childCategories.forEach(({ id, name }) => {
+                            childCategories.forEach(({id, name}) => {
                                 option += `<option value="${id}">${name}</option>\n`;
                             });
                         }
                         childCategorySelect.innerHTML = option;
                     }
-                }else {
+                } else {
                     childCategorySelect.innerHTML = '<option value="0">Select</option>\n';
                 }
             });
         }
 
         /* Handle Toggle Status */
-        if ( document.querySelector('.data-table')){
+
+        if (document.querySelector('.data-table')) {
             document.querySelector('.data-table').addEventListener('change', async (e) => {
                 e.preventDefault();
 
@@ -81,7 +82,7 @@
         }
 
         /* Handle Delete Item */
-        if( document.querySelector('.data-table')){
+        if (document.querySelector('.data-table')) {
             document.querySelector('.data-table').addEventListener('click', async (e) => {
                 if (e.target.classList.contains('btn-delete-item')) {
                     e.preventDefault();
@@ -107,7 +108,7 @@
 
 
         /* Handle Toggle Approved */
-        if(document.querySelector('.data-table')){
+        if (document.querySelector('.data-table')) {
             document.querySelector('.data-table').addEventListener('change', async (e) => {
                 if (e.target.classList.contains('is_approved')) {
                     e.preventDefault();
@@ -116,7 +117,7 @@
                     const endpoint = `./seller-pending-products/update-approved/${productId}/${selectedValue}`;
                     const res = await fetch(endpoint);
                     const data = await res.json();
-                    if(data.status==200){
+                    if (data.status == 200) {
                         // toastr.success(data.message);
                         window.location.reload();
                     }

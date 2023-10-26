@@ -11,7 +11,9 @@ use App\DataTables\PendingOrderDataTable;
 use App\DataTables\ProcessedOrderDataTable;
 use App\DataTables\ShippedOrderDataTable;
 use App\Http\Controllers\Controller;
+use App\Models\Coupon;
 use App\Models\Order;
+use App\Models\ShippingRule;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -46,7 +48,19 @@ class OrderController extends Controller
     public function show(Order $order)
     {
 
-        return view('admin.order.show', compact('order'));
+        $discountValue = null;
+        $shipping = $order->shipping_method;
+        $shippingFee = ShippingRule::where('name', $shipping)->first();
+
+        if ($order->coupon) {
+            $coupon = Coupon::where('code', $order->coupon)->first();
+
+            if ($coupon) {
+                $discountValue = $coupon->discount_value;
+            }
+        }
+
+        return view('admin.order.show', compact('order', 'discountValue','shippingFee'));
     }
 
     /**

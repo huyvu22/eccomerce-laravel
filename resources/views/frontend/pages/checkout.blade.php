@@ -1,7 +1,7 @@
 @php use App\Models\Product; @endphp
 @extends('frontend.layouts.master')
 @section('title')
-    Shop Now
+    Shop Now | Thanh toán
 @endsection
 @section('content')
     <!--============================
@@ -48,7 +48,7 @@
                                                 <input class="form-check-input shipping_address" data-id="{{$address->id}}" type="radio" name="flexRadioDefault"
                                                        id="flexRadioDefault-{{$address->id}}">
                                                 <label class="form-check-label" for="flexRadioDefault-{{$address->id}}">
-                                                    Select Address
+                                                    Chọn địa chỉ
                                                 </label>
                                             </div>
                                             <ul>
@@ -61,6 +61,13 @@
                                                 <li><span>Địa chỉ :</span> <b>{{$address->address}}</b></li>
                                                 <li><span>Ghi chú :</span> <b>{{$address->note}}</b></li>
                                             </ul>
+                                            
+                                            <form action="{{ route('user.address.destroy', $address) }}" method="POST">
+                                               @csrf
+                                               @method('DELETE')
+                                              <button type="submit" class="btn" ><span class="wsus_close_mini_cart text-danger"><i class="far fa-times" aria-hidden="true"></i></span></button>
+                                              
+                                            </form>
                                         </div>
                                     </div>
                                 @endforeach
@@ -140,7 +147,7 @@
                                                 <span class="text-danger">{{ $errors->first('name') }}</span>
                                             @endif
                                         <div class="wsus__check_single_form">
-                                            <input type="text" placeholder="Name" name="name" value="{{old('name')}}">
+                                            <input type="text" placeholder="Tên" name="name" value="{{old('name')}}">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -148,7 +155,7 @@
                                                 <span class="text-danger">{{ $errors->first('phone') }}</span>
                                             @endif
                                         <div class="wsus__check_single_form">
-                                            <input type="text" placeholder="Phone" name="phone" value="{{old('phone')}}">
+                                            <input type="text" placeholder="Số điện thoại" name="phone" value="{{old('phone')}}">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -156,7 +163,7 @@
                                                 <span class="text-danger">{{ $errors->first('email') }}</span>
                                             @endif
                                         <div class="wsus__check_single_form">
-                                            <input type="text" placeholder="Email (Optional)" name="email" value="{{old('email')}}">
+                                            <input type="text" placeholder="Email (Tùy chọn)" name="email" value="{{old('email')}}">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -199,19 +206,19 @@
                                                 <span class="text-danger">{{ $errors->first('address') }}</span>
                                             @endif
                                         <div class="wsus__check_single_form">
-                                            <input type="text" placeholder="Address *" name="address" value="{{old('address')}}">
+                                            <input type="text" placeholder="Địa chỉ *" name="address" value="{{old('address')}}">
                                         </div>
                                     </div>
 
                                     <div class="col-md-12">
                                         <div class="wsus__check_single_form">
-                                            <textarea cols="3" rows="3" placeholder="Note" name="note">{{old('note')}}</textarea>
+                                            <textarea cols="3" rows="3" placeholder="Ghi chú" name="note">{{old('note')}}</textarea>
                                         </div>
                                     </div>
 
                                     <div class="col-xl-12">
                                         <div class="wsus__check_single_form">
-                                            <button type="submit" class="btn btn-primary">Save</button>
+                                            <button type="submit" class="btn btn-primary">Thêm mới</button>
                                         </div>
                                     </div>
                                 </div>

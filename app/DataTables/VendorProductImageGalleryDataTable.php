@@ -21,10 +21,14 @@ class VendorProductImageGalleryDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-            ->addColumn('image',function ($query){
+            ->addColumn('Ảnh',function ($query){
                 return '<img width="100" src="'.asset($query->image).'">';
             })
-            ->addColumn('action', function ($query){
+            ->addColumn('Stt', function ($query) use (&$count) {
+                $count++;
+                return $count;
+             })
+            ->addColumn('Hành động', function ($query){
                 return '
                         <form class="form-delete me-2" style="display:inline-block" action="'.route('vendor.products-image-gallery.destroy', $query).'" method="POST">
                             ' . csrf_field() . '
@@ -32,7 +36,7 @@ class VendorProductImageGalleryDataTable extends DataTable
                             <button type="submit" class="btn btn-danger btn-delete-item"><i class="fas fa-trash"></i></button>
                         </form>';
             })
-            ->rawColumns(['image', 'action'])
+            ->rawColumns(['Ảnh', 'Hành động'])
             ->setRowId('id');
     }
 
@@ -72,9 +76,9 @@ class VendorProductImageGalleryDataTable extends DataTable
     public function getColumns(): array
     {
         return [
-            Column::make('id')->width(100),
-            Column::make('image'),
-            Column::computed('action')
+            Column::make('stt')->width(100),
+            Column::make('Ảnh'),
+            Column::computed('Hành động')
                 ->exportable(false)
                 ->printable(false)
                 ->width(200)

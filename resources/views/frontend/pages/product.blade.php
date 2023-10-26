@@ -16,7 +16,7 @@
 
 @extends('frontend.layouts.master')
 @section('title')
-    Shop Now
+    Shop Now | Sản phẩm
 @endsection
 @section('content')
 
@@ -247,7 +247,9 @@
                                     <div class="col-xl-12">
                                         <div class="wsus__product_item wsus__list_view">
                                             <span class="wsus__new">{{productType($product->product_type)}}</span>
+                                            @if(checkDiscount($product))
                                             <span class="wsus__minus">-{{discountPercent($product->price, $product->offer_price)}}%</span>
+                                            @endif
                                             <a class="wsus__pro_link" href="{{route('product-detail',$product->slug)}}">
                                                 <img src="{{asset($product->thumb_image)}}" alt="product" class="img-fluid w-100 img_1" />
                                                 <img src="{{asset(isset($product->productImageGalleries[0]->image) ? $product->productImageGalleries[0]->image : $product->thumb_imag) }}" alt="product" class="img-fluid w-100 img_2" />
@@ -290,7 +292,7 @@
                                                                 </select>
                                                             @endforeach
                                                             <input class=" quantity" type="hidden" min="1" max="100" value="1" name="qty" />
-                                                            <button style="border: 1px solid #08c; border-radius: 3px; background: #fff; color: #08c" type="button" class="add_cart" >Thêm vào giỏ</button>
+                                                            <button style="border: 1px solid #03a676; border-radius: 3px; background: #fff; color: #03a676" type="button" class="add_cart" >Thêm vào giỏ</button>
                                                         </form>
                                                     </li>
 

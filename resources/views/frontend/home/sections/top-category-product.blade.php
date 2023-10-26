@@ -27,7 +27,7 @@
         <div class="row">
             <div class="col-xl-12">
                 <div class="wsus__section_header for_md">
-                    <h3>Popular Categories</h3>
+                    <h3>Các sản phẩm nổi bật</h3>
                     <div class="monthly_top_filter">
                         @php
                             $products = [];
@@ -73,7 +73,7 @@
                                         <img src="{{asset($item->thumb_image)}}" alt="bag" class="img-fluid w-100">
                                     </div>
                                     <div class="wsus__hot_deals__single_text">
-                                        <h5>{!! limitText($item->name) !!}</h5>
+                                        <h5>{!! limitText($item->name, 30) !!}</h5>
                                         <p class="wsus__rating">
                                             @php
                                                 $avgRating = $item->reviews()->avg('rating');
@@ -94,7 +94,7 @@
                                             <p style="font-size: 13px" class="wsus__tk">{{format($item->offer_price)}}
                                                 <del>{{format($item->price)}}</del>
                                             </p>
-                                            @else
+                                        @else
                                             <p style="font-size: 13px; color: red" class="wsus__tk">{{format($item->price)}}</p>
                                         @endif
                                     </div>

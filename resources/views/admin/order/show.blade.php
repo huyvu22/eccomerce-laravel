@@ -78,9 +78,9 @@
                                         <th class="text-right">Totals</th>
                                     </tr>
                                     @foreach($order->orderProducts as $product)
-                                      @php
-                                          $variants = json_decode($product->variants);
-                                      @endphp
+                                        @php
+                                            $variants = json_decode($product->variants);
+                                        @endphp
                                         <tr>
                                             <td>{{$loop->index+1}}</td>
                                             <td class="text-center">{{$product->vendor->shop_name}}</td>
@@ -95,9 +95,9 @@
                                                     - <b>{{$key}}: </b>{{$variant->name}}
                                                 @endforeach
                                             </td>
-                                            <td class="text-center">{{$product->unit_price}}</td>
+                                            <td class="text-center">{{format($product->unit_price)}}</td>
                                             <td class="text-center">{{$product->quantity}}</td>
-                                            <td class="text-right">{{($product->unit_price * $product->quantity) + $product->variant_total}}</td>
+                                            <td class="text-right">{{format(($product->unit_price * $product->quantity) + $product->variant_total)}}</td>
                                         </tr>
                                     @endforeach
 
@@ -115,32 +115,32 @@
                                             </select>
                                         </div>
                                         <div class="form-group">
-                                                <label for="">Order Status</label>
-                                                <select name="order_status" data-id="{{$order->id}}" class="form-control order_status">
-                                                    @foreach(config('order_status.order_status_admin') as $key=>$orderStatus)
-                                                        <option {{$order->order_status == $key ? 'selected' : ''}} value="{{$key}}">{{$orderStatus['status']}}</option>
-                                                    @endforeach
-                                                </select>
+                                            <label for="">Order Status</label>
+                                            <select name="order_status" data-id="{{$order->id}}" class="form-control order_status">
+                                                @foreach(config('order_status.order_status_admin') as $key=>$orderStatus)
+                                                    <option {{$order->order_status == $key ? 'selected' : ''}} value="{{$key}}">{{$orderStatus['status']}}</option>
+                                                @endforeach
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-lg-4 text-right">
                                     <div class="invoice-detail-item">
                                         <div class="invoice-detail-name">Subtotal</div>
-                                        <div class="invoice-detail-value">{{$order->sub_total}}</div>
+                                        <div class="invoice-detail-value">{{format($order->sub_total)}}</div>
                                     </div>
                                     <div class="invoice-detail-item">
                                         <div class="invoice-detail-name">Shipping</div>
-                                        <div class="invoice-detail-value">{{$shipping->cost}}</div>
+                                        <div class="invoice-detail-value">{{format($shipping->cost)}}</div>
                                     </div>
                                     <div class="invoice-detail-item">
                                         <div class="invoice-detail-name">Coupon</div>
-                                        <div class="invoice-detail-value">{{$coupon == null ? 0 : $coupon->discount}}</div>
+                                        <div class="invoice-detail-value">{{$discountValue == null ? '0đ' : format($discountValue)}}</div>
                                     </div>
                                     <hr class="mt-2 mb-2">
                                     <div class="invoice-detail-item">
                                         <div class="invoice-detail-name">Total</div>
-                                        <div class="invoice-detail-value invoice-detail-value-lg">{{$order->amount}}</div>
+                                        <div class="invoice-detail-value invoice-detail-value-lg">{{format($order->amount)}}</div>
                                     </div>
                                 </div>
                             </div>
@@ -163,8 +163,8 @@
                 let id = e.target.dataset.id;
                 const res = await fetch(`./get-order-status/${id}/${status}`);
                 const data = await res.json();
-                if(data['status']){
-                toastr.success(data.message);
+                if (data['status']) {
+                    toastr.success(data.message);
                 }
             })
 
@@ -173,7 +173,7 @@
                 let id = e.target.dataset.id;
                 const res = await fetch(`./payment-status/${id}/${status}`);
                 const data = await res.json();
-                if(data['status']){
+                if (data['status']) {
                     toastr.success(data.message);
                 }
             })

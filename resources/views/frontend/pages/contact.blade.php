@@ -1,7 +1,7 @@
 @php use App\Models\Product; @endphp
 @extends('frontend.layouts.master')
 @section('title')
-    Shop Now
+     Shop Now | Liên hệ
 @endsection
 @section('content')
     <!--============================
@@ -70,7 +70,7 @@
                                 <div class="row">
                                     <div class="col-xl-12">
                                         <div class="wsus__con_form_single">
-                                            <input type="text" placeholder="Your Name" name="name">
+                                            <input type="text" placeholder="Tên" name="name">
                                         </div>
                                     </div>
                                     <div class="col-xl-12">
@@ -80,17 +80,17 @@
                                     </div>
                                     <div class="col-xl-6">
                                         <div class="wsus__con_form_single">
-                                            <input type="text" placeholder="Phone" name="phone">
+                                            <input type="text" placeholder="Số điện thoại" name="phone">
                                         </div>
                                     </div>
                                     <div class="col-xl-6">
                                         <div class="wsus__con_form_single">
-                                            <input type="text" placeholder="Subject" name="subject">
+                                            <input type="text" placeholder="Nội dung" name="subject">
                                         </div>
                                     </div>
                                     <div class="col-xl-12">
                                         <div class="wsus__con_form_single">
-                                            <textarea cols="3" rows="5" placeholder="Message" name="message"></textarea>
+                                            <textarea cols="3" rows="5" placeholder="Lời nhắn" name="message"></textarea>
                                         </div>
                                         <button type="submit" class="common_btn">gửi</button>
                                     </div>

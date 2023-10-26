@@ -112,6 +112,7 @@ window.addEventListener("DOMContentLoaded", (event) => {
                 e.preventDefault();
                 const productId = e.target.dataset.productId;
                 const selectedValue = e.target.value;
+                console.log(productId)
                 const endpoint = `./seller-pending-products/update-approved/${productId}/${selectedValue}`;
                 const res = await fetch(endpoint);
                 const data = await res.json();

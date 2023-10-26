@@ -18,42 +18,42 @@
                                 <div class="col-xl-2 col-6 col-md-4">
                                     <a class="wsus__dashboard_item green" href="{{route('user.orders.index')}}">
                                         <i class="far fa-cart-plus"></i>
-                                        <p>order</p>
+                                        <p>Tất cả đơn hàng</p>
                                         <h5 style="color:#fff;">{{$totalOrder }}</h5>
                                     </a>
                                 </div>
                                 <div class="col-xl-2 col-6 col-md-4">
                                     <a class="wsus__dashboard_item red" href="{{route('user.orders.index')}}">
                                         <i class="far fa-cart-plus"></i>
-                                        <p>Pending Order</p>
+                                        <p>Đơn hàng đợi phê duyệt</p>
                                         <h5 style="color:#fff;">{{$pendingOrder }}</h5>
                                     </a>
                                 </div>
                                 <div class="col-xl-2 col-6 col-md-4">
                                     <a class="wsus__dashboard_item blue" href="{{route('user.orders.index')}}">
                                         <i class="far fa-cart-plus"></i>
-                                        <p>Complete Order</p>
+                                        <p>Đơn hàng hoàn thành</p>
                                         <h5 style="color:#fff;">{{$completeOrder}}</h5>
                                     </a>
                                 </div>
                                 <div class="col-xl-2 col-6 col-md-4">
                                     <a class="wsus__dashboard_item sky" href="{{route('user.review.index')}}">
                                         <i class="fas fa-star"></i>
-                                        <p>reviews</p>
+                                        <p>Đánh giá</p>
                                         <h5 style="color:#fff;">{{$reviews}}</h5>
                                     </a>
                                 </div>
                                 <div class="col-xl-2 col-6 col-md-4">
                                     <a class="wsus__dashboard_item blue" href="{{route('user.wishlist.index')}}">
                                         <i class="far fa-heart"></i>
-                                        <p>wishlist</p>
+                                        <p>Yêu thích</p>
                                         <h5 style="color:#fff;">{{$wishlists}}</h5>
                                     </a>
                                 </div>
                                 <div class="col-xl-2 col-6 col-md-4">
                                     <a class="wsus__dashboard_item orange" href="{{route('user.profile')}}">
                                         <i class="fas fa-user-shield"></i>
-                                        <p>profile</p>
+                                        <p>Thông tin các nhân</p>
                                         <h5 style="color:#fff;">+</h5>
                                     </a>
                                 </div>

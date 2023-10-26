@@ -3,7 +3,7 @@
 @endphp
 @extends('frontend.layouts.master')
 @section('title')
-    Shop Now
+    Shop Now | Giỏ hàng
 @endsection
 @section('content')
 
@@ -69,14 +69,14 @@
                                     </th>
                                 </tr>
                                 @if(count($cartItems)==0)
-                                    <tr class="d-flex cart-body" >
+                                    <tr class="d-flex cart-body">
                                         <td class="wsus__pro_tk text-center">
                                             <p class=" ext-center"> Giỏ hàng trống!</p>
                                         </td>
                                     </tr>
                                 @endif
                                 @foreach($cartItems as $item)
-                                    <tr class="d-flex cart-body" >
+                                    <tr class="d-flex cart-body">
                                         <input type="hidden" name="stock_quantity" value="{{getStockQuantityProduct($item->rowId)}}" class="product_stock_quantity">
                                         <td class="wsus__pro_img">
                                             <img src="{{asset($item->options->image)}}" alt="product" class="img-fluid w-100">
@@ -98,14 +98,16 @@
                                         <td class="wsus__pro_select">
                                             <form class="quantity-form select_number" action="{{route('cart.update-quantity')}}" method="post">
                                                 @csrf
-                                                <input class="quantity number_area" type="text" min="1" max="100" value="{{$item->qty}}" data-rowid="{{$item->rowId}}" name="quantity" />
-                                                <input class="price" type="hidden" value="{{$item->price + $item->options->variants_total}}" name="price-total" />
+                                                <input class="quantity number_area" type="text" min="1" max="100" value="{{$item->qty}}" data-rowid="{{$item->rowId}}"
+                                                       name="quantity"/>
+                                                <input class="price" type="hidden" value="{{$item->price + $item->options->variants_total}}" name="price-total"/>
                                             </form>
                                         </td>
 
                                         <td class="wsus__pro_tk">
                                             <h6 class="price-total" id="{{$item->rowId}}">{{format(($item->price + $item->options->variants_total) * $item->qty)}}</h6>
-                                            <input type="hidden" name="price-subtotal-hidden" class="price-subtotal-hidden" data-price-total="{{$item->price + $item->options->variants_total}}">
+                                            <input type="hidden" name="price-subtotal-hidden" class="price-subtotal-hidden"
+                                                   data-price-total="{{$item->price + $item->options->variants_total}}">
                                         </td>
 
                                         <td class="wsus__pro_icon">
@@ -127,7 +129,8 @@
 
                         <form class="coupon_form" action="{{route('apply-coupon')}}" method="post">
                             @csrf
-                            <input type="text" placeholder="code 5555" name="coupon_code" class="coupon_value" value="{{session()->has('coupon') ? session()->get('coupon')['coupon_code'] : ''}}">
+                            <input type="text" placeholder="code 5555" name="coupon_code" class="coupon_value"
+                                   value="{{session()->has('coupon') ? session()->get('coupon')['coupon_code'] : ''}}">
                             <button type="button" class="common_btn apply-btn">Áp dụng</button>
                         </form>
                         <a class="common_btn mt-4 w-100 text-center" href="{{route('user.checkout')}}">Thanh toán</a>
@@ -147,7 +150,7 @@
                                 <img src="{{asset($cartPageBanner->banner_1->banner_image)}}" alt="banner" class="img-fluid w-100">
                             </div>
                             <div class="wsus__single_banner_text">
-
+                                <a class="shop_btn" href="{{$cartPageBanner->banner_1->banner_url}}">Mua ngay</a>
                             </div>
                         </div>
                     @endif
@@ -159,6 +162,7 @@
                                 <img src="{{asset($cartPageBanner->banner_2->banner_image)}}" alt="banner" class="img-fluid w-100">
                             </div>
                             <div class="wsus__single_banner_text">
+                                <a class="shop_btn" href="{{$cartPageBanner->banner_2->banner_url}}">Mua ngay</a>
                             </div>
                         </div>
                     @endif
@@ -176,7 +180,7 @@
 
         window.addEventListener("DOMContentLoaded", (event) => {
 
-             // Handle Update Quantity
+            // Handle Update Quantity
             const decreaseBtns = document.querySelectorAll('.sub');
             const increaseBtns = document.querySelectorAll('.add');
             const priceTotalArr = document.querySelectorAll('.price-total')
@@ -184,8 +188,8 @@
             const subTotal = document.querySelector('.sub_total');
 
             // format price
-            const formatPrice = (price)=>{
-                return  parseInt(price).toLocaleString('en').replace(/,/g, '.')+'₫' ;
+            const formatPrice = (price) => {
+                return parseInt(price).toLocaleString('en').replace(/,/g, '.') + '₫';
             }
 
             // Update Sub total
@@ -205,7 +209,7 @@
                     if (response.ok) {
                         const data = await response.json();
                         console.log(data)
-                        if(data.status === 'success') {
+                        if (data.status === 'success') {
                             document.querySelector('.cart_total_amount').innerText = formatPrice(data.total);
                             document.querySelector('.discount').innerText = formatPrice(data.discount);
                         }
@@ -218,8 +222,8 @@
             }
 
             // Update Price when click decrease
-            if(decreaseBtns.length > 0){
-                decreaseBtns.forEach((decreaseBtn=>{
+            if (decreaseBtns.length > 0) {
+                decreaseBtns.forEach((decreaseBtn => {
                     decreaseBtn.addEventListener('click', (e) => {
                         e.preventDefault();
                         // await calculateCouponDiscount()
@@ -229,12 +233,12 @@
                         const rowId = quantityInput.dataset.rowid;
                         let priceProduct = priceInput.value
                         let quantity = parseInt(quantityInput.value) - 1;
-                        if(quantity >= 1){
-                            priceTotalArr.forEach((priceTotal)=>{
-                               if(priceTotal.id == rowId){
-                                   priceTotal.innerText = (((priceProduct) * quantity).toLocaleString('en').replace(/,/g, '.'))+'₫' ;
-                                   priceTotal.nextElementSibling.dataset.priceTotal = priceProduct * quantity;
-                               }
+                        if (quantity >= 1) {
+                            priceTotalArr.forEach((priceTotal) => {
+                                if (priceTotal.id == rowId) {
+                                    priceTotal.innerText = (((priceProduct) * quantity).toLocaleString('en').replace(/,/g, '.')) + '₫';
+                                    priceTotal.nextElementSibling.dataset.priceTotal = priceProduct * quantity;
+                                }
                             })
                             submitForm(form, quantity, rowId);
                             const increaseBtn = form.querySelector('.add');
@@ -247,9 +251,9 @@
 
 
             // Update Price when click decrease
-            if(increaseBtns.length > 0){
-                increaseBtns.forEach((increaseBtn=>{
-                    increaseBtn.addEventListener('click',  (e) => {
+            if (increaseBtns.length > 0) {
+                increaseBtns.forEach((increaseBtn => {
+                    increaseBtn.addEventListener('click', (e) => {
                         e.preventDefault();
                         const form = e.target.closest('form');
                         const quantityInput = form.querySelector('.quantity');
@@ -257,15 +261,15 @@
                         const rowId = quantityInput.dataset.rowid;
                         let priceProduct = priceInput.value
                         let quantity = parseInt(quantityInput.value) + 1;
-                        if(quantity <= productStockQuantity.value + 1){
-                            priceTotalArr.forEach((priceTotal)=>{
-                                if(priceTotal.id == rowId){
-                                    priceTotal.innerText = ((priceProduct) * quantity).toLocaleString('en').replace(/,/g, '.')+'₫' ;
+                        if (quantity <= productStockQuantity.value + 1) {
+                            priceTotalArr.forEach((priceTotal) => {
+                                if (priceTotal.id == rowId) {
+                                    priceTotal.innerText = ((priceProduct) * quantity).toLocaleString('en').replace(/,/g, '.') + '₫';
                                     priceTotal.nextElementSibling.dataset.priceTotal = priceProduct * quantity;
                                 }
                             })
                             submitForm(form, quantity, rowId);
-                        }else {
+                        } else {
                             increaseBtn.classList.add('d-none');
                             toastr.error('Quantity not available')
                         }
@@ -283,7 +287,7 @@
                     const response = await fetch("/cart-products");
                     if (response.ok) {
                         const data = await response.json();
-                        let { cartProducts } = data;
+                        let {cartProducts} = data;
                         let cartProductArr = Object.values(cartProducts);
                         if (cartProductArr.length) {
                             cartProductArr.forEach((item) => {
@@ -315,7 +319,7 @@
             };
 
             // Show total Price in Sidebar
-            const getSubTotal = async ()=>{
+            const getSubTotal = async () => {
                 try {
                     const response = await fetch("/cart/sidebar-product-total");
                     if (response.ok) {
@@ -348,11 +352,11 @@
                     // Handle the response
                     if (response.ok) {
                         const data = await response.json();
-                        if(data.status === 'success'){
+                        if (data.status === 'success') {
                             toastr.success(data.message);
                             await calculateCouponDiscount()
                             await fetchSideBarProducts()
-                        }else if(data.status ==='error'){
+                        } else if (data.status === 'error') {
                             toastr.error(data.message);
                         }
                     } else {
@@ -383,9 +387,9 @@
                     });
                     if (response.ok) {
                         const data = await response.json();
-                        if(data.status ==='error'){
+                        if (data.status === 'error') {
                             toastr.error(data.message);
-                        }else if(data.status ==='success'){
+                        } else if (data.status === 'success') {
                             await calculateCouponDiscount()
                             toastr.success(data.message);
                         }
@@ -398,27 +402,27 @@
             });
 
             /*== Delete Cart ==*/
-           document.querySelector('.table-responsive').addEventListener('click', (e)=>{
-               if (e.target.classList.contains('clear-cart')) {
-                   e.preventDefault();
-                   const formDelete = e.target.closest('.form-delete');
-                   if (formDelete) {
-                       Swal.fire({
-                           title: 'Are you sure?',
-                           text: "You won't be able to revert this!",
-                           icon: 'warning',
-                           showCancelButton: true,
-                           confirmButtonColor: '#3085d6',
-                           cancelButtonColor: '#d33',
-                           confirmButtonText: 'Yes, delete it!'
-                       }).then((result) => {
-                           if (result.isConfirmed) {
-                               formDelete.submit();
-                           }
-                       });
-                   }
-               }
-           })
+            document.querySelector('.table-responsive').addEventListener('click', (e) => {
+                if (e.target.classList.contains('clear-cart')) {
+                    e.preventDefault();
+                    const formDelete = e.target.closest('.form-delete');
+                    if (formDelete) {
+                        Swal.fire({
+                            title: 'Are you sure?',
+                            text: "You won't be able to revert this!",
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#3085d6',
+                            cancelButtonColor: '#d33',
+                            confirmButtonText: 'Yes, delete it!'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                formDelete.submit();
+                            }
+                        });
+                    }
+                }
+            })
 
         });
     </script>

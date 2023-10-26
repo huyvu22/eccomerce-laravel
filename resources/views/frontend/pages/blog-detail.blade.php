@@ -1,6 +1,6 @@
 @extends('frontend.layouts.master')
 @section('title')
-    Shop Now
+    Shop Now | Blog
 @endsection
 @section('content')
     <!--============================
@@ -86,7 +86,8 @@
                                 <div class="wsus__main_comment">
                                     @foreach($comments as $comment)
                                         <div class="wsus__comment_img">
-                                            <img src="{{asset($comment->user->image) !== null ? asset($comment->user->image) :  asset('frontend/images/client_img_1.jpg')}}" alt="user"
+                                            <img src="{{asset($comment->user->image) !== null ? asset($comment->user->image) :  asset('frontend/images/client_img_1.jpg')}}"
+                                                 alt="user"
                                                  class="img-fluid" width="50">
                                         </div>
                                         <div class="wsus__comment_text replay">
@@ -109,13 +110,13 @@
                         @endif
 
                         <div class="wsus__post_comment">
-                            <h4>post a comment</h4>
+                            <h4>Bình luận</h4>
                             <form action="{{route('user.blog-comment')}}" method="post">
                                 @csrf
                                 <div class="row">
                                     <div class="col-xl-12">
                                         <div class="wsus__single_com">
-                                            <textarea rows="5" placeholder="Your Comment" name="comment"></textarea>
+                                            <textarea rows="5" placeholder="Your Comment" name="Bình luận"></textarea>
                                         </div>
                                         <input type="hidden" name="blog_id" value="{{$blog->id}}">
                                     </div>
@@ -151,11 +152,11 @@
                             @foreach($moreBlogs as $blogItem)
                                 <div class="wsus__blog_post_single">
                                     <a href="#" class="wsus__blog_post_img">
-                                        <img src="{{asset($blogItem->image)}}" alt="blog" style="height: 70px" >
+                                        <img src="{{asset($blogItem->image)}}" alt="blog" style="height: 70px">
                                     </a>
                                     <div class="wsus__blog_post_text">
                                         <a href="#">{{limitText($blogItem->title,55)}}</a>
-                                        <p><span>{{$blogItem->created_at->format('d-m-Y')}} </span> {{count($blogItem->comments)}} Comment </p>
+                                        <p><span>{{$blogItem->created_at->format('d-m-Y')}} </span> {{count($blogItem->comments)}} Bình luận </p>
                                     </div>
                                 </div>
                             @endforeach
