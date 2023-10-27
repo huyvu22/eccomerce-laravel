@@ -138,9 +138,9 @@ class PaymentController extends Controller
         $provider->getAccessToken();
 
         $paypalSetting = PaypalSetting::first();
-//        $totalPay = round(getPayAmountRaw() * $paypalSetting->currency_rate,2); // 100 -> 100.00
+        $vnPaySetting = \App\Models\VnPaySetting::first();
 
-        $totalPay = round(getPayAmountRaw() / 23223, 2);
+        $totalPay = round(getPayAmountRaw() / $vnPaySetting->currency_rate, 2);
 
         $response = $provider->createOrder([
             "intent" => "CAPTURE",
@@ -227,13 +227,17 @@ class PaymentController extends Controller
 
     public function connectVnPayPayment()
     {
+        $vnPaySetting = \App\Models\VnPaySetting::first();
         error_reporting(E_ALL & ~E_NOTICE & ~E_DEPRECATED);
         date_default_timezone_set('Asia/Ho_Chi_Minh');
         date_default_timezone_set('Asia/Ho_Chi_Minh');
         $totalPay = round(getPayAmountRaw());
 
-        $vnp_TmnCode = "BZU9ONFY";
-        $vnp_HashSecret = "MCXMMMPVHKTACIAGMMBQDNQRCGUKRBYK";
+//        $vnp_TmnCode = "BZU9ONFY";
+//        $vnp_HashSecret = "MCXMMMPVHKTACIAGMMBQDNQRCGUKRBYK";
+
+        $vnp_TmnCode = $vnPaySetting->client_id;
+        $vnp_HashSecret = $vnPaySetting->secret_key;
         $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
         $vnp_Returnurl = url('user/payment-vnpay-success');
         //Config input format

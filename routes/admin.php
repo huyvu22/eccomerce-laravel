@@ -46,6 +46,7 @@ use App\Http\Controllers\Backend\TermsAndConditionController;
 use App\Http\Controllers\Backend\TransactionController;
 use App\Http\Controllers\Backend\VendorConditionController;
 use App\Http\Controllers\Backend\VendorListController;
+use App\Http\Controllers\Backend\VnPaySettingController;
 use Illuminate\Support\Facades\Route;
 
 //Route::get('admin/dashboard', [AdminController::class, 'dashboard'])->middleware(['auth','role:admin'])->name('admin.dashboard'); //  'role' dc goi trong Kernel.php
@@ -135,6 +136,7 @@ Route::resource('shipping-rule',ShippingRuleController::class);
 /* All Payments Route*/
 Route::get('payment-settings',[PaymentSettingController::class,'index'])->name('payment-settings.index');
 Route::resource('paypal-setting',PaypalSettingController::class);
+Route::put('vnpay-setting/{id}',[VnPaySettingController::class,'update'])->name('vnpay-setting.update');
 Route::put('stripe-settings/{id}',[StripeSettingController::class,'update'])->name('stripe-settings.update');
 Route::put('cod-settings/{id}',[CodSettingController::class,'update'])->name('cod-settings.update');
 

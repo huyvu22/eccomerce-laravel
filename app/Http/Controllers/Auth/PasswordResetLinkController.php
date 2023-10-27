@@ -44,9 +44,9 @@ class PasswordResetLinkController extends Controller
             $request->only('email')
         );
 
-//        if($status){
-//            toastr('Reset link has been sent to your email address');
-//        }
+        if($status){
+            toastr('Vui lòng kiểm tra email để đặt lại mật khẩu');
+        }
 
         return $status == Password::RESET_LINK_SENT
                     ? back()->with('status', __($status))
