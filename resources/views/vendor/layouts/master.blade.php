@@ -32,6 +32,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <link rel="stylesheet" href="{{asset('backend/assets/css/bootstrap-iconpicker.min.css')}}">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
     <link rel="stylesheet" href="{{asset('backend/assets/modules/bootstrap-daterangepicker/daterangepicker.css')}}">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.6/css/responsive.bootstrap.min.css">
 
@@ -80,10 +81,7 @@
 
 <!--Ajax JS-->
 @include('frontend.layouts.scripts')
-
-<script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
-
-<script src="{{asset('frontend/js/main.js')}}"></script>
+@include('admin.layouts.scripts')
 
 <!--jquery library js-->
 <script src="{{asset('frontend/js/jquery-3.6.0.min.js')}}"></script>
@@ -121,6 +119,8 @@
 <script src="{{asset('frontend/js/jquery.classycountdown.js')}}"></script>
 <!--toastr js-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+<script src="{{asset('frontend/js/main.js')}}"></script>
 
 <script src="{{asset('backend/assets/modules/moment.min.js')}}"></script>
 <script src="{{asset('backend/assets/modules/summernote/summernote-bs4.js')}}"></script>

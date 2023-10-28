@@ -19,7 +19,6 @@
 @endsection
 @section('content')
 
-
     <!--============================
         BREADCRUMB START
     ==============================-->
@@ -51,7 +50,7 @@
             <div class="row">
                 <div class="col-xl-12">
                     <div class="wsus__pro_page_bammer vendor_det_banner">
-                        <img src="{{asset('frontend/images/vendor_details_banner.jpg')}}" alt="banner" class="img-fluid w-100">
+                        <img src="{{$vendor->banner ? asset($vendor->banner) :asset('frontend/images/vendor_details_banner.jpg')}}" alt="banner" class="img-fluid w-100">
                         <div class="wsus__pro_page_bammer_text wsus__vendor_det_banner_text">
                             <div class="wsus__vendor_text_center">
                                 <h4>{{$vendor->shop_name}}</h4>
@@ -112,13 +111,16 @@
                                                     <span class="wsus__minus">-{{discountPercent($product->price, $product->offer_price)}}%</span>
                                                 @endif
                                                 <a class="wsus__pro_link" href="{{route('product-detail',$product->slug)}}">
-                                                    <img src="{{asset($product->thumb_image)}}" alt="product" class="img-fluid w-100 img_1" />
-                                                    <img src="{{asset(isset($product->productImageGalleries[0]->image) ? $product->productImageGalleries[0]->image : $product->thumb_imag) }}" alt="product" class="img-fluid w-100 img_2" />
+                                                    <img src="{{asset($product->thumb_image)}}" alt="product" class="img-fluid w-100 img_1"/>
+                                                    <img
+                                                        src="{{asset(isset($product->productImageGalleries[0]->image) ? $product->productImageGalleries[0]->image : $product->thumb_imag) }}"
+                                                        alt="product" class="img-fluid w-100 img_2"/>
                                                 </a>
                                                 <ul class="wsus__single_pro_icon">
                                                     <li><a href="#" data-bs-toggle="modal" data-bs-target="#product-{{$product->id}}"><i
                                                                 class="far fa-eye"></i></a></li>
-                                                    <li><a href="#" class="add_to_wishlist" data-route="{{ route('user.wishlist.store', ['productId' => $product->id]) }}"><i class="fal fa-heart add_to_wishlist"></i></a></li>
+                                                    <li><a href="#" class="add_to_wishlist" data-route="{{ route('user.wishlist.store', ['productId' => $product->id]) }}"><i
+                                                                class="fal fa-heart add_to_wishlist"></i></a></li>
                                                 </ul>
                                                 <div class="wsus__product_details">
                                                     <a class="wsus__category" href="#">{{$product->category->name}} </a>
@@ -140,7 +142,9 @@
                                                     </p>
                                                     <a class="wsus__pro_name" href="{{route('product-detail',$product->slug)}}">{{limitText($product->name,50)}}</a>
                                                     @if (checkDiscount($product))
-                                                        <p class="wsus__price">{{ format($product->offer_price) }} <del>{{ format($product->price) }}</del></p>
+                                                        <p class="wsus__price">{{ format($product->offer_price) }}
+                                                            <del>{{ format($product->price) }}</del>
+                                                        </p>
                                                     @else
                                                         <p class="wsus__price">{{ format($product->price) }} </p>
                                                     @endif
@@ -151,12 +155,13 @@
                                                         @foreach($product->variants as $variant)
                                                             <select class="attribute d-none" name="variants_items[]">
                                                                 @foreach($variant->variantItems as $variantItem)
-                                                                    <option value="{{$variantItem->id}}"  title="{{$variantItem->price}}"  {{$variantItem->is_default == 1 ? 'selected' : ''}}>{{$variantItem->name}}</option>
+                                                                    <option value="{{$variantItem->id}}"
+                                                                            title="{{$variantItem->price}}" {{$variantItem->is_default == 1 ? 'selected' : ''}}>{{$variantItem->name}}</option>
                                                                 @endforeach
                                                             </select>
                                                         @endforeach
-                                                        <input class=" quantity" type="hidden" min="1" max="100" value="1" name="qty" />
-                                                        <button style="border: none" type="button" class="add_cart" >Thêm vào giỏ</button>
+                                                        <input class=" quantity" type="hidden" min="1" max="100" value="1" name="qty"/>
+                                                        <button style="border: none" type="button" class="add_cart">Thêm vào giỏ</button>
                                                     </form>
 
                                                 </div>
@@ -175,8 +180,10 @@
                                                 <span class="wsus__new">{{productType($product->product_type)}}</span>
                                                 <span class="wsus__minus">-{{discountPercent($product->price, $product->offer_price)}}%</span>
                                                 <a class="wsus__pro_link" href="{{route('product-detail',$product->slug)}}">
-                                                    <img src="{{asset($product->thumb_image)}}" alt="product" class="img-fluid w-100 img_1" />
-                                                    <img src="{{asset(isset($product->productImageGalleries[0]->image) ? $product->productImageGalleries[0]->image : $product->thumb_imag) }}" alt="product" class="img-fluid w-100 img_2" />
+                                                    <img src="{{asset($product->thumb_image)}}" alt="product" class="img-fluid w-100 img_1"/>
+                                                    <img
+                                                        src="{{asset(isset($product->productImageGalleries[0]->image) ? $product->productImageGalleries[0]->image : $product->thumb_imag) }}"
+                                                        alt="product" class="img-fluid w-100 img_2"/>
                                                 </a>
                                                 <div class="wsus__product_details">
                                                     <a class="wsus__category" href="#">{{$product->category->name}} </a>
@@ -198,7 +205,9 @@
                                                     </p>
                                                     <a class="wsus__pro_name" href="{{route('product-detail',$product->slug)}}">{{$product->name}}</a>
                                                     @if (checkDiscount($product))
-                                                        <p class="wsus__price">{{ format($product->offer_price) }} <del>{{ format($product->price) }}</del></p>
+                                                        <p class="wsus__price">{{ format($product->offer_price) }}
+                                                            <del>{{ format($product->price) }}</del>
+                                                        </p>
                                                     @else
                                                         <p class="wsus__price">{{ format($product->price) }} </p>
                                                     @endif
@@ -211,16 +220,20 @@
                                                                 @foreach($product->variants as $variant)
                                                                     <select class="attribute d-none" name="variants_items[]">
                                                                         @foreach($variant->variantItems as $variantItem)
-                                                                            <option value="{{$variantItem->id}}"  title="{{$variantItem->price}}"  {{$variantItem->is_default == 1 ? 'selected' : ''}}>{{$variantItem->name}}</option>
+                                                                            <option value="{{$variantItem->id}}"
+                                                                                    title="{{$variantItem->price}}" {{$variantItem->is_default == 1 ? 'selected' : ''}}>{{$variantItem->name}}</option>
                                                                         @endforeach
                                                                     </select>
                                                                 @endforeach
-                                                                <input class=" quantity" type="hidden" min="1" max="100" value="1" name="qty" />
-                                                                <button style="border: 1px solid #03a676; border-radius: 3px; background: #fff; color: #03a676" type="button" class="add_cart" >Thêm vào giỏ</button>
+                                                                <input class=" quantity" type="hidden" min="1" max="100" value="1" name="qty"/>
+                                                                <button style="border: 1px solid #03a676; border-radius: 3px; background: #fff; color: #03a676" type="button"
+                                                                        class="add_cart">Thêm vào giỏ
+                                                                </button>
                                                             </form>
                                                         </li>
 
-                                                        <li><a href="#" class="add_to_wishlist" data-route="{{ route('user.wishlist.store', ['productId' => $product->id]) }}"><i class="fal fa-heart add_to_wishlist"></i></a></li>
+                                                        <li><a href="#" class="add_to_wishlist" data-route="{{ route('user.wishlist.store', ['productId' => $product->id]) }}"><i
+                                                                    class="fal fa-heart add_to_wishlist"></i></a></li>
                                                     </ul>
                                                 </div>
                                             </div>
@@ -287,12 +300,14 @@
                                 <div class="col-xl-6 col-12 col-sm-12 col-md-12 col-lg-6">
                                     <div class="wsus__pro_details_text">
                                         <a class="title" href="{{route('product-detail',$product->slug)}}">{{$product->name}}</a>
-{{--                                        <p class="wsus__stock_area"><span class="in_stock">in stock</span> (167 item)</p>--}}
+                                        {{--                                        <p class="wsus__stock_area"><span class="in_stock">in stock</span> (167 item)</p>--}}
                                         @if (checkDiscount($product))
-                                            <h4><span class="product_price">{{format($product->offer_price)}}</span> <del class="old_product_price">{{ format($product->price) }}</del></h4>
+                                            <h4><span class="product_price">{{format($product->offer_price)}}</span>
+                                                <del class="old_product_price">{{ format($product->price) }}</del>
+                                            </h4>
                                             <input type="hidden" class="input_price" value="{{$product->offer_price}} {{$product->price}}">
                                         @else
-                                            <h4><span class="product_price">{{format($product->price) }}</span> </h4>
+                                            <h4><span class="product_price">{{format($product->price) }}</span></h4>
                                             <input type="hidden" class="input_price" value="{{$product->price}}">
                                         @endif
                                         <p class="review">
@@ -330,7 +345,8 @@
                                                                     <select class="attribute select_2" name="variants_items[]">
                                                                         @foreach($variant->variantItems as $variantItem)
                                                                             @if($variantItem->status == 1)
-                                                                                <option value="{{$variantItem->id}}"  title="{{$variantItem->price}}"  {{$variantItem->is_default == 1 ? 'selected' : ''}}>{{$variantItem->name}}</option>
+                                                                                <option value="{{$variantItem->id}}"
+                                                                                        title="{{$variantItem->price}}" {{$variantItem->is_default == 1 ? 'selected' : ''}}>{{$variantItem->name}}</option>
                                                                             @endif
                                                                         @endforeach
                                                                     </select>
@@ -343,13 +359,16 @@
                                             <div class="wsus__quentity">
                                                 <h5>quantity :</h5>
                                                 <div class="select_number">
-                                                    <input class=" quantity number_area" type="text" min="1" max="100" value="1" name="qty" />
+                                                    <input class=" quantity number_area" type="text" min="1" max="100" value="1" name="qty"/>
                                                 </div>
                                             </div>
                                             <ul class="wsus__button_area">
-                                                <li><button type="button" class="add_cart" >Thêm vào giỏ</button></li>
+                                                <li>
+                                                    <button type="button" class="add_cart">Thêm vào giỏ</button>
+                                                </li>
                                                 <li><a class="buy_now" href="#">Mua ngay</a></li>
-                                                <li><a href="#" class="add_to_wishlist" data-route="{{ route('user.wishlist.store', ['productId' => $product->id]) }}"><i class="fal fa-heart add_to_wishlist"></i></a></li>
+                                                <li><a href="#" class="add_to_wishlist" data-route="{{ route('user.wishlist.store', ['productId' => $product->id]) }}"><i
+                                                            class="fal fa-heart add_to_wishlist"></i></a></li>
                                                 {{--                                                <li><a href="#"><i class="far fa-random"></i></a></li>--}}
                                             </ul>
                                         </form>
@@ -367,11 +386,11 @@
 
 @push('scripts')
     <script>
-        window.addEventListener('DOMContentLoaded',(e)=>{
-            const listViews =  document.querySelectorAll('.list-view');
-            if (listViews.length){
-                listViews.forEach((listView)=>{
-                    listView.addEventListener('click',async (e)=>{
+        window.addEventListener('DOMContentLoaded', (e) => {
+            const listViews = document.querySelectorAll('.list-view');
+            if (listViews.length) {
+                listViews.forEach((listView) => {
+                    listView.addEventListener('click', async (e) => {
                         let type = e.target.dataset.id;
                         let response = await fetch(`./change-product-list-view/${type}`)
 

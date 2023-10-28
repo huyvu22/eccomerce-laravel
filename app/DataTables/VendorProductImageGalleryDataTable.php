@@ -76,7 +76,7 @@ class VendorProductImageGalleryDataTable extends DataTable
     public function getColumns(): array
     {
         return [
-            Column::make('stt')->width(100),
+            Column::make('id')->width(100),
             Column::make('Ảnh'),
             Column::computed('Hành động')
                 ->exportable(false)

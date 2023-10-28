@@ -337,6 +337,61 @@
             });
         }
 
+        const categorySelect = document.querySelector('.category');
+        const subCategorySelect = document.querySelector('.sub_category');
+        const childCategorySelect = document.querySelector('.child_category');
+
+        //-- Handle category => subCategory => childCategory--//
+        const isEditMode = window.location.pathname.endsWith('/edit');
+
+        if (categorySelect) {
+            categorySelect.addEventListener('change', async (e) => {
+                const categoryId = e.target.value;
+                if (categoryId > 0) {
+                    const endpoint = isEditMode ? `../get-sub-category/${categoryId}` : `./get-sub-category/${categoryId}`;
+                    const res = await fetch(endpoint);
+                    const data = await res.json();
+                    if (data.status === 'success') {
+                        let option = '<option value="0">Select</option>\n';
+                        let {subCategories} = data;
+                        if (subCategories.length) {
+                            subCategories.forEach(({id, name}) => {
+                                option += `<option value="${id}">${name}</option>\n`;
+                            });
+                        }
+                        subCategorySelect.innerHTML = option;
+                    }
+                    childCategorySelect.innerHTML = '<option value="0">Select</option>\n';
+                } else {
+                    subCategorySelect.innerHTML = '<option value="0">Select</option>\n';
+                    childCategorySelect.innerHTML = '<option value="0">Select</option>\n';
+                }
+            });
+        }
+
+        if (subCategorySelect) {
+            subCategorySelect.addEventListener('change', async (e) => {
+                const subCategoryId = e.target.value;
+                if (subCategoryId > 0) {
+                    const endpoint = isEditMode ? `../get-child-category/${subCategoryId}` : `./get-child-category/${subCategoryId}`;
+                    const res = await fetch(endpoint);
+                    const data = await res.json();
+                    if (data.status === 'success') {
+                        let option = '<option value="0">Select</option>\n';
+                        let {childCategories} = data;
+                        if (childCategories.length) {
+                            childCategories.forEach(({id, name}) => {
+                                option += `<option value="${id}">${name}</option>\n`;
+                            });
+                        }
+                        childCategorySelect.innerHTML = option;
+                    }
+                } else {
+                    childCategorySelect.innerHTML = '<option value="0">Select</option>\n';
+                }
+            });
+        }
+
         /* Handle Address */
         const provinceSelect = document.querySelector(".select_2.province");
         const districtSelect = document.querySelector(".select_2.district");

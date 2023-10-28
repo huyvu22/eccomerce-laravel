@@ -44,7 +44,7 @@ class VendorProductVariantItemController extends Controller
             [
                 'variant_id' => 'required|integer',
                 'item_name' => 'required|max:200',
-                'price' => 'required|integer',
+                'price' => 'integer',
                 'is_default' => 'required',
                 'status' => 'required'
             ],
