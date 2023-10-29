@@ -114,19 +114,7 @@ SCROLL BUTTON  END
 
 
 <!--main/custom js-->
-{{--    <script src="{{asset('frontend/js/script.js')}}"></script>--}}
 <script src="{{asset('frontend/js/main.js')}}"></script>
-{{--    <script type="module" src="{{asset('frontend/js/add_to_cart.js')}}"></script>--}}
-
-{{-- <script>
-
-    document.addEventListener('DOMContentLoaded', function () {
-
-        @if($errors->any())
-        toastr.error('Kiểm tra các lỗi bên dưới')
-        @endif
-    });
-</script> --}}
 
 @include('frontend.layouts.scripts')
 @stack('scripts')

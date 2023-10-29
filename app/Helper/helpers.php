@@ -92,7 +92,7 @@ function getMainCartTotal(){
         }else if($coupon['discount_type'] == 'percent'){
             $discount_value = getCartTotalRaw() - ($coupon['discount']/100 *getCartTotalRaw());
             $total = getCartTotalRaw() - $discount_value;
-            return $total;
+            return format($total);
         }
     }else{
          $total = getCartTotalRaw();
@@ -127,6 +127,19 @@ function getCartDiscount(){
         }
     }else{
         return '0₫';
+    }
+}
+
+function getCartDiscountRaw(){
+    if(\Session::has('coupon')){
+        $coupon = \Session::get('coupon');
+        if($coupon['discount_type'] == 'amount'){
+            return ($coupon['discount']);
+        }else if($coupon['discount_type'] == 'percent'){
+            return '-'.(getCartTotalRaw() - ($coupon['discount']/100 *getCartTotalRaw()));
+        }
+    }else{
+        return 0;
     }
 }
 

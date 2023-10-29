@@ -73,7 +73,6 @@
 ==============================-->
 
 
-<script src="{{asset('frontend/js/main.js')}}"></script>
 <!--Ajax JS-->
 @include('frontend.layouts.scripts')
 
@@ -111,19 +110,11 @@
 <script src="{{asset('frontend/js/venobox.min.js')}}"></script>
 <!--classycountdown js-->
 <script src="{{asset('frontend/js/jquery.classycountdown.js')}}"></script>
+<script src="{{asset('frontend/js/main.js')}}"></script>
 
 <!--toastr js-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
-<script>
-    $('.close_icon').on('click', function () {
-        $('.dashboard_sidebar').toggleClass('show_dash_menu');
-    });
-
-    $('.close_icon').on('click', function () {
-        $('.dash_close').toggleClass('dash_opasity');
-    });
-</script>
 
 @stack('scripts')
 </body>

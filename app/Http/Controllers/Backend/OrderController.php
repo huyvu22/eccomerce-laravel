@@ -11,9 +11,7 @@ use App\DataTables\PendingOrderDataTable;
 use App\DataTables\ProcessedOrderDataTable;
 use App\DataTables\ShippedOrderDataTable;
 use App\Http\Controllers\Controller;
-use App\Models\Coupon;
 use App\Models\Order;
-use App\Models\ShippingRule;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -27,40 +25,12 @@ class OrderController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
      * Display the specified resource.
      */
     public function show(Order $order)
     {
 
-        $discountValue = null;
-        $shipping = $order->shipping_method;
-        $shippingFee = ShippingRule::where('name', $shipping)->first();
-
-        if ($order->coupon) {
-            $coupon = Coupon::where('code', $order->coupon)->first();
-
-            if ($coupon) {
-                $discountValue = $coupon->discount_value;
-            }
-        }
-
-        return view('admin.order.show', compact('order', 'discountValue','shippingFee'));
+        return view('admin.order.show', compact('order'));
     }
 
     /**

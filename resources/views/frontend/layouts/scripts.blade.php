@@ -396,7 +396,6 @@
         const provinceSelect = document.querySelector(".select_2.province");
         const districtSelect = document.querySelector(".select_2.district");
         const wardSelect = document.querySelector(".select_2.ward");
-        const isEditMode = window.location.pathname.endsWith("/edit");
 
         if (provinceSelect) {
             $(provinceSelect).on("select2:select", async (e) => {

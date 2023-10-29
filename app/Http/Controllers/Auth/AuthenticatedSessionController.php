@@ -23,30 +23,64 @@ class AuthenticatedSessionController extends Controller
     /**
      * Handle an incoming authentication request.
      */
+//    public function store(LoginRequest $request): RedirectResponse
+//    {
+//        Auth::guard('web')->logout();
+//        $request->session()->regenerateToken();
+//
+//        $request->authenticate();
+//
+//        $request->session()->regenerate();
+//
+//        // Case User is banned
+//        if($request->user()->status == 'inactive'){
+//            Auth::guard('web')->logout();
+//            $request->session()->regenerateToken();
+//
+//			toastr()->error('User has been banned, please contact to support!','Account Banned!');
+//            return redirect('/');
+//        }
+//
+//
+//        if($request->user()->role==='admin' || $request->user()->role=='staff'){
+//            return redirect()->intended(RouteServiceProvider::ADMIN);
+//        }
+//        if($request->user()->role==='vendor'){
+//            return redirect()->intended(RouteServiceProvider::VENDOR);
+//        }
+//
+//        return redirect()->intended(RouteServiceProvider::HOME);
+//    }
+
     public function store(LoginRequest $request): RedirectResponse
     {
-        $request->authenticate();
+        $credentials = $request->only('email', 'password');
 
-        $request->session()->regenerate();
+        if (Auth::attempt($credentials)) {
+            $request->session()->regenerate();
 
-        // Case User is banned
-        if($request->user()->status == 'inactive'){
-            Auth::guard('web')->logout();
-            $request->session()->regenerateToken();
+            $user = Auth::user();
 
-			toastr()->error('User has been banned, please contact to support!','Account Banned!');
-            return redirect('/');
+            // Kiểm tra trạng thái người dùng
+            if ($user->status === 'inactive') {
+                Auth::logout();
+                $request->session()->regenerateToken();
+                toastr()->error('User has been banned, please contact support!', 'Account Banned!');
+                return redirect('/');
+            }
+
+            if ($user->role === 'admin' || $user->role === 'staff') {
+                return redirect()->intended(RouteServiceProvider::ADMIN);
+            }
+
+            if ($user->role === 'vendor') {
+                return redirect()->intended(RouteServiceProvider::VENDOR);
+            }
+
+            return redirect()->intended(RouteServiceProvider::HOME);
         }
-
-
-        if($request->user()->role==='admin' || $request->user()->role=='staff'){
-            return redirect()->intended(RouteServiceProvider::ADMIN);
-        }
-        if($request->user()->role==='vendor'){
-            return redirect()->intended(RouteServiceProvider::VENDOR);
-        }
-
-        return redirect()->intended(RouteServiceProvider::HOME);
+         toastr('Đăng nhập không thành công','error');
+        return redirect()->back();
     }
 
     /**

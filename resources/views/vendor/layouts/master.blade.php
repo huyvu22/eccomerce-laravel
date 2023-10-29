@@ -135,13 +135,6 @@
 {{--<script src="{{asset('backend/js/script.js')}}"></script>--}}
 
 <script>
-    $('.close_icon').on('click', function () {
-        $('.dashboard_sidebar').toggleClass('show_dash_menu');
-    });
-
-    $('.close_icon').on('click', function () {
-        $('.dash_close').toggleClass('dash_opasity');
-    });
 
     $('.summernote').summernote({
         height: 200,

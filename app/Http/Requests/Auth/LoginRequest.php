@@ -43,6 +43,8 @@ class LoginRequest extends FormRequest
         return[
             'required' =>':attribute bắt buộc phải nhập',
             'email' =>':attribute không đúng định dạng',
+            'exists' => 'Email hoặc mật khẩu không đúng',
+
         ];
     }
 

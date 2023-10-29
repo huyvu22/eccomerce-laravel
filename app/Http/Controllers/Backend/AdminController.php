@@ -13,7 +13,6 @@ use App\Models\ProductReview;
 use App\Models\User;
 use App\Models\Vendor;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
@@ -78,11 +77,6 @@ class AdminController extends Controller
     }
 
     public function login()
-    {
-        return view('admin.auth.login');
-    }
-
-    public function logout()
     {
         return view('admin.auth.login');
     }

@@ -1,5 +1,6 @@
 @php
-    use Carbon\Carbon;$address = json_decode($order->order_address);
+    use Carbon\Carbon;
+    $address = json_decode($order->order_address);
     $shipping = json_decode($order->shipping_method);
     $coupon = json_decode($order->coupon);
 @endphp
@@ -130,12 +131,12 @@
                                         <div class="invoice-detail-value">{{format($order->sub_total)}}</div>
                                     </div>
                                     <div class="invoice-detail-item">
-                                        <div class="invoice-detail-name">Shipping</div>
-                                        <div class="invoice-detail-value">{{format($shipping->cost)}}</div>
+                                        <div class="invoice-detail-name">Shipping (-)</div>
+                                        <div class="invoice-detail-value">{{format(@$shipping->cost)}}</div>
                                     </div>
                                     <div class="invoice-detail-item">
-                                        <div class="invoice-detail-name">Coupon</div>
-                                        <div class="invoice-detail-value">{{$discountValue == null ? '0đ' : format($discountValue)}}</div>
+                                        <div class="invoice-detail-name">Coupon (+)</div>
+                                        <div class="invoice-detail-value">{{@$coupon->discount ? format(@$coupon->discount) : '0đ'}}</div>
                                     </div>
                                     <hr class="mt-2 mb-2">
                                     <div class="invoice-detail-item">

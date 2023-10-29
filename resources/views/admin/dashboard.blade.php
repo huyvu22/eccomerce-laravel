@@ -123,7 +123,7 @@
                             <h4>Today's Earning</h4>
                         </div>
                         <div class="card-body">
-                            {{$todayEarnings}}
+                            {{format($todayEarnings)}}
                         </div>
                     </div>
                 </div>

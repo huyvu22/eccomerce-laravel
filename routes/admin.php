@@ -68,7 +68,6 @@ Route::post('add-role-permission/update/{id}', [AddRolePermissionController::cla
 
 //Profile Route
 Route::get('profile', [ProfileController::class, 'index'])->name('profile');
-
 Route::post('profile/update', [ProfileController::class, 'updateProfile'])->name('profile.update');
 Route::post('profile/password', [ProfileController::class, 'updatePassword'])->name('password.update');
 
