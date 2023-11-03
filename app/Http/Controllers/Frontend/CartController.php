@@ -82,7 +82,6 @@ class CartController extends Controller
 
     }
 
-
     public function updateProductQuantity(Request $request)
     {
         $productId = Cart::get($request->rowId)->id;

@@ -127,6 +127,15 @@
                     <li class="{{setActive(['admin.blog-comments.*'])}}"><a class="nav-link" href="{{route('admin.blog-comments.index')}}">Comments</a></li>
                 </ul>
             </li>
+
+            <li class="dropdown {{setActive(['admin.withdraw-method.*', 'admin.withdraw-list.*'])}}">
+                <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fa fa-money-bill"></i> <span>Withdraw Payment</span></a>
+                <ul class="dropdown-menu">
+                    <li class="{{setActive(['admin.withdraw-method.*'])}}"><a class="nav-link" href="{{route('admin.withdraw-method.index')}}">Withdraw Method</a></li>
+                    <li class="{{setActive(['admin.withdraw-list.*'])}}"><a class="nav-link" href="{{route('admin.withdraw-list.index')}}">Withdraw Request</a></li>
+                </ul>
+            </li>
+
             <li class="{{setActive(['admin.subscriber.*'])}}"><a class="nav-link" href="{{route('admin.subscriber.index')}}"><i class="fas fa-user"></i> Subscribers</a></li>
             <li class="{{setActive(['admin.setting.*'])}}"><a class="nav-link" href="{{route('admin.setting.index')}}"><i class="fas fa-cog"></i> Settings</a></li>
 

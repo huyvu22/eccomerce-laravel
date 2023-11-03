@@ -74,7 +74,7 @@
 
                     @foreach($flashSaleItems as $item)
                         @php
-                            $product = Product::with('reviews')->find($item->product_id);
+                            $product = Product::with(['reviews', 'variant', 'category'])->find($item->product_id);
                         @endphp
                         <div class="col-xl-3">
                             <div class="wsus__offer_det_single">
@@ -84,14 +84,16 @@
                                         <span class="wsus__minus">-{{discountPercent($product->price, $product->offer_price)}}%</span>
                                     @endif
                                     <a class="wsus__pro_link" href="{{route('product-detail',$product->slug)}}">
-                                        <img src="{{asset($product->thumb_image)}}" alt="product" class="img-fluid w-100 img_1" />
-                                        <img src="{{asset(isset($product->productImageGalleries[0]->image) ? $product->productImageGalleries[0]->image : null)}}" alt="product" class="img-fluid w-100 img_2" />
+                                        <img src="{{asset($product->thumb_image)}}" alt="product" class="img-fluid w-100 img_1"/>
+                                        <img src="{{asset(isset($product->productImageGalleries[0]->image) ? $product->productImageGalleries[0]->image : null)}}" alt="product"
+                                             class="img-fluid w-100 img_2"/>
                                     </a>
                                     <ul class="wsus__single_pro_icon">
                                         <li><a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal-{{$product->id}}"><i
                                                     class="far fa-eye"></i></a></li>
-                                        <li><a href="#" class="add_to_wishlist" data-route="{{ route('user.wishlist.store', ['productId' => $product->id]) }}"><i class="fal fa-heart add_to_wishlist"></i></a></li>
-{{--                                        <li><a href="#"><i class="far fa-random"></i></a>--}}
+                                        <li><a href="#" class="add_to_wishlist" data-route="{{ route('user.wishlist.store', ['productId' => $product->id]) }}"><i
+                                                    class="fal fa-heart add_to_wishlist"></i></a></li>
+                                        {{--                                        <li><a href="#"><i class="far fa-random"></i></a>--}}
                                     </ul>
                                     <div class="wsus__product_details">
                                         <a class="wsus__category" href="#">{{$product->category->name}} </a>
@@ -113,7 +115,9 @@
                                         </p>
                                         <a class="wsus__pro_name" href="{{route('product-detail',$product->slug)}}">{{$product->name}}</a>
                                         @if (checkDiscount($item->product))
-                                            <p class="wsus__price">{{ format($product->offer_price) }} <del>{{ format($product->price) }}</del></p>
+                                            <p class="wsus__price">{{ format($product->offer_price) }}
+                                                <del>{{ format($product->price) }}</del>
+                                            </p>
                                         @else
                                             <p class="wsus__price">{{ format($product->price) }} </p>
                                         @endif
@@ -123,12 +127,13 @@
                                             @foreach($product->variants as $variant)
                                                 <select class="attribute d-none" name="variants_items[]">
                                                     @foreach($variant->variantItems as $variantItem)
-                                                        <option value="{{$variantItem->id}}"  title="{{$variantItem->price}}"  {{$variantItem->is_default == 1 ? 'selected' : ''}}>{{$variantItem->name}}</option>
+                                                        <option value="{{$variantItem->id}}"
+                                                                title="{{$variantItem->price}}" {{$variantItem->is_default == 1 ? 'selected' : ''}}>{{$variantItem->name}}</option>
                                                     @endforeach
                                                 </select>
                                             @endforeach
-                                            <input class=" quantity" type="hidden" min="1" max="100" value="1" name="qty" />
-                                            <button style="border: none" type="button" class="add_cart" >Thêm vào giỏ</button>
+                                            <input class=" quantity" type="hidden" min="1" max="100" value="1" name="qty"/>
+                                            <button style="border: none" type="button" class="add_cart">Thêm vào giỏ</button>
                                         </form>
                                     </div>
                                 </div>
@@ -195,10 +200,12 @@
                                     <div class="wsus__pro_details_text">
                                         <a class="title" href="{{route('product-detail',$product->slug)}}">{{$product->name}}</a>
                                         @if (checkDiscount($product))
-                                            <h4><span class="product_price">{{ format($product->offer_price)}}</span> <del class="old_product_price">{{ format($product->price) }}</del></h4>
+                                            <h4><span class="product_price">{{ format($product->offer_price)}}</span>
+                                                <del class="old_product_price">{{ format($product->price) }}</del>
+                                            </h4>
                                             <input type="hidden" class="input_price" value="{{$product->offer_price}} {{$product->price}}">
                                         @else
-                                            <h4><span class="product_price">{{ format($product->price) }}</span> </h4>
+                                            <h4><span class="product_price">{{ format($product->price) }}</span></h4>
                                             <input type="hidden" class="input_price" value="{{$product->price}}">
                                         @endif
                                         <p class="review">
@@ -232,7 +239,8 @@
                                                                     <select class="attribute select_2" name="variants_items[]">
                                                                         @foreach($variant->variantItems as $variantItem)
                                                                             @if($variantItem->status == 1)
-                                                                                <option value="{{$variantItem->id}}"  title="{{$variantItem->price}}"  {{$variantItem->is_default == 1 ? 'selected' : ''}}>{{$variantItem->name}}</option>
+                                                                                <option value="{{$variantItem->id}}"
+                                                                                        title="{{$variantItem->price}}" {{$variantItem->is_default == 1 ? 'selected' : ''}}>{{$variantItem->name}}</option>
                                                                             @endif
                                                                         @endforeach
                                                                     </select>
@@ -245,13 +253,18 @@
                                             <div class="wsus__quentity">
                                                 <h5>Quantity :</h5>
                                                 <div class="select_number">
-                                                    <input class=" quantity number_area" type="text" min="1" max="100" value="1" name="qty" />
+                                                    <input class=" quantity number_area" type="text" min="1" max="100" value="1" name="qty"/>
                                                 </div>
                                             </div>
                                             <ul class="wsus__button_area">
-                                                <li><button type="button" class="add_cart" >Thêm vào giỏ</button></li>
-                                                <li><button style="border: none" type="button" class="buy_now" data-buy-product-route="{{ route('buy-product') }}">Mua ngay</button></li>
-                                                <li><a href="#" class="add_to_wishlist" data-route="{{ route('user.wishlist.store', ['productId' => $product->id]) }}"><i class="fal fa-heart add_to_wishlist"></i></a></li>
+                                                <li>
+                                                    <button type="button" class="add_cart">Thêm vào giỏ</button>
+                                                </li>
+                                                <li>
+                                                    <button style="border: none" type="button" class="buy_now" data-buy-product-route="{{ route('buy-product') }}">Mua ngay</button>
+                                                </li>
+                                                <li><a href="#" class="add_to_wishlist" data-route="{{ route('user.wishlist.store', ['productId' => $product->id]) }}"><i
+                                                            class="fal fa-heart add_to_wishlist"></i></a></li>
                                             </ul>
                                         </form>
                                         <p class="brand_model"><span>Thương hiệu :</span> {{$product->brand->name}}</p>
@@ -273,7 +286,7 @@
 
 @push('scripts')
     <script>
-        $(document).ready(function(){
+        $(document).ready(function () {
             simplyCountdown('.simply-countdown-one', {
                 year: {{ date('Y', strtotime($flashSaleDate->end_date)) }},
                 month: {{ date('m', strtotime($flashSaleDate->end_date)) }},

@@ -5,8 +5,6 @@ namespace App\Http\Controllers\Backend;
 use App\DataTables\AdminReviewDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\ProductReview;
-use App\Models\ProductReviewGallery;
-
 
 class AdminReviewController extends Controller
 {

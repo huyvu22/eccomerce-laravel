@@ -47,6 +47,8 @@ use App\Http\Controllers\Backend\TransactionController;
 use App\Http\Controllers\Backend\VendorConditionController;
 use App\Http\Controllers\Backend\VendorListController;
 use App\Http\Controllers\Backend\VnPaySettingController;
+use App\Http\Controllers\Backend\WithdrawController;
+use App\Http\Controllers\Backend\WithdrawMethodController;
 use Illuminate\Support\Facades\Route;
 
 //Route::get('admin/dashboard', [AdminController::class, 'dashboard'])->middleware(['auth','role:admin'])->name('admin.dashboard'); //  'role' dc goi trong Kernel.php
@@ -247,6 +249,12 @@ Route::put('about',[AboutController::class,'update'])->name('about.update');
 /* Terms and Condition us Route*/
 Route::get('terms-and-condition',[TermsAndConditionController::class,'index'])->name('terms-and-condition.index');
 Route::put('terms-and-condition',[TermsAndConditionController::class,'update'])->name('terms-and-condition.update');
+
+/* Withdraw Route*/
+Route::resource('withdraw-method', WithdrawMethodController::class);
+Route::get('withdraw-list', [WithdrawController::class, 'index'])->name('withdraw-list.index');
+Route::get('withdraw-list/{withdrawRequest}', [WithdrawController::class, 'show'])->name('withdraw-list.show');
+Route::get('withdraw-list/{id}/{status}', [WithdrawController::class, 'update'])->name('withdraw-list.update');
 
 /* Footer Route*/
 Route::resource('footer-info',FooterInfoController::class);
