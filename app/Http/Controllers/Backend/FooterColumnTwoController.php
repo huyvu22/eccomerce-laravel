@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\FooterColumnTwo;
 use App\Models\FooterTitle;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class FooterColumnTwoController extends Controller
 {
@@ -43,6 +44,7 @@ class FooterColumnTwoController extends Controller
         $footerColumn2->url = $request->url;
         $footerColumn2->status = $request->status;
         $footerColumn2->save();
+        Cache::forget('footer_column_2');
         toastr()->success('Created Successfully');
         return redirect()->route('admin.footer-column-2.index');
     }
@@ -88,7 +90,7 @@ class FooterColumnTwoController extends Controller
                 'url' => $request->url,
                 'status' => $request->status,
             ])->save();
-
+            Cache::forget('footer_column_2');
             toastr()->success('Updated Successfully');
             return redirect()->route('admin.footer-column-2.index');
         }
@@ -101,6 +103,7 @@ class FooterColumnTwoController extends Controller
     {
         $footerColumn2 = FooterColumnTwo::findOrFail($id);
         $footerColumn2->delete();
+        Cache::forget('footer_column_2');
         toastr()->success('Deleted Successfully');
         return redirect()->back();
     }
@@ -113,6 +116,7 @@ class FooterColumnTwoController extends Controller
         $footerColumn2 = FooterTitle::find(1);
         $footerColumn2->footer_column_2_title = $request->title;
         $footerColumn2->save();
+        Cache::forget('footer_column_2');
 
         toastr()->success('Updated Successfully');
         return redirect()->back();

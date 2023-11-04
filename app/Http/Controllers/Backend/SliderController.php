@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Slider;
 use App\Traits\ImageUploadTrait;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class SliderController extends Controller
 {
@@ -53,8 +54,9 @@ class SliderController extends Controller
         $slider->serial = $request->serial;
         $slider->status = $request->status;
         $slider->save();
-        toastr('Created Successfully','success');
 
+        Cache::forget('slider_2');
+        toastr('Created Successfully','success');
         return redirect()->route('admin.slider.index');
 
     }
@@ -98,8 +100,8 @@ class SliderController extends Controller
         $slider->serial = $request->serial;
         $slider->status = $request->status;
         $slider->save();
+        Cache::forget('slider_2');
         toastr('Update Successfully','success');
-
         return redirect()->back();
     }
 
@@ -110,6 +112,7 @@ class SliderController extends Controller
     {
         $slider->delete();
         $this->deleteImage($slider->banner);
+        Cache::forget('slider_2');
         toastr('Delete Successfully');
         return redirect()->back();
     }

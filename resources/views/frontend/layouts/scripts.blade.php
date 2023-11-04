@@ -123,6 +123,7 @@
                     e.preventDefault();
                     const form = e.target.closest('.shopping-cart-form');
                     const formData = new FormData(form);
+                    console.log(form)
 
                     // Click add to cart
                     try {
@@ -155,7 +156,6 @@
                     } catch (error) {
                         console.error('An error occurred while submitting the form:', error);
                     }
-
                 });
             })
         }
@@ -209,7 +209,7 @@
                                 miniCartWrapper.innerHTML = `<li class="alert alert-danger text-center" >Empty Cart!</li>`
                                 miniCartAction.classList.add('d-none');
                             }
-                            countCart.innerText = data.count
+                            document.querySelector('.cart-count').innerText = data.count
                             toastr.success(data.message);
 
                         } else {
@@ -455,6 +455,181 @@
                 }
             });
         }
+
+        // Handle show Modal Product
+        if (document.querySelector('.wsus__single_pro_icon')) {
+
+            $('.show_product_modal').on('click', function () {
+                let id = $(this).data('id');
+                $.ajax({
+                    method: 'GET',
+                    url: '{{route("show-product-modal", ":id")}}'.replace(":id", id),
+                    beforeSend: function () {
+                        $('.product-modal-content').html('<span class="loader"></span>');
+                    },
+                    success: function (response) {
+                        $('.product-modal-content').html(response);
+                        $('.product-modal-content select').select2();
+                        (function ($) {
+                            $.fn.spinner = function () {
+                                this.each(function () {
+                                    var el = $(this);
+
+                                    // add elements
+                                    el.wrap('<span class="spinner"></span>');
+                                    el.before('<span class="sub">-</span>');
+                                    el.after('<span class="add">+</span>');
+
+                                    // substract
+                                    el.parent().on('click', '.sub', function () {
+                                        if (el.val() > parseInt(el.attr('min')))
+                                            el.val(function (i, oldval) {
+                                                return --oldval;
+                                            });
+                                    });
+
+                                    // increment
+                                    el.parent().on('click', '.add', function () {
+                                        if (el.val() < parseInt(el.attr('max')))
+                                            el.val(function (i, oldval) {
+                                                return ++oldval;
+                                            });
+                                    });
+                                });
+                            };
+                        })(jQuery);
+
+                        $('.number_area').spinner();
+
+                        //Add to Cart Button
+                        const addToCartBtns = document.querySelectorAll('.add_cart');
+                        if (addToCartBtns.length) {
+                            addToCartBtns.forEach((addToCartBtn) => {
+                                addToCartBtn.addEventListener('click', async (e) => {
+                                    e.preventDefault();
+                                    const form = e.target.closest('.shopping-cart-form');
+                                    const formData = new FormData(form);
+
+                                    // Click add to cart
+                                    try {
+                                        const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
+
+                                        const response = await fetch(form.action, {
+                                            method: 'POST',
+                                            headers: {
+                                                // 'Content-Type': 'application/json',
+                                                'X-CSRF-TOKEN': csrfToken
+                                            },
+                                            body: formData
+                                        });
+
+                                        // Handle the response
+                                        if (response.ok) {
+                                            const data = await response.json();
+                                            if (data.status === 'success') {
+                                                toastr.success(data.message);
+                                                await fetchSideBarProducts()
+                                                await getCartCount()
+                                                document.querySelector('.mini_cart_actions').classList.remove('d-none');
+                                            } else if (data.status === 'error') {
+                                                toastr.error(data.message);
+                                            }
+                                        } else {
+                                            // Error handling
+                                            console.error('Error submitting the form');
+                                        }
+                                    } catch (error) {
+                                        console.error('An error occurred while submitting the form:', error);
+                                    }
+                                });
+                            })
+                        }
+
+                        //Buy a new product
+                        const buyNowButtons = document.querySelectorAll('.buy_now');
+                        if (buyNowButtons.length) {
+                            buyNowButtons.forEach((buyNowButton) => {
+                                buyNowButton.addEventListener('click', function (e) {
+                                    let buyNowRoute = buyNowButton.getAttribute('data-buy-product-route');
+                                    const cartForm = e.target.closest('.shopping-cart-form');
+                                    cartForm.action = buyNowRoute;
+                                    cartForm.method = 'get';
+                                    cartForm.submit();
+                                });
+                            })
+                        }
+
+                        // Handle add product to wishlist
+                        const wishlists = document.querySelectorAll('.add_to_wishlist');
+                        if (wishlists.length) {
+                            wishlists.forEach(wishlist => {
+                                wishlist.addEventListener('click', async (e) => {
+                                    e.preventDefault();
+                                    let route = e.currentTarget.dataset.route;
+                                    const response = await fetch(route);
+                                    let data = await response.json();
+                                    if (response.status === 200) {
+                                        toastr.success(data.message);
+                                        document.querySelector('.count_wishlist_item').innerHTML = data.count;
+                                    } else {
+                                        toastr.error(data.message);
+                                    }
+                                });
+                            })
+                        }
+
+                        // Show Price base on attribute
+                        const productContainers = document.querySelectorAll('.wsus__pro_details_text');
+
+                        if (productContainers.length) {
+                            productContainers.forEach(productContainer => {
+                                const variantSelects = productContainer.querySelectorAll('.attribute');
+                                const productPrice = productContainer.querySelector('span.product_price');
+                                const productOldPrice = productContainer.querySelector('del.old_product_price');
+                                const inputPrice = productContainer.querySelector('.input_price');
+
+                                const inputValuePrice = inputPrice.value;
+                                const [currentPrice, oldPrice] = inputValuePrice.split(' ').map(price => parseInt(price));
+
+                                if (variantSelects.length) {
+                                    variantSelects.forEach(variantSelect => {
+                                        $(variantSelect).on('select2:select', () => {
+                                            const totalVariantItemPrice = Array.from(variantSelects).reduce((totalPrice, variantSelect) => {
+                                                const variantItemPrice = parseInt($(variantSelect).select2('data')[0].title);
+                                                return totalPrice + variantItemPrice;
+                                            }, currentPrice);
+
+                                            if (productOldPrice) {
+                                                const totalVariantOldPrice = Array.from(variantSelects).reduce((totalOldPrice, variantSelect) => {
+                                                    const variantItemPrice = parseInt($(variantSelect).select2('data')[0].title);
+                                                    return totalOldPrice + variantItemPrice;
+                                                }, oldPrice);
+
+                                                productOldPrice.innerText = formatPrice(totalVariantOldPrice);
+                                                productPrice.innerText = formatPrice(totalVariantItemPrice);
+                                            } else {
+                                                productPrice.innerText = formatPrice(totalVariantItemPrice);
+                                            }
+                                        });
+                                    });
+                                }
+                            });
+                        }
+                    },
+                    error: function (xhr, status, error) {
+
+                    },
+                    complete: function () {
+
+                    }
+                })
+
+            })
+
+
+        }
+
+
     });
 
 </script>

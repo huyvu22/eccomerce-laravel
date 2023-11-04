@@ -7,31 +7,28 @@ use App\Models\Advertisement;
 use App\Models\Blog;
 use App\Models\Brand;
 use App\Models\Category;
-use App\Models\ChildCategory;
 use App\Models\FlashSale;
 use App\Models\FlashSaleItem;
 use App\Models\HomePageSetting;
 use App\Models\Product;
 use App\Models\Slider;
-use App\Models\SubCategory;
 use App\Models\Vendor;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class HomeController extends Controller
 {
     public function index()
     {
-        $sliders_1 = Slider::where('status', 1)
-            ->whereBetween('serial', [1, 4]) // Retrieve records with 'serial' values between 1 and 4
-            ->orderBy('serial', 'asc')
-            ->get();
-        $sliders_2 = Slider::where('status', 1)
-            ->whereBetween('serial', [5, 8]) // Retrieve records with 'serial' values between 1 and 4
-            ->orderBy('serial', 'asc')
-            ->get();
+
+        $sliders = Cache::rememberForever('sliders', function (){
+            return Slider::where('status', 1)
+                ->whereBetween('serial', [5, 8])
+                ->orderBy('serial', 'asc')
+                ->get();
+        });
 
         $flashSaleDate = FlashSale::first();
-        $flashSaleItems = FlashSaleItem::where('show_at_home',1)->where('status',1)->get();
+        $flashSaleItems = FlashSaleItem::where('show_at_home',1)->where('status',1)->pluck('product_id')->toArray();
         $popularCategory = HomePageSetting::where('key','popular_category_section')->first();
         $brands = Brand::where('status',1)->get();
         $typeProducts = $this->typeProducts();
@@ -48,8 +45,7 @@ class HomeController extends Controller
 
 
         return view('frontend.home.home',compact(
-            'sliders_1',
-            'sliders_2',
+            'sliders',
             'flashSaleDate',
             'flashSaleItems',
             'popularCategory',
@@ -69,10 +65,25 @@ class HomeController extends Controller
     public function typeProducts()
     {
         $typeProducts = [];
-        $typeProducts['new_arrival'] = Product::where(['product_type'=>'new_arrival','is_approved'=>1, 'status'=>1])->take(10)->orderBy('id','DESC')->get();
-        $typeProducts['top_product'] = Product::where(['product_type'=>'top_product','is_approved'=>1, 'status'=>1])->take(10)->orderBy('id','DESC')->get();
-        $typeProducts['featured'] = Product::where(['product_type'=>'featured','is_approved'=>1, 'status'=>1])->take(10)->orderBy('id','DESC')->get();
-        $typeProducts['best_product'] = Product::where(['product_type'=>'best_product','is_approved'=>1, 'status'=>1])->take(10)->orderBy('id','DESC')->get();
+        $typeProducts['new_arrival'] = Product::withAvg('reviews', 'rating')
+            ->with(['variants.variantItems','category','productImageGalleries'])
+            ->withCount('reviews')
+            ->where(['product_type'=>'new_arrival','is_approved'=>1, 'status'=>1])->take(10)->orderBy('id','DESC')->get();
+
+        $typeProducts['top_product'] = Product::withAvg('reviews', 'rating')
+            ->with(['variants.variantItems','category','productImageGalleries'])
+            ->withCount('reviews')
+            ->where(['product_type'=>'top_product','is_approved'=>1, 'status'=>1])->take(10)->orderBy('id','DESC')->get();
+
+        $typeProducts['featured'] = Product::withAvg('reviews', 'rating')
+            ->with(['variants.variantItems','category','productImageGalleries'])
+            ->withCount('reviews')
+            ->where(['product_type'=>'featured','is_approved'=>1, 'status'=>1])->take(10)->orderBy('id','DESC')->get();
+
+        $typeProducts['best_product'] = Product::withAvg('reviews', 'rating')
+            ->with(['variants.variantItems','category','productImageGalleries'])
+            ->withCount('reviews')
+            ->where(['product_type'=>'best_product','is_approved'=>1, 'status'=>1])->take(10)->orderBy('id','DESC')->get();
         return $typeProducts;
 
     }

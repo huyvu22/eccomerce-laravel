@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\FooterColumnThree;
 use App\Models\FooterTitle;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class FooterColumnThreeController extends Controller
 {
@@ -43,6 +44,8 @@ class FooterColumnThreeController extends Controller
         $footerColumn3->url = $request->url;
         $footerColumn3->status = $request->status;
         $footerColumn3->save();
+
+        Cache::forget('footer_column_3');
         toastr()->success('Created Successfully');
         return redirect()->route('admin.footer-column-3.index');
     }
@@ -88,7 +91,7 @@ class FooterColumnThreeController extends Controller
                 'url' => $request->url,
                 'status' => $request->status,
             ])->save();
-
+            Cache::forget('footer_column_3');
             toastr()->success('Updated Successfully');
             return redirect()->route('admin.footer-column-3.index');
         }
@@ -101,6 +104,7 @@ class FooterColumnThreeController extends Controller
     {
         $footerColumn3 = FooterColumnThree::findOrFail($id);
         $footerColumn3->delete();
+        Cache::forget('footer_column_3');
         toastr()->success('Deleted Successfully');
         return redirect()->back();
     }
@@ -113,6 +117,7 @@ class FooterColumnThreeController extends Controller
         $footerColumn3 = FooterTitle::find(1);
         $footerColumn3->footer_column_3_title = $request->title;
         $footerColumn3->save();
+        Cache::forget('footer_column_3');
         toastr()->success('Updated Successfully');
         return redirect()->back();
 

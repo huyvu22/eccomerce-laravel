@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use App\Models\FooterInfo;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class FooterInfoController extends Controller
 {
@@ -77,6 +78,7 @@ class FooterInfoController extends Controller
             ]
         );
 
+        Cache::forget('footer_info');
         toastr()->success('Updated successfully');
         return redirect()->back();
     }

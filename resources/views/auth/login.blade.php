@@ -60,7 +60,7 @@
                                         @if($errors->has('password'))
                                             <span class="text-danger d-inline-block ms-5 ps-3">{{ $errors->first('password') }}</span>
                                         @endif
-
+                                        <p class="social_text"><span>(Tài khoản demo Seller: quocdungstore@gmail.com)</span></p>
                                         <div class="wsus__login_save">
                                             <div class="form-check form-switch">
                                                 <input class="form-check-input" type="checkbox" name="remember"

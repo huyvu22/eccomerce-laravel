@@ -1,14 +1,24 @@
 @php use App\Models\FooterColumnThree;use App\Models\FooterColumnTwo;use App\Models\FooterInfo;use App\Models\FooterSocial;use App\Models\FooterTitle; @endphp
 @php
-    $footerInfo = FooterInfo::first();
-    $footerSocials = FooterSocial::where('status',1)->get();
-    $footerColumnTwo = FooterColumnTwo::where('status',1)->get();
-    $footerTitle = FooterTitle::first();
+    $footerInfo = Cache::rememberForever('footer_info', function (){
+        return  FooterInfo::first();
+    });
 
-    $footerColumnThree = FooterColumnThree::where('status',1)->get();
-    $footerTitle = FooterTitle::first();
+    $footerSocials = Cache::rememberForever('footer_socials', function (){
+        return  FooterSocial::where('status',1)->get();
+    });
+    $footerColumnTwo = Cache::rememberForever('footer_column_2', function (){
+        return  FooterColumnTwo::where('status',1)->get();
+    });
+    $footerColumnThree = Cache::rememberForever('footer_column_3', function (){
+        return  FooterColumnThree::where('status',1)->get();
+    });
+    $footerTitle = Cache::rememberForever('footer_title', function (){
+        return  FooterTitle::first();
+    });
+
 @endphp
-        <!--============================
+    <!--============================
     FOOTER PART START
 ==============================-->
 <footer class="footer_2">
@@ -17,7 +27,6 @@
             <div class="col-xl-3 col-sm-7 col-md-6 col-lg-3">
                 <div class="wsus__footer_content">
                     <a class="wsus__footer_2_logo" href="#">
-                        {{--                        <img src="{{asset(@$footerInfo->logo)}}" alt="logo" width="100">--}}
                         <img src="{{ asset('frontend/images/logo.png') }}" alt="log">
 
                     </a>

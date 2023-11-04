@@ -86,6 +86,9 @@ Route::get('product-detail/{slug}.html', [ProductDetailController::class, 'showP
 Route::get('change-product-list-view/{type}', [ProductDetailController::class, 'changeListView'])->name('change-product-list-view');
 Route::get('buy-product', [ProductDetailController::class, 'buyProduct'])->name('buy-product');
 
+/*Route Show Modal Product*/
+Route::get('show-product-modal/{id}', [ProductDetailController::class, 'showProductModal'])->name('show-product-modal');
+
 /*Route Newsletter*/
 Route::post('newsletter', [NewsletterController::class, 'newsLetter'])->name('newsletter');
 Route::get('newsletter-verify/{token}', [NewsletterController::class, 'newsLetterEmailVerify'])->name('newsletter-verify');
@@ -156,7 +159,6 @@ Route::prefix('user')->name('user.')->middleware(['auth', 'verified'])->group(fu
 
     /*Route Wishlist*/
     Route::get('wishlist', [WishlistController::class, 'index'])->name('wishlist.index');
-//    Route::get('wishlist/add-product/{productId}', [WishlistController::class, 'addToWishlist'])->name('wishlist.store');
     Route::get('wishlist/remove-product/{wishlistItemId}', [WishlistController::class, 'destroy'])->name('wishlist.destroy');
 
     /*Route User Reviews*/

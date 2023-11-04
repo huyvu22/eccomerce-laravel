@@ -6,6 +6,7 @@ use App\DataTables\FooterSocialDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\FooterSocial;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class FooterSocialsController extends Controller
 {
@@ -43,6 +44,7 @@ class FooterSocialsController extends Controller
         $footerSocial->url = $request->url;
         $footerSocial->status = $request->status;
         $footerSocial->save();
+        Cache::forget('footer_socials');
         toastr()->success('Created Successfully');
         return redirect()->route('admin.footer-socials.index');
     }
@@ -88,7 +90,7 @@ class FooterSocialsController extends Controller
                 'url' => $request->url,
                 'status' => $request->status,
             ])->save();
-
+            Cache::forget('footer_socials');
             toastr()->success('Updated Successfully');
             return redirect()->route('admin.footer-socials.index');
         }
@@ -101,6 +103,7 @@ class FooterSocialsController extends Controller
     {
         $footerSocial->delete();
         toastr()->success('Deleted Successfully');
+        Cache::forget('footer_socials');
         return redirect()->back();
     }
 }

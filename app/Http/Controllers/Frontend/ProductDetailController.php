@@ -11,8 +11,8 @@ use App\Models\Product;
 use App\Models\ProductReview;
 use App\Models\ProductVariantItem;
 use App\Models\SubCategory;
-use Illuminate\Http\Request;
 use Cart;
+use Illuminate\Http\Request;
 
 class ProductDetailController extends Controller
 {
@@ -20,7 +20,10 @@ class ProductDetailController extends Controller
     public function products(Request $request)
     {
         // Base query to retrieve products
-        $query = Product::where('status', 1)
+        $query = Product::withAvg('reviews', 'rating')
+            ->with(['variants.variantItems','category','productImageGalleries'])
+            ->withCount('reviews')
+            ->where('status', 1)
             ->where('is_approved', 1);
 
         // Filter by category, sub-category, child-category, or brand
@@ -106,11 +109,26 @@ class ProductDetailController extends Controller
 
     public function showProductDetail(string $slug)
     {
-        $product = Product::with(['vendor','category','subCategory','productImageGalleries','variants', 'brand'])->where('slug',$slug)->where('status',1)->first();
+        $product = Product::with(['vendor','category','subCategory','productImageGalleries','variants', 'brand'])
+            ->withAvg('reviews', 'rating')
+            ->withCount('reviews')
+            ->where('slug',$slug)
+            ->where('status',1)->first();
         $reviews = ProductReview::where(['status' => 1, 'product_id' => $product?->id])->paginate(10);
         $relatedProducts = Product::with(['category', 'variants'])->where('slug','!=',$slug)->where('status',1)->where('category_id',$product->category_id)->take(6)->get();
 
         return view('frontend.pages.product-detail', compact('product','reviews', 'relatedProducts'));
+    }
+
+
+    public function showProductModal(string $id)
+    {
+        $product = Product::withAvg('reviews', 'rating')
+            ->with(['variants','category'])
+            ->withCount('reviews')
+            ->find($id);
+        $content =  view('frontend.layouts.product-modal', compact('product'))->render();
+        return \Illuminate\Support\Facades\Response::make($content, 200, ['Content-Type' => 'text/html']);
     }
 
     public function buyProduct(Request $request)

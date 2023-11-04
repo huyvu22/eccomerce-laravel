@@ -39,10 +39,19 @@
 
 @include('frontend.layouts.header')
 
-
 @include('frontend.layouts.menu')
 
 @include('frontend.layouts.pop-up-ad')
+
+<section class="product_popup_modal">
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content product-modal-content">
+                
+            </div>
+        </div>
+    </div>
+</section>
 
 
 <!--============================
